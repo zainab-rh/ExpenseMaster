@@ -16,8 +16,7 @@ public class Expense {
         this.description = description;
         this.invoiceImage = invoiceImage;
     }
-
-
+    
 
     public String getCategory() {
         return category;
