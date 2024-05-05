@@ -16,8 +16,8 @@ public class logIn {
     }
 
     public static int createAccountUser (String name,
-    String surname, String email, String login,
-    String password, Image image, LocalDate date ){
+     String surname, String email, String login,
+     String password, Image image, LocalDate date ){
 
 
 
