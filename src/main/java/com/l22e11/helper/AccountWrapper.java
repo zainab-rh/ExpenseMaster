@@ -3,6 +3,8 @@ package com.l22e11.helper;
 import java.time.LocalDate;
 import javafx.scene.image.Image;
 import model.Acount;
+import model.Category;
+
 
 public class AccountWrapper {
     
@@ -47,11 +49,12 @@ public class AccountWrapper {
     }
 
       // Method to remove a category
-      public static boolean removeCategory(Category category) {
+    public static boolean removeCategory(Category category) {
         try {
-            boolean isOK = Acount.getInstance().removeCategory(category);
-            return isOK;
+                boolean isOK = Acount.getInstance().removeCategory(category);
+                return isOK;
         } catch (Exception AcountDAOException) {
-            return false;
+                return false;
         }
+    } 
 }

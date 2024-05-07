@@ -15,3 +15,23 @@ Expense Master is a convenient and practical finance management app that empower
 - Update Profile Information: Users can update their profile information, except for their nickname.
 - Delete Expense Note: Users can delete unnecessary expense notes.
 - Delete Category: Users can delete unused expense categories.
+
+### Use Case 
+
+
+| **User Action**                                     | **System Response**                                                                                                      |
+|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------          |
+| User accesses the registration option.              | System displays a form for the user to enter their contact information (name, nickname, password, email, profile image). |
+| User submits the required registration information.| System validates the data format, saves the user's contact information, and stores the registration date.                 |
+| User successfully signs up.                        | System prompts the user to log in to use the application.                                                                 |
+| User enters their nickname and password.           | System checks the credentials, prompts for correction if needed, and authenticates the user.                              |
+| User adds an expense note, creates a new category, and adds another expense.| System validates the data format and saves the expense note with the provided information. It also creates the new expense category as per user input.                                                                                                                                          |
+| User adds a screenshot of the invoice.             | System allows the user to upload an image of the receipt to be saved for warranty claims.                                 |
+| User successfully adds the expense.                | System confirms the successful addition of the expense note and updates the user's expense history.                       |
+| User navigates to view their monthly expenses.     | System displays the user's expense history, including total expenses by category, comparison to past months, and year-over-year comparison.                                                                                                                                                                      |
+| User requests an annual expenses summary in PDF format.| System generates a PDF report presenting the evolution of the user's annual expenses.                                 |
+| User updates their profile data (excluding nickname).| System validates the new data and applies updates to the user's profile information.                                    |
+| User replaces the receipt image for a prior expense.| System enables modification of the expense to change the attached receipt/invoice photo.                                 |
+| User deletes a single expense item.                | System removes the specific charge from the user's expense history.                                                       |
+| User eliminates obsolete expense categories.       | System deletes the chosen categories, together with all associated expenses.                                              |
+| User logs out of the application.                  | System removes the user from the logged-in state and updates the application to reflect the change.                       |
