@@ -38,4 +38,20 @@ public class AccountWrapper {
             return isOK;
         }catch (Exception AcountDAOException){ return false;}
     } 
+    // Method to register a new category
+    public static boolean registerCategory(String name, String description){
+        try{
+            boolean isOK = Acount.getInstance().registerCategory(name, description);
+            return isOK;
+        }catch (Exception AcountDAOException){ return false;}
+    }
+
+      // Method to remove a category
+      public static boolean removeCategory(Category category) {
+        try {
+            boolean isOK = Acount.getInstance().removeCategory(category);
+            return isOK;
+        } catch (Exception AcountDAOException) {
+            return false;
+        }
 }
