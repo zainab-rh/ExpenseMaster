@@ -21,17 +21,17 @@
         </dependency>
         <dependency>
             <groupId>com.ipc</groupId>
-            <artifactId>account</artifactId>
+            <artifactId>com.ipc.model</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/accountIPC.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/accountIPC.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.ipc</groupId>
-            <artifactId>sql</artifactId>
+            <artifactId>com.ipc.sqlite</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/sqlite.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/sqlite.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
