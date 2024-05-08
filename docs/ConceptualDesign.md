@@ -35,3 +35,17 @@ Expense Master is a convenient and practical finance management app that empower
 | User deletes a single expense item.                | System removes the specific charge from the user's expense history.                                                       |
 | User eliminates obsolete expense categories.       | System deletes the chosen categories, together with all associated expenses.                                              |
 | User logs out of the application.                  | System removes the user from the logged-in state and updates the application to reflect the change.                       |
+
+
+| **Object**                            | **Attributes**                                                         |**Actions**                                                      |
+|---------------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| User                                  | Name, Nickname, Password, Email, Profile image, Registration date	     |Add, Remove, Register, Authenticate, Update, Modify, View, Set   |
+
+
+| **Object**                            | **Attributes**                                                         |**Actions**                                                      |
+|---------------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------------|
+| Category                              | Name, Description                                                      | Create, Edit, Update, Delete, View                              |
+
+| **Object** | **Attributes** | **Actions** |
+|------------|----------------|-------------|
+| Expense    | Date, Product, Units, Price, Receipt Image | Add, Update, Delete, View |
