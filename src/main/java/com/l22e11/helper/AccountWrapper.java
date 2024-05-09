@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import javafx.scene.image.Image;
 import model.Acount;
 import model.Category;
+import model.Charge;
 
 
 public class AccountWrapper {
@@ -57,4 +58,19 @@ public class AccountWrapper {
                 return false;
         }
     } 
+    public static boolean registerCharge(String name, String description, double cost, int units, Image scanImage, LocalDate date, Category category){
+        try{
+            boolean isOK = Acount.getInstance().registerCharge(name, description, cost, units, scanImage, date, category);
+            return isOK;
+        }catch (Exception AcountDAOException){ return false;}
+    }   
+
+    public static boolean removeCharge(Charge charge) {
+        try {
+                boolean isOK = Acount.getInstance().removeCharge(charge);
+                return isOK;
+        } catch (Exception AcountDAOException) {
+                return false;
+        }
+    }
 }
