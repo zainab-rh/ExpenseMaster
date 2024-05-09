@@ -39,8 +39,6 @@ public class AccountWrapper {
             return false;
         }
     }
-
-   
    
     // Wrapper call to the Logout method from the Acount API
     public boolean logOutUser() {
