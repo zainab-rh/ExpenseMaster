@@ -48,6 +48,13 @@ Expense Master is a convenient and practical finance management app that empower
 
 | **Object** | **Attributes** | **Actions** |
 |------------|----------------|-------------|
-| Expense    | Date, Product, Units, Price, Receipt Image | Add, Update, Delete, View |
+| Expense Note  | Date, Product, Units, Price, Receipt Image | Add, Update, Delete, View |
+
+
+
+| **Object** | **Attributes** | **Actions** |
+|------------|----------------|-------------|
+| Report     | Title, Content, Date, Format | Create, Update, Delete, View |
+
 
 
