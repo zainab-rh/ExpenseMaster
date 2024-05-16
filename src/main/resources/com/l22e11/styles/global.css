@@ -1,0 +1,11 @@
+* {
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: 800;
+    -fx-color: blue;
+}
+
+/* .window-pane {
+    -fx-background-radius: 32 32 32 32;
+    -fx-border-radius: 32 32 32 32;
+    -fx-background-color: #222222;
+} */

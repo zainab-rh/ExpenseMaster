@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="540.0" styleClass="window-pane" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.LandingController">
+   <children>
+      <TabPane fx:id="authenticationPane" prefHeight="480.0" prefWidth="540.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="loginTab" text="Log In">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="loginUser" layoutX="-1.0" layoutY="17.0" />
+                        <PasswordField fx:id="loginPass" layoutX="-1.0" layoutY="42.0" />
+                        <Button fx:id="loginSubmit" layoutX="22.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSubmitLogin" style="-fx-font-weight: 800;" text="Log In" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="registerTab" text="Register">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="registerName" layoutY="23.0" />
+                        <TextField fx:id="registerSurname" layoutY="48.0" />
+                        <TextField fx:id="registerNickname" layoutY="73.0" />
+                        <TextField fx:id="registerEmail" layoutY="98.0" />
+                        <PasswordField fx:id="registerPass" layoutY="123.0" />
+                        <PasswordField fx:id="registerPassConfirm" layoutY="148.0" />
+                        <Button fx:id="registerBrowseProfilePic" layoutX="23.0" layoutY="181.0" mnemonicParsing="false" onAction="#onBrowseProfilePicture" text="Brose profile picture" />
+                        <Button fx:id="registerSubmit" layoutX="23.0" layoutY="217.0" mnemonicParsing="false" onAction="#onSubmitRegister" text="Register" />
+                        <ImageView fx:id="registerProfileView" fitHeight="150.0" fitWidth="200.0" layoutX="162.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</Pane>

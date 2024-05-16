@@ -1,6 +1,6 @@
 package com.l22e11.helper;
 
-public class Expense {
+public class __Expense {
     private String category;
     private double cost;
     private String date;
@@ -8,7 +8,7 @@ public class Expense {
     private String description;
     private String invoiceImage;
 
-    public Expense(String category, double cost, String date, String title, String description, String invoiceImage) {
+    public __Expense(String category, double cost, String date, String title, String description, String invoiceImage) {
         this.category = category;
         this.cost = cost;
         this.date = date;
