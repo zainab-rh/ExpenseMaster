@@ -1,7 +1,57 @@
+/* Modified version of JAVAFX default colours */
+.root {
+    -fx-base: white;
+    -fx-background: white;
+    -fx-control-inner-background: white;
+    -fx-dark-text-color: white;
+    -fx-mid-text-color: white;
+    -fx-light-text-color: white;
+    -fx-accent: transparent;/*#0093ff;*/
+    -fx-focus-color: transparent;/*#0093ff;*/
+    -fx-color: black;
+    -fx-disabled-opacity: 0.4;
+    -fx-hover-base: white;
+    -fx-pressed-base: white;
+    -fx-focused-base: white;
+    -fx-text-background-color: white;
+    -fx-text-fill: -fx-color;
+    -fx-box-border: white;
+    -fx-text-box-border: white;
+    -fx-shadow-highlight-color: white;
+    -fx-outer-border: white;
+    -fx-inner-border: white;
+    -fx-inner-border-horizontal: white;
+    -fx-inner-border-bottomup: white;
+    -fx-body-color-bottomup: white;
+    -fx-text-base-color: -fx-color;
+    -fx-text-inner-color: -fx-color;
+    -fx-mark-color: white;
+    -fx-mark-highlight-color: white;
+    -fx-selection-bar: white;
+    -fx-selection-bar-text: -fx-color;
+    -fx-tab-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: white;
+    -fx-background-insets: white;
+    -fx-padding: white;
+    -fx-cell-hover-color: transparent;/*#cce3f4;*/
+    -fx-cell-focus-inner-border: transparent;/*#85b9de;*/
+    -fx-page-bullet-border: transparent;/*#acacac;    */
+    -fx-page-indicator-hover-border: transparent;/*#accee5;*/
+}
+
 * {
-    -fx-font-family: 'Montserrat';
-    -fx-font-weight: 800;
-    -fx-color: blue;
+    -fx-font-family: 'Montserrat-Medium';
+    -fx-background-color: transparent;
+    -fx-border-color: #00000022;
+}
+
+.tab, .tab-label{
+    -fx-pref-width: 100px;
+    -fx-text-alignment: CENTER;
+    -fx-background-radius: 8px;
+    -fx-padding: 0;
+    -fx-pref-height: 40px;
 }
 
 /* .window-pane {

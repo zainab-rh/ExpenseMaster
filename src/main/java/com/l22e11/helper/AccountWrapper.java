@@ -29,9 +29,9 @@ public class AccountWrapper {
     /*
      * Wrapper call to the LogIn method from the Acount API
      */
-    public static boolean loginUser(String login, String password) {
+    public static boolean loginUser(String nickName, String password) {
         try {
-            return Acount.getInstance().logInUserByCredentials(login, password);
+            return Acount.getInstance().logInUserByCredentials(nickName, password);
         } catch (Exception AcountDAOException) {return false;}
     }
 

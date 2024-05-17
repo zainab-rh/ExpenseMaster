@@ -29,15 +29,44 @@ public class App extends Application {
     * This function takes a Stage as an argument (aka the Window). It loads a scene inside a window
     */
     @Override
-    public void start(Stage stage) throws IOException {
-        loadFonts();
-        
-        scene = new Scene(loadFXML("Landing"), 640, 480);
-        stage.setScene(scene);
-        // scene.setFill(Color.TRANSPARENT);
-        // stage.initStyle(StageStyle.TRANSPARENT);
-        stage.show();
+    public void start(Stage stage) {
         mainStage = stage;
+        loadFonts();
+        showLandingStage();
+    }
+
+    /*
+     * Close mainStage
+     */
+    public static void closeMainStage() {
+        mainStage.close();
+    }
+
+    /*
+     * Landing page
+     */
+    public static void showLandingStage() {
+        closeMainStage();
+        scene = new Scene(loadFXML("Landing"), 640, 480);
+        mainStage.setScene(scene);
+        mainStage.setResizable(false);
+        mainStage.sizeToScene();
+        mainStage.show();
+        // scene.setFill(Color.TRANSPARENT);
+        // mainStage.initStyle(StageStyle.TRANSPARENT);
+    }
+
+    /*
+     * Main page
+     */
+    public static void showMainStage() {
+        closeMainStage();
+        scene = new Scene(loadFXML("Main"), 640, 480);
+        mainStage.setScene(scene);
+        mainStage.setResizable(true);
+        mainStage.show();
+        // scene.setFill(Color.TRANSPARENT);
+        // mainStage.initStyle(StageStyle.TRANSPARENT);
     }
 
     /*
@@ -47,7 +76,7 @@ public class App extends Application {
      *      App.setRoot("screenName");
      * to change the scene of the window
      */
-    public static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) {
         scene.setRoot(loadFXML(fxml));
     }
 
@@ -55,10 +84,15 @@ public class App extends Application {
      * Used by this.setRoot() for loading fxml structure
      * If we want to read "primary.fxml", just call loadFXML("primary")s
      */
-    private static Parent loadFXML(String fxml) throws IOException {
+    private static Parent loadFXML(String fxml) {
         String viewsDirectory = "views" + File.separator;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewsDirectory + fxml + ".fxml"));
-        return fxmlLoader.load();
+        try {
+            return fxmlLoader.load();
+        } catch (IOException e) {
+            System.out.println("Error loading " + fxml + ".fxml");
+            return null;
+        }
     }
 
     /*

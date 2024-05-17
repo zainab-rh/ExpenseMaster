@@ -1,11 +1,8 @@
 package com.l22e11.controllers;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.l22e11.App;
@@ -42,7 +39,7 @@ public class LandingController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // moveToTabInPane(tabFocused);
+        double widthOfTab = authenticationPane.getWidth()/2;
     }
 
     @FXML
@@ -50,7 +47,10 @@ public class LandingController implements Initializable {
         String nick = loginUser.getText();
         String pass = loginPass.getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
-        System.out.println(isOk ? "Login" : "Oh ohhhh");
+        
+        if (isOk) {
+            App.showMainStage();
+        }
     }
 
     @FXML
@@ -80,11 +80,4 @@ public class LandingController implements Initializable {
         Image image = new Image(selectedFile.toURI().toString());
         registerProfileView.setImage(image);
     }
-
-    // /*
-    //  * Given an index (starting with 0), change to that Tab in the TabPane
-    //  */
-    // private void moveToTabInPane(int i) {
-    //     authenticationPane.getSelectionModel().select(i);
-    // }
 }
