@@ -54,8 +54,8 @@
     -fx-pref-height: 40px;
 }
 
-/* .window-pane {
+.window-pane {
     -fx-background-radius: 32 32 32 32;
     -fx-border-radius: 32 32 32 32;
-    -fx-background-color: #222222;
-} */
+    -fx-background-color: #ffffff;
+}

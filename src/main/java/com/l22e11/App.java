@@ -51,9 +51,9 @@ public class App extends Application {
         mainStage.setScene(scene);
         mainStage.setResizable(false);
         mainStage.sizeToScene();
+        scene.setFill(Color.TRANSPARENT);
+        mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.show();
-        // scene.setFill(Color.TRANSPARENT);
-        // mainStage.initStyle(StageStyle.TRANSPARENT);
     }
 
     /*
@@ -64,9 +64,9 @@ public class App extends Application {
         scene = new Scene(loadFXML("Main"), 640, 480);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
-        mainStage.show();
         // scene.setFill(Color.TRANSPARENT);
         // mainStage.initStyle(StageStyle.TRANSPARENT);
+        mainStage.show();
     }
 
     /*

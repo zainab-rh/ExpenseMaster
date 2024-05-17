@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="540.0" styleClass="window-pane" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.LandingController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="540.0" styleClass="window-pane" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.LandingController">
    <children>
-      <TabPane fx:id="authenticationPane" prefHeight="480.0" prefWidth="540.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="authenticationPane" prefHeight="480.0" prefWidth="550.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="loginTab" styleClass="authenticationTab" text="Log In">
             <content>
@@ -29,23 +29,26 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="registerName" layoutY="23.0" />
-                        <TextField fx:id="registerSurname" layoutY="48.0" />
-                        <TextField fx:id="registerNickname" layoutY="73.0" />
-                        <TextField fx:id="registerEmail" layoutY="98.0" />
-                        <PasswordField fx:id="registerPass" layoutY="123.0" />
-                        <PasswordField fx:id="registerPassConfirm" layoutY="148.0" />
-                        <Button fx:id="registerBrowseProfilePic" layoutX="23.0" layoutY="181.0" mnemonicParsing="false" onAction="#onBrowseProfilePicture" text="Brose profile picture" />
-                        <Button fx:id="registerSubmit" layoutX="23.0" layoutY="217.0" mnemonicParsing="false" onAction="#onSubmitRegister" text="Register" />
-                        <ImageView fx:id="registerProfileView" fitHeight="150.0" fitWidth="200.0" layoutX="162.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="registerName" layoutY="14.0" />
+                        <TextField fx:id="registerSurname" layoutY="58.0" />
+                        <TextField fx:id="registerNickname" layoutY="102.0" />
+                        <TextField fx:id="registerEmail" layoutY="146.0" />
+                        <PasswordField fx:id="registerPass" layoutY="190.0" />
+                        <PasswordField fx:id="registerPassConfirm" layoutY="234.0" />
+                        <Button fx:id="registerBrowseProfilePic" layoutX="20.0" layoutY="335.0" mnemonicParsing="false" onAction="#onBrowseProfilePicture" text="Brose profile picture" />
+                        <Button fx:id="registerSubmit" layoutX="20.0" layoutY="371.0" mnemonicParsing="false" onAction="#onSubmitRegister" text="Register" />
+                        <ImageView fx:id="registerProfileView" fitHeight="150.0" fitWidth="200.0" layoutX="302.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="nameError" layoutY="40.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="surnameError" layoutY="84.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="nickError" layoutY="128.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="emailError" layoutY="172.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="passwordError" layoutY="216.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="passwordRepeatedError" layoutY="260.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
-         <padding>
-            <Insets bottom="64.0" left="64.0" right="64.0" top="64.0" />
-         </padding>
       </TabPane>
    </children>
 </Pane>
