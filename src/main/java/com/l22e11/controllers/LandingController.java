@@ -37,7 +37,7 @@ public class LandingController implements Initializable {
     @FXML
     private ImageView registerProfileView;
     @FXML
-    private Label nameError, surnameError, nickError, emailError, passwordError, passwordRepeatedError;
+    private Label nameError, surnameError, nickError, emailError, passwordError, passwordRepeatedError, logInError;
 
     // private int tabFocused = 0;
 
@@ -52,9 +52,10 @@ public class LandingController implements Initializable {
         String pass = loginPass.getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
         if (isOk) {
+            logInError.setVisible(false);
             App.showMainStage();
         }else{
-            // USERNAME OR PASSWORD NOT FOUND
+            logInError.setVisible(true);
         }
     }
 
@@ -69,22 +70,32 @@ public class LandingController implements Initializable {
         Image profilePic = registerProfileView.getImage();
         LocalDate dateNow = LocalDate.now();
 
-        boolean[] exceptions = {false, false, false, false};
-
+        boolean[] exceptions = {true, true, true, true}; // name, surname, email, password
         checkRegister(name, surname, email, pass, passConfirmation, exceptions);
+        boolean generalError = false;
 
-        if(exceptions[0]) nameError.setText("The name is incorrect");
-        if(exceptions[1]) surnameError.setText("The surname is incorrect");
-        if(exceptions[2]) emailError.setText("The surname is incorrect");
+        if(exceptions[0]) {nameError.setVisible(true); generalError = true;}
+        if(exceptions[1]) {surnameError.setVisible(true); generalError = true;}
+        if(exceptions[2]) {emailError.setVisible(true); generalError = true;}
 
-        if (pass.length() < 8) passwordError.setText("Password too short");
-        else if(exceptions[3]) passwordRepeatedError.setText("Password is repeated incorrectly");
+        if(pass.length() == 0) {passwordError.setText("Password needed"); passwordError.setVisible(true); generalError = true;}
+        else if (pass.length() < 8) {passwordError.setText("Password too short"); passwordError.setVisible(true); generalError = true;}
+        else if(exceptions[3]) {passwordRepeatedError.setVisible(true); generalError = true;}
         
+        if (!generalError){
+            int isOk = AccountWrapper.registerUser(name, surname, email, nick, pass, profilePic, dateNow);
+            if (isOk == 0) nickError.setVisible(true);
+            if (isOk == 1) authenticationPane.getSelectionModel().selectFirst();
+            // if (isOk == -1) DB error
 
-        int isOk = AccountWrapper.registerUser(name, surname, email, nick, pass, profilePic, dateNow);
-        if (isOk == 0) nickError.setText("Nickname already exists");
-        if (isOk == 1) authenticationPane.getSelectionModel().selectFirst();
-        // if (isOk == -1) DB error
+            // Take out errors
+            nameError.setVisible(false);
+            surnameError.setVisible(false);
+            emailError.setVisible(false);
+            passwordError.setVisible(false);
+            passwordRepeatedError.setVisible(false);
+
+        }
     }
 
     
@@ -106,18 +117,18 @@ public class LandingController implements Initializable {
     @FXML
     private void checkRegister(String name, String surname, String email, String password, String password2, boolean[] exceptions){
 
-        String regexPattern = "^[\\d]+";
+        String regexPattern = "^[\\D]+";
         if (Pattern.compile(regexPattern).matcher(name).matches()){
-            exceptions[0] = true;
+            exceptions[0] = false;
         }
         if (Pattern.compile(regexPattern).matcher(surname).matches()){
-            exceptions[1] = true;
+            exceptions[1] = false;
         }
         regexPattern = "^(.+)@(\\S+)$";
         if (Pattern.compile(regexPattern).matcher(email).matches()){
-            exceptions[2] = true;
+            exceptions[2] = false;
         }
-        if (!password.equals(password2)) exceptions[3] = true;
+        if (password.equals(password2)) exceptions[3] = false;
     }
     
     

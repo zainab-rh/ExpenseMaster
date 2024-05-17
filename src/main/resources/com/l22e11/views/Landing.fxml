@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -20,7 +22,8 @@
                      <children>
                         <TextField fx:id="loginUser" layoutY="14.0" />
                         <PasswordField fx:id="loginPass" layoutY="39.0" />
-                        <Button fx:id="loginSubmit" layoutX="22.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSubmitLogin" text="Log In" />
+                        <Button fx:id="loginSubmit" layoutX="27.0" layoutY="109.0" mnemonicParsing="false" onAction="#onSubmitLogin" text="Log In" />
+                        <Label fx:id="logInError" layoutY="65.0" prefHeight="35.0" prefWidth="173.0" text="Wrong authentification" textFill="RED" visible="false" />
                      </children>
                   </AnchorPane>
             </content>
@@ -29,21 +32,27 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="registerName" layoutY="14.0" />
-                        <TextField fx:id="registerSurname" layoutY="58.0" />
-                        <TextField fx:id="registerNickname" layoutY="102.0" />
-                        <TextField fx:id="registerEmail" layoutY="146.0" />
+                        <TextField fx:id="registerName" layoutY="14.0" promptText="Pedro" />
+                        <TextField fx:id="registerSurname" layoutY="58.0" promptText="Martinez" />
+                        <TextField fx:id="registerNickname" layoutY="102.0" promptText="Pedrito89" />
+                        <TextField fx:id="registerEmail" layoutY="146.0" promptText="pedromarti@gmail.com" />
                         <PasswordField fx:id="registerPass" layoutY="190.0" />
                         <PasswordField fx:id="registerPassConfirm" layoutY="234.0" />
                         <Button fx:id="registerBrowseProfilePic" layoutX="20.0" layoutY="335.0" mnemonicParsing="false" onAction="#onBrowseProfilePicture" text="Brose profile picture" />
                         <Button fx:id="registerSubmit" layoutX="20.0" layoutY="371.0" mnemonicParsing="false" onAction="#onSubmitRegister" text="Register" />
                         <ImageView fx:id="registerProfileView" fitHeight="150.0" fitWidth="200.0" layoutX="302.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="nameError" layoutY="40.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
-                        <Label fx:id="surnameError" layoutY="84.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
-                        <Label fx:id="nickError" layoutY="128.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
-                        <Label fx:id="emailError" layoutY="172.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
-                        <Label fx:id="passwordError" layoutY="216.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
-                        <Label fx:id="passwordRepeatedError" layoutY="260.0" prefHeight="18.0" prefWidth="173.0" text="Label" />
+                        <Label fx:id="nameError" contentDisplay="TEXT_ONLY" layoutY="40.0" prefHeight="18.0" prefWidth="173.0" text="Incorrect Name" textAlignment="CENTER" textFill="RED" visible="false">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></Label>
+                        <Label fx:id="surnameError" layoutY="84.0" pickOnBounds="false" prefHeight="18.0" prefWidth="173.0" text="Incorrect Surname" textAlignment="CENTER" textFill="RED" visible="false" />
+                        <Label fx:id="nickError" layoutY="128.0" prefHeight="18.0" prefWidth="173.0" text="Incorrect nickname" textFill="RED" visible="false" />
+                        <Label fx:id="emailError" layoutY="172.0" prefHeight="18.0" prefWidth="173.0" text="Incorrect email" textFill="RED" visible="false" />
+                        <Label fx:id="passwordError" layoutY="216.0" prefHeight="18.0" prefWidth="173.0" text="Password too short" textFill="RED" visible="false" />
+                        <Label fx:id="passwordRepeatedError" layoutY="260.0" prefHeight="18.0" prefWidth="173.0" text="Password different" textFill="RED" visible="false" />
                      </children>
                   </AnchorPane>
             </content>
