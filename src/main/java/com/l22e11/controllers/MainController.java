@@ -1,32 +1,20 @@
 package com.l22e11.controllers;
 
-import java.io.File;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
-
-import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-
 
 public class MainController implements Initializable{
 
     @FXML
     private TextField newCategory, newDescription;
+    @FXML
     private Label SuccessfullCategoryRegister;
     
     // private int tabFocused = 0;
