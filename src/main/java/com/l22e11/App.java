@@ -32,6 +32,7 @@ public class App extends Application {
     public void start(Stage stage) {
         mainStage = stage;
         loadFonts();
+        loadStyles();
         showLandingStage();
     }
 
@@ -100,10 +101,19 @@ public class App extends Application {
      */
     public static Stage getMainStage() { return mainStage; }
         
+
     /*
-    * Load all fonts, since variable fonts are not supported
+     * Load styles globally
+     */
+    private void loadStyles() {
+        Application.setUserAgentStylesheet(getClass().getResource("styles/global.css").toExternalForm());
+    }
+
+    /*
+     * Load all fonts, since variable fonts are not supported
      */
     private void loadFonts() {
+        // String fontStyles[] = {"Medium"};
         String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black", "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
         for (int i = 0; i < fontStyles.length; ++i) {
             Font a = Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 12);

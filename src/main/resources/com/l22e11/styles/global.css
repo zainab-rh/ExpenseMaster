@@ -1,61 +1,103 @@
 /* Modified version of JAVAFX default colours */
 .root {
-    -fx-base: white;
-    -fx-background: white;
-    -fx-control-inner-background: white;
-    -fx-dark-text-color: white;
-    -fx-mid-text-color: white;
-    -fx-light-text-color: white;
+    -fx-base: transparent;
+    -fx-background: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-dark-text-color: red;
+    -fx-mid-text-color: red;
+    -fx-light-text-color: red;
     -fx-accent: transparent;/*#0093ff;*/
     -fx-focus-color: transparent;/*#0093ff;*/
     -fx-color: black;
     -fx-disabled-opacity: 0.4;
-    -fx-hover-base: white;
-    -fx-pressed-base: white;
-    -fx-focused-base: white;
-    -fx-text-background-color: white;
+    -fx-hover-base: transparent;
+    -fx-pressed-base: transparent;
+    -fx-focused-base: transparent;
+    -fx-text-background-color: transparent;
     -fx-text-fill: -fx-color;
-    -fx-box-border: white;
-    -fx-text-box-border: white;
-    -fx-shadow-highlight-color: white;
-    -fx-outer-border: white;
-    -fx-inner-border: white;
-    -fx-inner-border-horizontal: white;
-    -fx-inner-border-bottomup: white;
-    -fx-body-color-bottomup: white;
+    -fx-box-border: transparent;
+    -fx-text-box-border: transparent;
+    -fx-shadow-highlight-color: transparent;
+    -fx-outer-border: transparent;
+    -fx-inner-border: transparent;
+    -fx-inner-border-horizontal: transparent;
+    -fx-inner-border-bottomup: transparent;
+    -fx-body-color-bottomup: transparent;
     -fx-text-base-color: -fx-color;
     -fx-text-inner-color: -fx-color;
-    -fx-mark-color: white;
-    -fx-mark-highlight-color: white;
-    -fx-selection-bar: white;
+    -fx-mark-color: green;
+    -fx-mark-highlight-color: green;
+    -fx-selection-bar: transparent;
     -fx-selection-bar-text: -fx-color;
-    -fx-tab-border-color: white;
-    -fx-background-color: white;
-    -fx-background-radius: white;
-    -fx-background-insets: white;
-    -fx-padding: white;
+    -fx-tab-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
     -fx-cell-hover-color: transparent;/*#cce3f4;*/
     -fx-cell-focus-inner-border: transparent;/*#85b9de;*/
     -fx-page-bullet-border: transparent;/*#acacac;    */
     -fx-page-indicator-hover-border: transparent;/*#accee5;*/
+
+    -fx-font-size: 12px;
+
+    -fx-primary: #2C2C2C;
+    -fx-primary-light: #F1EFE3;
+    -fx-primary-grey: #e0e0e0;
+    -fx-background-primary: #F8F7F2;
+    -fx-background-secondary: white;
+    -fx-accent1: #A8ADFD;
+    -fx-accent1: #F7D78A;
+    -fx-accent1: #C7D0BD;
+    -fx-accent1: #F78A8A;
+}
+
+/* Override default */
+.tab-pane:top .tab-header-area {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: -fx-primary-light;
+    -fx-background-radius: 20px;
+}
+
+.tab-pane:top .tab-header-area:hover {
+    -fx-cursor: hand;
+    -fx-background-color: -fx-primary-grey;
 }
 
 * {
     -fx-font-family: 'Montserrat-Medium';
     -fx-background-color: transparent;
-    -fx-border-color: #00000022;
+    /* -fx-border-color: #00000022; */
 }
 
-.tab, .tab-label{
-    -fx-pref-width: 100px;
-    -fx-text-alignment: CENTER;
-    -fx-background-radius: 8px;
+.root-pane {
+    -fx-background-color: -fx-background-primary;
+}
+
+.tab, .tab-label {
     -fx-padding: 0;
-    -fx-pref-height: 40px;
+    -fx-background-radius: 20px;
+    -fx-pref-width: 152px;
+    -fx-pref-height: 50px;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    /* -fx-font-family: 'Montserrat-SemiBold'; */
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
 }
 
-.window-pane {
+.tab:selected {
+    -fx-background-color: -fx-primary;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: -fx-primary-light;
+}
+
+/* Round border */
+.window-round-corners {
     -fx-background-radius: 32 32 32 32;
     -fx-border-radius: 32 32 32 32;
-    -fx-background-color: #ffffff;
 }

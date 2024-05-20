@@ -20,10 +20,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 public class LandingController implements Initializable {
 
+    @FXML
+    private Pane rootPane;
     @FXML
     private TextField loginUser, registerName, registerSurname, registerEmail, registerNickname;
     @FXML
@@ -43,7 +46,18 @@ public class LandingController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        double widthOfTab = authenticationPane.getWidth()/2;
+        
+        // rootPane.widthProperty().addListener((abs, oldV, newV) -> {
+        //     double widthOfTab = (
+        //         authenticationPane.getWidth() -
+        //         (authenticationPane.getPadding().getLeft()
+        //         + authenticationPane.getPadding().getRight())
+        //     )/2;
+        //     for (Tab tab : authenticationPane.getTabs()) {
+        //         tab.setStyle("-fx-pref-width: " + widthOfTab + "px;");
+        //         // tab.setStyle("-fx-pref-width: " + widthOfTab + "px;");
+        //     }
+        // });
     }
 
     @FXML
@@ -51,6 +65,7 @@ public class LandingController implements Initializable {
         String nick = loginUser.getText();
         String pass = loginPass.getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
+        
         if (isOk) {
             logInError.setVisible(false);
             App.showMainStage();
@@ -105,11 +120,11 @@ public class LandingController implements Initializable {
         fileChooser.setTitle("Select Profile Picture");
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-            );
-            
-            File selectedFile = fileChooser.showOpenDialog(App.getMainStage());
-            Image image = new Image(selectedFile.toURI().toString());
-            registerProfileView.setImage(image);
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(App.getMainStage());
+        Image image = new Image(selectedFile.toURI().toString());
+        registerProfileView.setImage(image);
     }
     
     
