@@ -20,6 +20,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
@@ -28,36 +29,29 @@ public class LandingController implements Initializable {
     @FXML
     private Pane rootPane;
     @FXML
-    private TextField loginUser, registerName, registerSurname, registerEmail, registerNickname;
-    @FXML
-    private PasswordField registerPassConfirm, registerPass, loginPass;
-    @FXML
     private Tab loginTab, registerTab;
     @FXML
     private TabPane authenticationPane;
-    @FXML
+	@FXML
+	private AnchorPane loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack;
+	@FXML
+	private TextField loginUser, registerName, registerSurname, registerNickname, registerEmail;
+	@FXML
+	private PasswordField loginPass, registerPass, registerPassConfirm;
+	@FXML
     private Button registerBrowseProfilePic, loginSubmit, registerSubmit;
     @FXML
     private ImageView registerProfileView;
     @FXML
-    private Label nameError, surnameError, nickError, emailError, passwordError, passwordRepeatedError, logInError;
+	private Label loginError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError;
+    // @FXML
+    // private Label nameError, surnameError, nickError, emailError, passwordError, passwordRepeatedError, logInError;
 
     // private int tabFocused = 0;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
-        // rootPane.widthProperty().addListener((abs, oldV, newV) -> {
-        //     double widthOfTab = (
-        //         authenticationPane.getWidth() -
-        //         (authenticationPane.getPadding().getLeft()
-        //         + authenticationPane.getPadding().getRight())
-        //     )/2;
-        //     for (Tab tab : authenticationPane.getTabs()) {
-        //         tab.setStyle("-fx-pref-width: " + widthOfTab + "px;");
-        //         // tab.setStyle("-fx-pref-width: " + widthOfTab + "px;");
-        //     }
-        // });
+		// Empty for now
     }
 
     @FXML
@@ -66,12 +60,8 @@ public class LandingController implements Initializable {
         String pass = loginPass.getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
         
-        if (isOk) {
-            logInError.setVisible(false);
-            App.showMainStage();
-        }else{
-            logInError.setVisible(true);
-        }
+        if (isOk) { App.showMainStage(); }
+        loginError.setVisible(!isOk);
     }
 
     @FXML
@@ -85,32 +75,32 @@ public class LandingController implements Initializable {
         Image profilePic = registerProfileView.getImage();
         LocalDate dateNow = LocalDate.now();
 
-        boolean[] exceptions = {true, true, true, true}; // name, surname, email, password
-        checkRegister(name, surname, email, pass, passConfirmation, exceptions);
-        boolean generalError = false;
+        // boolean[] exceptions = {true, true, true, true}; // name, surname, email, password
+        // checkRegister(name, surname, email, pass, passConfirmation, exceptions);
+        // boolean generalError = false;
 
-        if(exceptions[0]) {nameError.setVisible(true); generalError = true;}
-        if(exceptions[1]) {surnameError.setVisible(true); generalError = true;}
-        if(exceptions[2]) {emailError.setVisible(true); generalError = true;}
+        // if(exceptions[0]) {nameError.setVisible(true); generalError = true;}
+        // if(exceptions[1]) {surnameError.setVisible(true); generalError = true;}
+        // if(exceptions[2]) {emailError.setVisible(true); generalError = true;}
 
-        if(pass.length() == 0) {passwordError.setText("Password needed"); passwordError.setVisible(true); generalError = true;}
-        else if (pass.length() < 8) {passwordError.setText("Password too short"); passwordError.setVisible(true); generalError = true;}
-        else if(exceptions[3]) {passwordRepeatedError.setVisible(true); generalError = true;}
+        // if(pass.length() == 0) {passwordError.setText("Password needed"); passwordError.setVisible(true); generalError = true;}
+        // else if (pass.length() < 8) {passwordError.setText("Password too short"); passwordError.setVisible(true); generalError = true;}
+        // else if(exceptions[3]) {passwordRepeatedError.setVisible(true); generalError = true;}
         
-        if (!generalError){
-            int isOk = AccountWrapper.registerUser(name, surname, email, nick, pass, profilePic, dateNow);
-            if (isOk == 0) nickError.setVisible(true);
-            if (isOk == 1) authenticationPane.getSelectionModel().selectFirst();
-            // if (isOk == -1) DB error
+        // if (!generalError){
+        //     int isOk = AccountWrapper.registerUser(name, surname, email, nick, pass, profilePic, dateNow);
+        //     if (isOk == 0) nickError.setVisible(true);
+        //     if (isOk == 1) authenticationPane.getSelectionModel().selectFirst();
+        //     // if (isOk == -1) DB error
 
-            // Take out errors
-            nameError.setVisible(false);
-            surnameError.setVisible(false);
-            emailError.setVisible(false);
-            passwordError.setVisible(false);
-            passwordRepeatedError.setVisible(false);
+        //     // Take out errors
+        //     nameError.setVisible(false);
+        //     surnameError.setVisible(false);
+        //     emailError.setVisible(false);
+        //     passwordError.setVisible(false);
+        //     passwordRepeatedError.setVisible(false);
 
-        }
+        // }
     }
 
     

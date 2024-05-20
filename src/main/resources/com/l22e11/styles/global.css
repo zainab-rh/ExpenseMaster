@@ -42,17 +42,22 @@
     -fx-font-size: 12px;
 
     -fx-primary: #2C2C2C;
+	-fx-primary-soft: #2C2C2C7F;
     -fx-primary-light: #F1EFE3;
     -fx-primary-grey: #e0e0e0;
     -fx-background-primary: #F8F7F2;
     -fx-background-secondary: white;
     -fx-accent1: #A8ADFD;
-    -fx-accent1: #F7D78A;
-    -fx-accent1: #C7D0BD;
-    -fx-accent1: #F78A8A;
+	-fx-accent1-soft: #A8ADFD7F;
+    -fx-accent2: #F7D78A;
+	-fx-accent2-soft: #F7D78A7F;
+    -fx-accent3: #C7D0BD;
+	-fx-accent3-soft: #C7D0BD7F;
+    -fx-accent4: #F78A8A;
+	-fx-accent4-soft: #F78A8A7F;
 }
 
-/* Override default */
+/* Authentication Window */
 .tab-pane:top .tab-header-area {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -94,6 +99,33 @@
 
 .tab:selected .tab-label {
     -fx-text-fill: -fx-primary-light;
+}
+
+.authenticationLabels {
+	-fx-text-fill: -fx-primary;
+	-fx-padding: 16 8 0 8;
+}
+
+.errorMessage {
+	-fx-text-fill: -fx-accent4;
+}
+
+.inputBackground {
+	/* -fx-background-color: -fx-accent1-soft; */
+	-fx-background-radius: 20px;
+	-fx-pref-height: 54px;
+}
+
+.inputBox {
+	-fx-background-color: -fx-background-primary;
+	-fx-background-radius: 16px;
+	/* -fx-border-color: -fx-accent1; */
+	-fx-border-color: -fx-primary-soft;
+	-fx-border-width: 1px;
+	-fx-border-radius: 16px;
+	-fx-padding: 12px;
+	-fx-prompt-text-fill: -fx-primary-soft;
+	-fx-cursor: text;
 }
 
 /* Round border */

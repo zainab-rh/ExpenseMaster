@@ -88,9 +88,8 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) {
         String viewsDirectory = "views" + File.separator;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewsDirectory + fxml + ".fxml"));
-        try {
-            return fxmlLoader.load();
-        } catch (IOException e) {
+        try { return fxmlLoader.load(); }
+		catch (IOException e) {
             System.out.println("Error loading " + fxml + ".fxml");
             return null;
         }
@@ -101,7 +100,6 @@ public class App extends Application {
      */
     public static Stage getMainStage() { return mainStage; }
         
-
     /*
      * Load styles globally
      */
