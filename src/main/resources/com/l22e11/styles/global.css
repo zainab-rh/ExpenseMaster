@@ -39,14 +39,14 @@
     -fx-page-bullet-border: transparent;/*#acacac;    */
     -fx-page-indicator-hover-border: transparent;/*#accee5;*/
 
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 
     -fx-primary: #2C2C2C;
-	-fx-primary-soft: #2C2C2C7F;
-    -fx-primary-light: #F1EFE3;
+	-fx-primary-soft: #2C2C2C60;
     -fx-primary-grey: #e0e0e0;
+    -fx-primary-light: #F1EFE3;
     -fx-background-primary: #F8F7F2;
-    -fx-background-secondary: white;
+    -fx-background-secondary: #FFFFFF;
     -fx-accent1: #A8ADFD;
 	-fx-accent1-soft: #A8ADFD7F;
     -fx-accent2: #F7D78A;
@@ -103,11 +103,13 @@
 
 .authenticationLabels {
 	-fx-text-fill: -fx-primary;
-	-fx-padding: 16 8 0 8;
+	-fx-padding: 0 8 0 8;
 }
 
 .errorMessage {
 	-fx-text-fill: -fx-accent4;
+    -fx-padding: 0 8 0 8;
+    -fx-font-size: 12px;
 }
 
 .inputBackground {
@@ -121,11 +123,52 @@
 	-fx-background-radius: 16px;
 	/* -fx-border-color: -fx-accent1; */
 	-fx-border-color: -fx-primary-soft;
-	-fx-border-width: 1px;
+	-fx-border-width: 2px;
 	-fx-border-radius: 16px;
 	-fx-padding: 12px;
 	-fx-prompt-text-fill: -fx-primary-soft;
 	-fx-cursor: text;
+}
+
+.buttonWithIcon {
+    -fx-pref-height: 40px;
+    -fx-padding: 0 32 0 44;
+    -fx-background-color: -fx-primary;
+    -fx-background-radius: 16px;
+}
+
+.buttonWithIcon * {
+    -fx-text-fill: -fx-primary-light;
+    -fx-font-weight: 700;
+}
+
+.icon {
+    -fx-padding: 8 0 0 8;
+    -fx-pref-width: 38px;
+    -fx-pref-height: 24px;
+    -fx-font-size: 26px;
+    -fx-alignment: CENTER;
+    -fx-font-family: 'bootstrap-icons';
+}
+
+#profilePicPicker {
+    -fx-background-color: -fx-primary-light;
+    -fx-background-radius: 32px;
+    -fx-border-color: -fx-primary-grey;
+    -fx-border-radius: 32px;
+    -fx-border-width: 4px;
+    -fx-border-style: dashed;
+}
+
+#profilePicPicker:hover {
+    -fx-background-color: -fx-accent1-soft;
+    -fx-border-color: -fx-accent1;
+    -fx-cursor: hand;
+}
+
+#profilePicPicker * {
+    -fx-text-fill: -fx-primary-soft;
+    -fx-padding: 0;
 }
 
 /* Round border */

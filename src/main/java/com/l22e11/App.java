@@ -114,9 +114,11 @@ public class App extends Application {
         // String fontStyles[] = {"Medium"};
         String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black", "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
         for (int i = 0; i < fontStyles.length; ++i) {
-            Font a = Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 12);
+            Font a = Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 14);
             System.out.println(a.getName() + "   " + a.getFamily());
         }
+        Font a = Font.loadFont(getClass().getResourceAsStream("fonts/bootstrap-icons.ttf"), 26);
+        System.out.println(a.getName() + "   " + a.getFamily());
     }
     
     /*
