@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
@@ -382,7 +383,10 @@ public class LandingController implements Initializable {
         if (!nameOk || !surnameOk || !nickOk || !emailOk || !passOk || !passConfirmationOk || !profilePicOk) return;
 
         boolean isOk = validateRegister();
-        if (isOk) authenticationPane.getSelectionModel().selectFirst();
+        if (isOk) {
+            authenticationPane.getSelectionModel().selectFirst();
+            
+        }
     }
 
     

@@ -43,7 +43,7 @@ public class App extends Application {
      */
     public static void showLandingStage() {
         App.close();
-        scene = new Scene(loadFXML("Landing"), 640, 480);
+        scene = new Scene(loadFXML("Landing"), 1000, 1000);
         mainStage.setTitle("Expense Master - Login");
         mainStage.setScene(scene);
         mainStage.setResizable(false);
