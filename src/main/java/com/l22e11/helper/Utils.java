@@ -2,6 +2,12 @@ package com.l22e11.helper;
 
 import java.text.Normalizer;
 
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
+
 public class Utils {
 
     /*
@@ -36,5 +42,25 @@ public class Utils {
     public static String removeExtraWhiteSpaces(String text) {
         while (text.contains("  ")) text = text.replaceAll("  ", " ");
         return text.strip();
+    }
+
+    /*
+     * JavaFX Image to fit and round borders
+     */
+    public static Image cropImage(Image imageToCrop, Region nodeToClip) {
+        int size = (int) Math.min(imageToCrop.getHeight(), imageToCrop.getWidth());
+        int x = (int) (imageToCrop.getWidth() - size)/2;
+        Image croppedImage = new WritableImage(imageToCrop.getPixelReader(), x, 0, size, size);
+
+        if (croppedImage.getHeight() == 0.0) {
+            return null;
+        }
+
+        size = (int) (nodeToClip.getWidth() / 2);
+        System.out.println(size);
+        Circle clip = new Circle(size, size, size-2);
+        nodeToClip.setClip(clip);
+
+        return croppedImage;
     }
 }

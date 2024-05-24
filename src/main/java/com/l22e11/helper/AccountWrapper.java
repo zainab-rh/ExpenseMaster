@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import model.Acount;
 import model.Category;
 import model.Charge;
+import model.User;
 
 public class AccountWrapper {
 
@@ -78,6 +79,14 @@ public class AccountWrapper {
      */
     public static List<Charge> getUserCharges() {
         try { return Acount.getInstance().getUserCharges(); }
+		catch (Exception AcountDAOException) {return null;}
+    }
+
+    /*
+     * Get currently logged in user
+     */
+    public static User getAuthenticatedUser() {
+        try { return Acount.getInstance().getLoggedUser(); }
 		catch (Exception AcountDAOException) {return null;}
     }
 }

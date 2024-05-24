@@ -14,13 +14,6 @@
     -fx-font-size: 16px;
 }
 
-#title, #title * {
-    -fx-font-size: 32px;
-    -fx-font-family: 'Montserrat Black';
-    -fx-font-weight: 800;
-    -fx-text-fill: -fx-accent2;
-}
-
 /* Authentication Pane */
 .tab-pane:top .tab-header-area {
     -fx-background-insets: 0;
@@ -85,16 +78,6 @@
 	-fx-padding: 12px;
 	-fx-prompt-text-fill: -fx-primary-soft;
 	-fx-cursor: text;
-}
-
-.icon {
-    -fx-padding: 8 0 0 8;
-    -fx-pref-width: 38px;
-    -fx-pref-height: 24px;
-    -fx-font-size: 26px;
-    -fx-alignment: CENTER-LEFT;
-    -fx-font-family: 'bootstrap-icons';
-    -fx-text-fill: -fx-primary;
 }
 
 .buttonWithIcon {

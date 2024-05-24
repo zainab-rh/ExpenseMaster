@@ -166,13 +166,13 @@
                                        <children>
                                           <Pane fx:id="registerProfileViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="80.0">
                                              <children>
-                                                <ImageView fx:id="registerProfileView" fitHeight="76.0" fitWidth="76.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="2.0" y="2.0" />
+                                                <Pane fx:id="registerProfileViewPaneCroppable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="80.0">
+                                                   <children>
+                                                      <ImageView fx:id="registerProfileView" fitHeight="76.0" fitWidth="76.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="2.0" y="2.0" />
+                                                   </children>
+                                                </Pane>
                                              </children>
                                           </Pane>
-                                          <!-- <Circle fx:id="registerProfileViewPane" fill="DODGERBLUE" radius="100.0" stroke="BLACK" strokeType="INSIDE" >
-                                             <graphic>
-                                                   </graphic>
-                                                </Circle> -->
                                           <AnchorPane fx:id="profilePicPicker" maxHeight="-Infinity" maxWidth="Infinity" prefHeight="80.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <Button fx:id="registerBrowseProfilePic" maxWidth="1.7976931348623157E308" onAction="#onBrowseProfilePicture" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

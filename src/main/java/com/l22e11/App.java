@@ -35,7 +35,8 @@ public class App extends Application {
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("images/coins.png")));
         loadFonts();
         loadStyles();
-        showLandingStage();
+        // showLandingStage();
+        showMainStage();
     }
 
     /*
@@ -58,12 +59,14 @@ public class App extends Application {
      */
     public static void showMainStage() {
         App.close();
-        scene = new Scene(loadFXML("Main"), 640, 480);
+        scene = new Scene(loadFXML("Main"), 1920, 1080);
         mainStage.setTitle("Expense Master");
         mainStage.setScene(scene);
         mainStage.setResizable(true);
-        // scene.setFill(Color.TRANSPARENT);
-        // mainStage.initStyle(StageStyle.TRANSPARENT);
+        mainStage.setMaximized(true);
+        // mainStage.setFullScreen(true);
+        scene.setFill(Color.TRANSPARENT);
+        mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.show();
     }
 

@@ -42,11 +42,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import model.Acount;
 
 public class LandingController implements Initializable {
 
     @FXML
-    private Pane rootPane, registerProfileViewPane;
+    private Pane rootPane, registerProfileViewPane, registerProfileViewPaneCroppable;
     @FXML
     private Tab loginTab, registerTab;
     @FXML
@@ -76,7 +77,7 @@ public class LandingController implements Initializable {
     private final Pattern CAPITALIZATION_PATTERN = Pattern.compile("(^[a-zñ]|\\s[a-zñ])");
     private final Pattern EMAIL_PATTERN = Pattern.compile("^\\S+@\\S+\\.\\S+$");
     private final String NICK_ERROR = "Nickname should only contain letters and digits, no symbols, spaces, accents or 'ñ' and should be 4 characters or longer";
-    private final String PASS_ERROR = "Password should contain more than 8 characters";
+    private final String PASS_ERROR = "Password should contain more than 5 characters";
     private final String PASS_CONFIRM_ERROR = "Passwords don't match";
     private final String LOGIN_MISMATCH = "Nickname and password do not match, check the nickname and retype the password";
     private final String EXTRA_SPACES_ERROR = "Please remove extra spaces";
@@ -291,7 +292,7 @@ public class LandingController implements Initializable {
 
         String textToCheck = inputBoxes[idx].getText();
 
-        boolean result = textToCheck.length() >= 8;
+        boolean result = textToCheck.length() >= 6;
         if (!result) inputErrorMessages[idx].setText(PASS_ERROR);
 
         inputErrorMessages[idx].setVisible(!result);
@@ -420,20 +421,13 @@ public class LandingController implements Initializable {
             File file = new File(selectedFile.toURI());
             BufferedImage bufferedImage = ImageIO.read(file);
             
-            WritableImage uncroppedImage = SwingFXUtils.toFXImage(bufferedImage, null);
-            int size = Math.min(bufferedImage.getHeight(), bufferedImage.getWidth());
-            int x = (bufferedImage.getWidth() - size)/2;
-            Image croppedImage = new WritableImage(uncroppedImage.getPixelReader(), x, 0, size, size);
+            Image croppedImage = Utils.cropImage(SwingFXUtils.toFXImage(bufferedImage, null), registerProfileViewPaneCroppable);
 
-            if (croppedImage.getHeight() == 0.0) {
+            if (croppedImage == null) {
                 registerBrowseProfilePicError.setText("This image appears to have 0 width and height");
                 registerBrowseProfilePicError.setVisible(true);
                 return;
             }
-
-            // Set the clip on the StackPane
-            Circle clip = new Circle(40, 40, 40);
-            registerProfileViewPane.setClip(clip);
 
             registerProfileView.setImage(croppedImage);
             registerProfileViewPane.setManaged(true);

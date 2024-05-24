@@ -70,6 +70,23 @@
     /* -fx-border-color: #00000022; */
 }
 
+#title, #title * {
+    -fx-font-size: 32px;
+    -fx-font-family: 'Montserrat Black';
+    -fx-font-weight: 800;
+    -fx-text-fill: -fx-accent2;
+}
+
+.icon {
+    -fx-padding: 8 0 0 8;
+    -fx-pref-width: 38px;
+    -fx-pref-height: 24px;
+    -fx-font-size: 26px;
+    -fx-alignment: CENTER-LEFT;
+    -fx-font-family: 'bootstrap-icons';
+    -fx-text-fill: -fx-primary;
+}
+
 /* Round border */
 .window-round-corners {
     -fx-background-radius: 48 48 48 48;

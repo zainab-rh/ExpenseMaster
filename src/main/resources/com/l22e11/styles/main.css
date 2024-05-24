@@ -1,0 +1,27 @@
+#sideBar {
+    -fx-background-color: -fx-primary;
+}
+
+#title, #title * {
+    -fx-font-size: 16px;
+}
+
+#userArea * {
+    -fx-text-fill: -fx-primary-light;
+    -fx-font-size: 14px;
+}
+
+#fullName * {
+    -fx-font-size: 18px;
+}
+
+#userArea:hover {
+    -fx-background-radius: 32px;
+    -fx-background-color: -fx-accent2-soft;
+    -fx-cursor: hand;
+}
+
+#profilePic {
+    -fx-background-radius: 40px;
+    -fx-border-radius: 40px;
+}
