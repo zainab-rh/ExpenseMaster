@@ -6,12 +6,13 @@ import model.Category;
 import java.util.List;
 
 public class DataGenerator {
-    private static final String[] FIRST_NAMES = {"John", "Jane", "Michael", "Emily", "William"};
-    private static final String[] LAST_NAMES = {"Doe", "Smith", "Johnson", "Williams", "Jones"};
-    private static final String[] CATEGORY_NAMES = {"Food", "Transportation", "Entertainment", "Utilities", "Shopping"};
-    private static final String[] CATEGORY_DESCRIPTIONS = {"Expenses for food", "Expenses for transportation", "Expenses for entertainment", "Expenses for utilities", "Expenses for shopping"};
+    private static final String[] FIRST_NAMES = {"John", "Jane", "Michael", "Emily", "William", "Olivia", "James", "Ava", "Robert", "Sophia"};
+    private static final String[] LAST_NAMES = {"Doe", "Smith", "Johnson", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore"};
+    private static final String[] CATEGORY_NAMES = {"Food", "Transportation", "Entertainment", "Utilities", "Shopping", "Bills"};
+    private static final String[] CATEGORY_DESCRIPTIONS = {"Expenses for food", "Expenses for transportation", "Expenses for entertainment", "Expenses for utilities", "Expenses for shopping", "Expenses for bills"};
 
     public static void main(String[] args) {
+
         // Register users
         int numUsers = 5;
         for (int i = 0; i < numUsers; i++) {
