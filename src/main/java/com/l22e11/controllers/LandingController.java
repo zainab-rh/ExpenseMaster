@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -31,6 +32,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -117,6 +119,7 @@ public class LandingController implements Initializable {
         }
 
         registerProfileViewPane.setManaged(false);
+        registerProfileViewPane.setVisible(false);
         loginPass.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 onSubmitLogin(null);
@@ -385,7 +388,21 @@ public class LandingController implements Initializable {
         boolean isOk = validateRegister();
         if (isOk) {
             authenticationPane.getSelectionModel().selectFirst();
-            
+
+            for (int i = REGISTER_NAME_IDX; i <= REGISTER_PASS_CONFIRM_IDX; ++i) {
+                inputBoxes[i].setText("");
+                setInputBoxColor(inputBoxes[i], inputBoxesBack[i], false, "");
+            }
+            registerProfileView.setImage(null);
+            registerProfileViewPane.setManaged(false);
+            registerProfileViewPane.setVisible(false);
+            registerProfilePicBrowseLabel.setText("Browse profile picture");
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Register successful");
+            alert.setHeaderText("Register successful");
+            alert.setContentText("You registered correctly, you can change your personal details at any time by logging into the app.");
+            alert.showAndWait();
         }
     }
 
@@ -420,6 +437,7 @@ public class LandingController implements Initializable {
 
             registerProfileView.setImage(croppedImage);
             registerProfileViewPane.setManaged(true);
+            registerProfileViewPane.setVisible(true);
             registerProfilePicBrowseLabel.setText("Change profile picture");
             registerBrowseProfilePicError.setVisible(false);
         }
