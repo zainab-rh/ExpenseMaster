@@ -1,16 +1,23 @@
 package com.l22e11.controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import javafx.scene.input.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
 
 import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.Colors;
 import com.l22e11.helper.Utils;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,25 +29,27 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.skin.TextInputControlSkin.Direction;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 public class LandingController implements Initializable {
 
     @FXML
-    private Pane rootPane;
+    private Pane rootPane, registerProfileViewPane;
     @FXML
     private Tab loginTab, registerTab;
     @FXML
     private TabPane authenticationPane;
 	@FXML
-	private AnchorPane loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack;
+	private AnchorPane loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, profilePicPicker;
 	@FXML
 	private TextField loginUser, registerName, registerSurname, registerNickname, registerEmail;
 	@FXML
@@ -50,9 +59,10 @@ public class LandingController implements Initializable {
     @FXML
     private ImageView registerProfileView;
     @FXML
-	private Label loginError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError;
+	private Label loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError, registerProfilePicBrowseLabel, forgotPassword, goToLogin, goToRegister;
 
     private final int LOGIN_USER_IDX = 0, LOGIN_PASS_IDX = 1, REGISTER_NAME_IDX = 2, REGISTER_SURNAME_IDX = 3, REGISTER_NICKNAME_IDX = 4, REGISTER_EMAIL_IDX = 5, REGISTER_PASS_IDX = 6, REGISTER_PASS_CONFIRM_IDX = 7;
+    private Label inputErrorMessages[];
     private TextInputControl inputBoxes[];
     private AnchorPane inputBoxesBack[];
 
@@ -67,15 +77,18 @@ public class LandingController implements Initializable {
     private final String PASS_CONFIRM_ERROR = "Passwords don't match";
     private final String LOGIN_MISMATCH = "Nickname and password do not match, check the nickname and retype the password";
     private final String EXTRA_SPACES_ERROR = "Please remove extra spaces";
-    private final String NAMES_ERROR = "Wrong format";
+    private final String EMPTY_ERROR = "Field empty";
     private final String DIGITS_AND_SYMBOLS_ERROR = "Remove any symbols or digits";
     private final String CAPITALIZATION_ERROR = "Incorrect capitalization"; 
     private final String EMAIL_ERROR = "Email adress does not look correct";
+    private final String NO_IMAGE_ERROR = "Please select an image";
+    private final String NICK_PICKED = "This nickname is unavailable";
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         inputBoxes = new TextInputControl[]{loginUser, loginPass, registerName, registerSurname, registerNickname, registerEmail, registerPass, registerPassConfirm};
         inputBoxesBack = new AnchorPane[]{loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack};
+        inputErrorMessages = new Label[]{loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError};
 
         for (int idx = 0; idx < inputBoxes.length; ++idx) {
             final int i = idx;
@@ -101,6 +114,36 @@ public class LandingController implements Initializable {
                 }
             });
         }
+
+        registerProfileViewPane.setManaged(false);
+        loginPass.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onSubmitLogin(null);
+            }
+        });
+
+        forgotPassword.setOnMouseClicked((event) -> {
+            String email = "";
+            boolean hasCanceled = false;
+
+            while (!EMAIL_PATTERN.matcher(email).matches() && !hasCanceled) {
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Reset Password");
+                dialog.setHeaderText("Enter your email to send a password reset request");
+                dialog.setContentText("Email:");
+
+                Optional<String> opt = dialog.showAndWait();
+                email = opt.get();
+                hasCanceled = !opt.isPresent();
+            }
+        });
+
+        goToLogin.setOnMouseClicked((event) -> {
+            authenticationPane.getSelectionModel().selectFirst();
+        });
+        goToRegister.setOnMouseClicked((event) -> {
+            authenticationPane.getSelectionModel().selectLast();
+        });
     }
 
     private void setInputBoxColor(Node inputBox, Node inputBoxBack, boolean active, String color) {
@@ -122,146 +165,156 @@ public class LandingController implements Initializable {
         }
     }
 
+    private boolean checkIfEmpty(int idx) {
+        boolean isEmpty = inputBoxes[idx].getText().length() == 0;
+
+        inputErrorMessages[idx].setText(EMPTY_ERROR);
+        inputErrorMessages[idx].setVisible(true);
+
+        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, Colors.RED_ACCENT);
+
+        return isEmpty;
+    }
+
     private boolean validateLoginUser(int idx) {
+        if (checkIfEmpty(idx)) return false;
+        
         String textToCheck = inputBoxes[idx].getText();
+
         boolean result = NICK_PATTERN.matcher(textToCheck).matches();
-        
-        if (!result) loginError.setText(NICK_ERROR);
-        loginError.setVisible(!result);
-        
-        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        if (!result) inputErrorMessages[idx].setText(NICK_ERROR);
+
+        inputErrorMessages[idx].setVisible(!result);
+        if (!result) setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, Colors.RED_ACCENT);
+        else setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], false, "");
         return result;
     }
     
     private boolean validateLoginPass(int idx) {
-        String textToCheck = inputBoxes[idx].getText();
-        boolean result = textToCheck.length() >= 8;
+        if (checkIfEmpty(idx)) return false;
+        
+        // String textToCheck = inputBoxes[idx].getText();
 
-        if (!result) loginError.setText(PASS_ERROR);
-        loginError.setVisible(!result);
+        boolean result = true;
+        // boolean result = textToCheck.length() >= 8;
+        // if (!result) inputErrorMessages[idx].setText(PASS_ERROR);
 
-        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        inputErrorMessages[idx].setVisible(!result);
+        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], false/*true*/, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         return result;
     }
     
     private boolean validateRegisterName(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
         String inputWithoutDiacritics = Utils.removeAccents(textToCheck);
 
-        boolean allGood = true;
-
-        // Check for extra spaces
-        if (allGood && EXTRA_SPACES_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerNameError.setText(EXTRA_SPACES_ERROR);
-            allGood = false;
-        }
-        
-        // Check for correct capitalization
-        if (allGood && CAPITALIZATION_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerNameError.setText(CAPITALIZATION_ERROR);
-            allGood = false;
-        }
+        boolean result = true;
         
         // Check for digits and symbols
-        if (allGood && DIGITS_AND_SYMBOLS_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerNameError.setText(DIGITS_AND_SYMBOLS_ERROR);
-            allGood = false;
+        if (DIGITS_AND_SYMBOLS_PATTERN.matcher(inputWithoutDiacritics).find()) {
+            inputErrorMessages[idx].setText(DIGITS_AND_SYMBOLS_ERROR);
+            result = false;
         }
         
-        // Check for names starting with uppercase followed by lowercase possibly followed by a whitespace
-        if (allGood && !NAMES_PATTERN.matcher(inputWithoutDiacritics).matches()) {
-            registerNameError.setText(CAPITALIZATION_ERROR);
-            allGood = false;
-        }
-        
-        registerNameError.setVisible(!allGood);
-        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        inputErrorMessages[idx].setVisible(!result);
+        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 
-        return allGood;
+        if (result) {
+            textToCheck = Utils.removeExtraWhiteSpaces(textToCheck);
+            textToCheck = Utils.capitalize(textToCheck);
+            inputBoxes[idx].setText(textToCheck);
+        }
+
+        return result;
     }
     
     private boolean validateRegisterSurname(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
         String inputWithoutDiacritics = Utils.removeAccents(textToCheck);
 
-        boolean allGood = true;
+        boolean result = true;
 
-        // Check for extra spaces
-        if (allGood && EXTRA_SPACES_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerSurnameError.setText(EXTRA_SPACES_ERROR);
-            allGood = false;
-        }
-        
-        // Check for correct capitalization
-        if (allGood && CAPITALIZATION_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerSurnameError.setText(CAPITALIZATION_ERROR);
-            allGood = false;
-        }
-        
         // Check for digits and symbols
-        if (allGood && DIGITS_AND_SYMBOLS_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            registerSurnameError.setText(DIGITS_AND_SYMBOLS_ERROR);
-            allGood = false;
+        if (DIGITS_AND_SYMBOLS_PATTERN.matcher(inputWithoutDiacritics).find()) {
+            inputErrorMessages[idx].setText(DIGITS_AND_SYMBOLS_ERROR);
+            result = false;
         }
         
-        // Check for names starting with uppercase followed by lowercase possibly followed by a whitespace
-        if (allGood && !NAMES_PATTERN.matcher(inputWithoutDiacritics).matches()) {
-            registerSurnameError.setText(CAPITALIZATION_ERROR);
-            allGood = false;
-        }
-        
-        registerSurnameError.setVisible(!allGood);
-        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        inputErrorMessages[idx].setVisible(!result);
+        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 
-        return allGood;
+        if (result) {
+            textToCheck = Utils.removeExtraWhiteSpaces(textToCheck);
+            textToCheck = Utils.capitalize(textToCheck);
+            inputBoxes[idx].setText(textToCheck);
+        }
+
+        return result;
     }
     
     private boolean validateRegisterNickname(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
+        
         boolean result = NICK_PATTERN.matcher(textToCheck).matches();
-        
-        if (!result) registerNicknameError.setText(NICK_ERROR);
-        registerNicknameError.setVisible(!result);
-        
+        if (!result) inputErrorMessages[idx].setText(NICK_ERROR);
+
+        inputErrorMessages[idx].setVisible(!result);
         setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         return result;
     }
     
     private boolean validateRegisterEmail(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
+
         boolean result = EMAIL_PATTERN.matcher(textToCheck).matches();
+        if (!result) inputErrorMessages[idx].setText(EMAIL_ERROR);
         
-        if (!result) registerNicknameError.setText(EMAIL_ERROR);
-        registerEmailError.setVisible(!result);
-        
+        inputErrorMessages[idx].setVisible(!result);
         setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         return result;
     }
     
     private boolean validateRegisterPass(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
+
         boolean result = textToCheck.length() >= 8;
+        if (!result) inputErrorMessages[idx].setText(PASS_ERROR);
 
-        if (!result) registerPass.setText(PASS_ERROR);
-        registerPass.setVisible(!result);
-
+        inputErrorMessages[idx].setVisible(!result);
         setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         return result;
     }
     
     private boolean validateRegisterPassConfirm(int idx) {
+        if (checkIfEmpty(idx)) return false;
+
         String textToCheck = inputBoxes[idx].getText();
-        boolean result = textToCheck == registerPass.getText();
 
-        if (!result) registerPassConfirm.setText(PASS_CONFIRM_ERROR);
-        registerPassConfirm.setVisible(!result);
+        boolean result = textToCheck.equals(registerPass.getText());
+        if (!result) inputErrorMessages[idx].setText(PASS_CONFIRM_ERROR);
 
+        inputErrorMessages[idx].setVisible(!result);
         setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         return result;
     }
     
     private boolean validateImage() {
-        return false; //TODO:
+        boolean result = registerProfileView.getImage() != null;
+        
+        if (!result) registerBrowseProfilePicError.setText(NO_IMAGE_ERROR);
+        registerBrowseProfilePicError.setVisible(!result);
+
+        return result;
     }
 
     private boolean validateLogin() {
@@ -272,8 +325,8 @@ public class LandingController implements Initializable {
         setInputBoxColor(inputBoxes[LOGIN_USER_IDX], inputBoxesBack[LOGIN_USER_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         setInputBoxColor(inputBoxes[LOGIN_PASS_IDX], inputBoxesBack[LOGIN_PASS_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 
-        loginError.setText(LOGIN_MISMATCH);
-        loginError.setVisible(!isOk);
+        loginPassError.setText(LOGIN_MISMATCH);
+        loginPassError.setVisible(!isOk);
         loginPass.setText("");
 
         return isOk;
@@ -283,24 +336,38 @@ public class LandingController implements Initializable {
     private void onSubmitLogin(ActionEvent event) {
         boolean nickOk = validateField(LOGIN_USER_IDX);
         boolean passOk = validateField(LOGIN_PASS_IDX);
-
-        if (!nickOk) return;
-        if (!passOk) return;
+        
+        if (!nickOk || !passOk) return;
 
         boolean isOk = validateLogin();
-        if (isOk) { App.showMainStage(); }
+        if (isOk) App.showMainStage();
     }
 
-    // private boolean validateRegister() { // TODO:
-    //     String name = registerName.getText();
-    //     String surname = registerSurname.getText();
-    //     String nick = registerNickname.getText();
-    //     String email = registerEmail.getText();
-    //     String pass = registerPass.getText();
-    //     String passConfirmation = registerPassConfirm.getText();
-    //     Image profilePic = registerProfileView.getImage();
-    //     LocalDate dateNow = LocalDate.now();
-    // }
+    private boolean validateRegister() {
+        String name = registerName.getText();
+        String surname = registerSurname.getText();
+        String nick = registerNickname.getText();
+        String email = registerEmail.getText();
+        String pass = registerPass.getText();
+        Image profilePic = registerProfileView.getImage();
+        LocalDate dateNow = LocalDate.now();
+
+        int result = AccountWrapper.registerUser(name, surname, email, nick, pass, profilePic, dateNow);
+        System.out.println(result);
+
+        if (result != 1) {
+            registerNicknameError.setText(NICK_PICKED);
+            registerNicknameError.setVisible(true);
+            setInputBoxColor(inputBoxes[REGISTER_NICKNAME_IDX], inputBoxesBack[REGISTER_NICKNAME_IDX], true, Colors.RED_ACCENT);
+
+            return false;
+        }
+
+        loginUser.setText(nick);
+        loginPass.setText(pass);
+
+        return true;
+    }
 
     @FXML
     private void onSubmitRegister(ActionEvent event) {
@@ -311,12 +378,16 @@ public class LandingController implements Initializable {
         boolean passOk = validateField(REGISTER_PASS_IDX);
         boolean passConfirmationOk = validateField(REGISTER_PASS_CONFIRM_IDX);
         boolean profilePicOk = validateImage();
-        //TODO:
+        
+        if (!nameOk || !surnameOk || !nickOk || !emailOk || !passOk || !passConfirmationOk || !profilePicOk) return;
+
+        boolean isOk = validateRegister();
+        if (isOk) authenticationPane.getSelectionModel().selectFirst();
     }
 
     
     @FXML
-    private void onBrowseProfilePicture(ActionEvent event) {
+    private void onBrowseProfilePicture(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Picture");
         fileChooser.getExtensionFilters().addAll(
@@ -324,9 +395,39 @@ public class LandingController implements Initializable {
         );
         
         File selectedFile = fileChooser.showOpenDialog(App.getMainStage());
-        if (selectedFile != null) { //TODO:
-            Image image = new Image(selectedFile.toURI().toString());
-            registerProfileView.setImage(image);
+        if (selectedFile != null) {
+            File file = new File(selectedFile.toURI());
+            BufferedImage bufferedImage = ImageIO.read(file);
+            
+            WritableImage uncroppedImage = SwingFXUtils.toFXImage(bufferedImage, null);
+            int size = Math.min(bufferedImage.getHeight(), bufferedImage.getWidth());
+            int x = (bufferedImage.getWidth() - size)/2;
+            Image croppedImage = new WritableImage(uncroppedImage.getPixelReader(), x, 0, size, size);
+
+            if (croppedImage.getHeight() == 0.0) {
+                registerBrowseProfilePicError.setText("This image appears to have 0 width and height");
+                registerBrowseProfilePicError.setVisible(true);
+                return;
+            }
+
+            // Set the clip on the StackPane
+            Circle clip = new Circle(40, 40, 40);
+            registerProfileViewPane.setClip(clip);
+
+            registerProfileView.setImage(croppedImage);
+            registerProfileViewPane.setManaged(true);
+            registerProfilePicBrowseLabel.setText("Change profile picture");
+            registerBrowseProfilePicError.setVisible(false);
         }
+    }
+    
+    @FXML
+    private void onAppMinimize(MouseEvent event) {
+        App.minimize();
+    }
+    
+    @FXML
+    private void onAppClose(MouseEvent event) {
+        App.close();
     }
 }

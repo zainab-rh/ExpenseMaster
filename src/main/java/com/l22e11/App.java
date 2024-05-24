@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -31,24 +32,19 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         mainStage = stage;
+        mainStage.getIcons().add(new Image(getClass().getResourceAsStream("images/coins.png")));
         loadFonts();
         loadStyles();
         showLandingStage();
     }
 
     /*
-     * Close mainStage
-     */
-    public static void closeMainStage() {
-        mainStage.close();
-    }
-
-    /*
      * Landing page
      */
     public static void showLandingStage() {
-        closeMainStage();
+        App.close();
         scene = new Scene(loadFXML("Landing"), 640, 480);
+        mainStage.setTitle("Expense Master - Login");
         mainStage.setScene(scene);
         mainStage.setResizable(false);
         mainStage.sizeToScene();
@@ -61,8 +57,9 @@ public class App extends Application {
      * Main page
      */
     public static void showMainStage() {
-        closeMainStage();
+        App.close();
         scene = new Scene(loadFXML("Main"), 640, 480);
+        mainStage.setTitle("Expense Master");
         mainStage.setScene(scene);
         mainStage.setResizable(true);
         // scene.setFill(Color.TRANSPARENT);
@@ -112,7 +109,7 @@ public class App extends Application {
      */
     private void loadFonts() {
         // String fontStyles[] = {"Medium"};
-        String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black", "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
+        String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black"};//, "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
         for (int i = 0; i < fontStyles.length; ++i) {
             Font a = Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 14);
             System.out.println(a.getName() + "   " + a.getFamily());
@@ -128,4 +125,17 @@ public class App extends Application {
         launch();
     }
 
+    /*
+     * Close app
+     */
+    public static void close() {
+        mainStage.close();
+    }
+
+    /*
+     * Minimize app
+     */
+    public static void minimize() {
+        mainStage.setIconified(true);
+    }
 }
