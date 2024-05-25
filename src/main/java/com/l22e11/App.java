@@ -13,6 +13,8 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 
+import com.l22e11.helper.AccountWrapper;
+
 /*
  * Reminder for FXML app development:
  * 
@@ -40,7 +42,7 @@ public class App extends Application {
         showLandingStage();
 
 		// Start in main:
-        // AccountWrapper.loginUser("ruben", "123456"); showMainStage();
+        AccountWrapper.loginUser("pediro89", "123456789"); showMainStage();
     }
 
     /*

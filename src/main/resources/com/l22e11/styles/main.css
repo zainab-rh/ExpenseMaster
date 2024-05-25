@@ -25,3 +25,8 @@
     -fx-background-radius: 40px;
     -fx-border-radius: 40px;
 }
+
+#logOutSubmit {
+    -fx-text-fill: -fx-primary-light;
+}
+

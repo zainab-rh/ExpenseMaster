@@ -29,7 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +43,8 @@ public class MainController implements Initializable {
     private ImageView profilePic;
     @FXML
     private Label fullName;
+    @FXML
+    private Button logOutSubmit;
 
     /*@FXML
 	private TextField categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
@@ -75,6 +77,7 @@ public class MainController implements Initializable {
             profilePic.setImage(user.getImage());
             fullName.setText(user.getName() + " " + user.getSurname());
         });
+
         /*inputBoxes = new TextInputControl[]{categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory};
         inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack};
         inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError, chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError};
@@ -229,6 +232,15 @@ public class MainController implements Initializable {
         inputBoxBack.setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
     }*/
 
+
+
+    @FXML
+    private void onLogOut(MouseEvent event) {
+        boolean isOk = AccountWrapper.logOutUser();
+        if (isOk) App.showLandingStage();
+    }
+
+
     @FXML
     private void onAppMinimize(MouseEvent event) {
         App.minimize();
@@ -239,9 +251,4 @@ public class MainController implements Initializable {
         App.close();
     }
     
-    @FXML
-    private void onLogOut(MouseEvent event) {
-        AccountWrapper.logOutUser();
-        App.showLandingStage();
-    }
 }

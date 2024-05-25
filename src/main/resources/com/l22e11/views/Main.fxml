@@ -2,6 +2,8 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.MainController">
+<StackPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.MainController">
    <children>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
          <children>
@@ -45,7 +47,32 @@
                               <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
                            </VBox.margin>
                         </VBox>
-                     </children></VBox>
+                        <VBox fx:id="userDepartments" alignment="CENTER" prefHeight="670.0" prefWidth="300.0">
+                           <children>
+                              <ImageView fx:id="profilePic1" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label text="Welcome Back," />
+                              <Label fx:id="fullName1" text="Placeholder" />
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER" prefHeight="93.0" prefWidth="300.0" spacing="8.0" styleClass="userLogOutArea">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/arrow.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="logOutSubmit" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onLogOut" prefHeight="40.0" prefWidth="97.0" text="Log Out" textAlignment="CENTER" underline="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
@@ -70,7 +97,8 @@
             <Label fx:id="categoryDescriptionError" layoutX="14.0" layoutY="156.0" prefHeight="16.0" prefWidth="157.0" />
             <Button layoutX="39.0" layoutY="188.0" mnemonicParsing="false" onAction="#onAddCategory" text="Add Category" />
             <Label fx:id="SuccessfullCategoryRegister" layoutX="23.0" layoutY="236.0" prefHeight="24.0" prefWidth="194.0" text="Category added succesfully!" visible="false" />
-         </children></AnchorPane> -->
+               </children>
+         </AnchorPane> -->
    </children>
    <stylesheets>
       <URL value="@../styles/global.css" />
