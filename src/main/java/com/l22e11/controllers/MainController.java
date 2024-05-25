@@ -33,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ChoiceBox;
 import model.User;
 
 public class MainController implements Initializable {
@@ -82,7 +83,7 @@ public class MainController implements Initializable {
         inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack};
         inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError, chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError};
 
-        for (int idx = 0; idx < 2; ++idx) { // TO CHANGE TO LENGTH INSTEAD OF 2
+        for (int idx = 0; idx < 2; ++idx) {
             final int i = idx;
             // When obtaining or losing focus validate field anc change colour
             inputBoxes[i].focusedProperty().addListener((obs, oldV, newV) ->  {
@@ -215,6 +216,13 @@ public class MainController implements Initializable {
 
         // if (categories.contains(victimCategory)) AccountWrapper.removeCategory(); CATEGORY REMOVED CORRECTLY
         // else CATEGORY WAS ALREADY REMOVED
+    }
+
+    @FXML //TODO
+    private void onListCategories(ActionEvent event) {
+
+        List<Category> categories = AccountWrapper.getUserCategories();
+        // DISPLAY EACH CATEGORY
     }
 
     @FXML //TODO
