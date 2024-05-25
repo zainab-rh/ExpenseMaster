@@ -33,10 +33,14 @@ public class App extends Application {
     public void start(Stage stage) {
         mainStage = stage;
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("images/coins.png")));
+		mainStage.initStyle(StageStyle.TRANSPARENT);
         loadFonts();
         loadStyles();
-        // showLandingStage();
-        showMainStage();
+		// Start in login:
+        showLandingStage();
+
+		// Start in main:
+        // AccountWrapper.loginUser("ruben", "123456"); showMainStage();
     }
 
     /*
@@ -50,7 +54,6 @@ public class App extends Application {
         mainStage.setResizable(false);
         mainStage.sizeToScene();
         scene.setFill(Color.TRANSPARENT);
-        mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.show();
     }
 
@@ -66,7 +69,6 @@ public class App extends Application {
         mainStage.setMaximized(true);
         // mainStage.setFullScreen(true);
         scene.setFill(Color.TRANSPARENT);
-        mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.show();
     }
 

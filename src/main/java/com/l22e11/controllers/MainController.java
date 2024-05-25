@@ -44,7 +44,7 @@ public class MainController implements Initializable {
     @FXML
     private Label fullName;
 
-    @FXML
+    /*@FXML
 	private TextField categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
     @FXML
 	private AnchorPane categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
@@ -67,16 +67,15 @@ public class MainController implements Initializable {
     private final String EMPTY_ERROR = "Field empty";
     private final String DIGITS_AND_SYMBOLS_ERROR = "Remove any symbols or digits";
     private final String CAPITALIZATION_ERROR = "Incorrect capitalization"; 
-
-    @Override
+    */
+	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        AccountWrapper.loginUser("ruben", "12345678");
         User user = AccountWrapper.getAuthenticatedUser();
         Platform.runLater(() -> {
             profilePic.setImage(user.getImage());
             fullName.setText(user.getName() + " " + user.getSurname());
         });
-        inputBoxes = new TextInputControl[]{categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory};
+        /*inputBoxes = new TextInputControl[]{categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory};
         inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack};
         inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError, chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError};
 
@@ -103,10 +102,10 @@ public class MainController implements Initializable {
             //         inputBoxes[i].fireEvent(tabKeyEvent);
             //     }
             // });
-        }
+        }*/
         
     }
-
+	/*
     //TODO
     private boolean validateField(int i) {
         switch (i) {
@@ -228,7 +227,7 @@ public class MainController implements Initializable {
     private void setInputBoxColor(Node inputBox, Node inputBoxBack, boolean active, String color) {
         inputBox.setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
         inputBoxBack.setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
-    }
+    }*/
 
     @FXML
     private void onAppMinimize(MouseEvent event) {
