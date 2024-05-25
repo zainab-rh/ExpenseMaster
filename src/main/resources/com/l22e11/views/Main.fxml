@@ -4,7 +4,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -60,11 +63,7 @@
                         </VBox>
                         <HBox alignment="CENTER" prefHeight="93.0" prefWidth="300.0" spacing="8.0" styleClass="userLogOutArea">
                            <children>
-                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/arrow.png" />
-                                 </image>
-                              </ImageView>
+                              <Label minWidth="-Infinity" onMouseClicked="#onAppMinimize" styleClass="icon" text="" textAlignment="RIGHT" />
                               <Button fx:id="logOutSubmit" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onLogOut" prefHeight="40.0" prefWidth="97.0" text="Log Out" textAlignment="CENTER" underline="true">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -75,26 +74,92 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="1083.0" prefWidth="1247.0">
+            <AnchorPane prefHeight="1083.0" prefWidth="1620.0">
                <children>
-                  <VBox prefHeight="1083.0" prefWidth="1247.0">
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="1620.0" spacing="8.0">
                      <children>
-                        <HBox prefHeight="521.0" prefWidth="1247.0" />
-                        <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="1247.0" spacing="8.0">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/coins.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="title" prefHeight="59.0" prefWidth="185.0" text="ExpenseViewer" />
-                           </children>
-                           <VBox.margin>
-                              <Insets top="32.0" />
-                           </VBox.margin>
-                        </HBox>
+                        <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/coins.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="title" prefHeight="59.0" prefWidth="171.0" text="CategoryManager" />
+                        <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/coins.png" />
+                           </image>
+                        </ImageView>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox layoutY="79.0" prefHeight="1003.0" prefWidth="1620.0">
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1003.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
+                              <children>
+                                 <Label fx:id="categoryNameBack" styleClass="authenticationLabels" text="Enter Category name:" />
+                                 <AnchorPane fx:id="loginUserBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                                    <children>
+                                       <TextField fx:id="categoryName" promptText="nick123" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                                    </children>
+                                 </AnchorPane>
+                                    <Label fx:id="categoryNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" visible="false" wrapText="true" />
+                                 <Label styleClass="authenticationLabels" text="Enter Category description:" />
+                                 <AnchorPane fx:id="categoryDescriptionBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                                    <children>
+                                    <TextArea fx:id="categoryDescription" prefHeight="200.0" prefWidth="200.0" />
+                                    </children>
+                                 </AnchorPane>
+                                 <Label fx:id="categoryDescriptionError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" visible="false" wrapText="true">
+                                       <VBox.margin>
+                                          <Insets bottom="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 <AnchorPane maxWidth="1.7976931348623157E308">
+                                    <children>
+                                       <Button fx:id="addCategory" onAction="#onAddCategory" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0">
+                                          <graphic>
+                                             <HBox alignment="CENTER">
+                                                <children>
+                                                   <Label text="Add Category" />
+                                                </children>
+                                                <VBox.margin>
+                                                   <Insets left="32.0" right="32.0" />
+                                                </VBox.margin>
+                                             </HBox>
+                                          </graphic>
+                                       </Button>
+                                    </children>
+                                 </AnchorPane>
+                              </children>
+                           </VBox>
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1003.0" prefWidth="810.0">
+                           <children>
+                              <Label styleClass="authenticationLabels" text="Choose a category:" />
+                              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                                 <children>
+                                    <ComboBox layoutX="172.0" layoutY="3.0" prefHeight="59.0" prefWidth="467.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <Button fx:id="removeCategory" onAction="#onRemoveCategory" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0">
+                                       <graphic>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <Label text="Remove Category" />
+                                                <Label text="" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="32.0" right="32.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

@@ -45,10 +45,12 @@ public class MainController implements Initializable {
     @FXML
     private Label fullName;
     @FXML
-    private Button logOutSubmit;
+    private Button logOutSubmit; // addCategory
 
     /*@FXML
-	private TextField categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
+	private TextField categoryName, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
+    @FXML
+    private TextArea categoryDescription;
     @FXML
 	private AnchorPane categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
 
