@@ -95,8 +95,8 @@
                      <children>
                         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1003.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
                               <children>
-                                 <Label fx:id="categoryNameBack" styleClass="authenticationLabels" text="Enter Category name:" />
-                                 <AnchorPane fx:id="loginUserBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                                 <Label styleClass="authenticationLabels" text="Enter Category name:" />
+                                 <AnchorPane fx:id="categoryNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                     <children>
                                        <TextField fx:id="categoryName" promptText="nick123" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                     </children>

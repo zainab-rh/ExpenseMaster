@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
@@ -45,17 +46,19 @@ public class MainController implements Initializable {
     @FXML
     private Label fullName;
     @FXML
-    private Button logOutSubmit; // addCategory
+    private Button logOutSubmit, addCategory, removeCategory;
 
-    /*@FXML
-	private TextField categoryName, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
+    @FXML
+	private TextField categoryName;; //, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
     @FXML
     private TextArea categoryDescription;
     @FXML
-	private AnchorPane categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
+	private AnchorPane categoryNameBack, categoryDescriptionBack; //chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
 
     @FXML
-	private Label categoryNameError, categoryDescriptionError, chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError;
+	private Label categoryNameError, categoryDescriptionError; // chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError;
+
+    /* 
 
     private final int CATEGORY_NAME_IDX = 0, CATEGORY_DESCRIPTION_IDX = 1, CHARGE_NAME_IDX = 2, CHARGE_DESCRIPTION_IDX = 3, CHARGE_COST_IDX = 4, CHARGE_UNITS_IDX = 5, CHARGE_CATEGORY_IDX = 6;
     private final int MAX_LENGTH_DESCRIPTION = 500;
