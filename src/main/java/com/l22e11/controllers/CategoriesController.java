@@ -46,7 +46,6 @@ public class CategoriesController implements Initializable {
             return isOk;
   
     }
-}
     @FXML //TODO 
     private void onAddCategory(ActionEvent event) {
         boolean isOk = validateCategory();
@@ -93,7 +92,6 @@ public class CategoriesController implements Initializable {
             System.out.println(category.getName() + " - " + category.getDescription());
         }
     }
-
-
+    }
 
 

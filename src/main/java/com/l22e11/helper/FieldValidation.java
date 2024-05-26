@@ -19,7 +19,8 @@ import model.User;
 public class FieldValidation {
 
 	public static final int LOGIN_USER_IDX = 0, LOGIN_PASS_IDX = 1, REGISTER_NAME_IDX = 2, REGISTER_SURNAME_IDX = 3, REGISTER_NICKNAME_IDX = 4, REGISTER_EMAIL_IDX = 5, REGISTER_PASS_IDX = 6, REGISTER_PASS_CONFIRM_IDX = 7, REGISTER_PROFILE_IMAGE_IDX = 8;
-    public static final int CATEGORY_NAME_IDX = 0, CATEGORY_DESCRIPTION_IDX = 1;
+   
+    public static final int CATEGORY_NAME_IDX = 9, CATEGORY_DESCRIPTION_IDX = 10;
     public static final String CATEGORY_NAME_ERROR = "Please enter a valid category name";
     public static final String CATEGORY_DESCRIPTION_ERROR = "Please enter a valid category description";
     
