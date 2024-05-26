@@ -68,7 +68,7 @@ public class App extends Application {
     public static void showMainStage() {
         App.close();
         mainStage.setTitle("Expense Master");
-        scene = new Scene(loadFXML("Main"), 1920, 600);
+        scene = new Scene(loadFXML("Main"), 1500, 900);
         scene.setFill(Color.TRANSPARENT);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
