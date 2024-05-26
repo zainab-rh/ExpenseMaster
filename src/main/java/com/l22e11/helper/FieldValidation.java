@@ -19,7 +19,10 @@ import model.User;
 public class FieldValidation {
 
 	public static final int LOGIN_USER_IDX = 0, LOGIN_PASS_IDX = 1, REGISTER_NAME_IDX = 2, REGISTER_SURNAME_IDX = 3, REGISTER_NICKNAME_IDX = 4, REGISTER_EMAIL_IDX = 5, REGISTER_PASS_IDX = 6, REGISTER_PASS_CONFIRM_IDX = 7, REGISTER_PROFILE_IMAGE_IDX = 8;
-
+    public static final int CATEGORY_NAME_IDX = 0, CATEGORY_DESCRIPTION_IDX = 1;
+    public static final String CATEGORY_NAME_ERROR = "Please enter a valid category name";
+    public static final String CATEGORY_DESCRIPTION_ERROR = "Please enter a valid category description";
+    
 	public static final Pattern NICK_PATTERN = Pattern.compile("^[A-Za-z0-9]{4,}$");
     public static final Pattern NAMES_PATTERN = Pattern.compile("^([A-ZÑ]{1}[a-zñ]{1,}[\\s]{0,1})*$");
     public static final Pattern EXTRA_SPACES_PATTERN = Pattern.compile("(^\\s|\\s\\s|\\s$)");
@@ -44,8 +47,13 @@ public class FieldValidation {
 	public static ImageView profileImage;
 
 	public static void setInputBoxColor(int i, boolean active, String color) {
-        inputBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
-        inputBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
+        switch (i) {
+            case CATEGORY_NAME_IDX:
+            case CATEGORY_DESCRIPTION_IDX:
+                inputBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
+                inputBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
+                break;
+        }
     }
 
 	public static void setFocusListener(int i) {
@@ -84,6 +92,8 @@ public class FieldValidation {
             case REGISTER_PASS_IDX:          return validateRegisterPass();
             case REGISTER_PASS_CONFIRM_IDX:  return validateRegisterPassConfirm();
 			case REGISTER_PROFILE_IMAGE_IDX: return validateImage();
+            case CATEGORY_NAME_IDX:         return validateCategoryName();
+            case CATEGORY_DESCRIPTION_IDX:  return validateCategoryDescription();
         }
 		return false;
     }
@@ -305,4 +315,34 @@ public class FieldValidation {
 			profileImage.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
 		}), 50, TimeUnit.MILLISECONDS);
 	}
+    public static boolean validateCategoryName() {
+        if (checkIfEmpty(CATEGORY_NAME_IDX)) return false;
+    
+        String textToCheck = inputBoxes[CATEGORY_NAME_IDX].getText();
+    
+        boolean result = !EXTRA_SPACES_PATTERN.matcher(textToCheck).find()
+                && !DIGITS_AND_SYMBOLS_PATTERN.matcher(textToCheck).find()
+                && CAPITALIZATION_PATTERN.matcher(textToCheck).find();
+    
+        inputErrorMessages[CATEGORY_NAME_IDX].setText(CATEGORY_NAME_ERROR);
+        inputErrorMessages[CATEGORY_NAME_IDX].setVisible(!result);
+        setInputBoxColor(CATEGORY_NAME_IDX, true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+    
+        return result;
+    }
+    
+    public static boolean validateCategoryDescription() {
+        if (checkIfEmpty(CATEGORY_DESCRIPTION_IDX)) return false;
+    
+        String textToCheck = inputBoxes[CATEGORY_DESCRIPTION_IDX].getText();
+    
+        boolean result = !EXTRA_SPACES_PATTERN.matcher(textToCheck).find()
+                && !DIGITS_AND_SYMBOLS_PATTERN.matcher(textToCheck).find();
+    
+        inputErrorMessages[CATEGORY_DESCRIPTION_IDX].setText(CATEGORY_DESCRIPTION_ERROR);
+        inputErrorMessages[CATEGORY_DESCRIPTION_IDX].setVisible(!result);
+        setInputBoxColor(CATEGORY_DESCRIPTION_IDX, true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+    
+        return result; 
+    }
 }
