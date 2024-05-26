@@ -1,0 +1,28 @@
+#profilePicPane {
+    -fx-background-radius: 75px;
+    -fx-border-radius: 75px;
+    -fx-border-color: -fx-primary-dark;
+    -fx-border-width: 2px;
+}
+
+#profilePicPane .icon {
+	-fx-text-fill: -fx-primary-light;
+	-fx-alignment: CENTER;
+	-fx-font-size: 40px;
+	-fx-padding: 8 0 0 2;
+}
+
+.authenticationLabels {
+	-fx-padding: 8 0 0 0;
+}
+
+#discardChanges {
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-primary;
+	-fx-border-width: 4px;
+	-fx-border-radius: 16px;
+}
+
+#discardChanges .label {
+	-fx-text-fill: -fx-primary;
+}

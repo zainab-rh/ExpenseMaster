@@ -1,12 +1,20 @@
 package com.l22e11.helper;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.Normalizer;
 
-import javafx.scene.Node;
+import javax.imageio.ImageIO;
+
+import com.l22e11.App;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
 public class Utils {
 
@@ -52,15 +60,33 @@ public class Utils {
         int x = (int) (imageToCrop.getWidth() - size)/2;
         Image croppedImage = new WritableImage(imageToCrop.getPixelReader(), x, 0, size, size);
 
-        if (croppedImage.getHeight() == 0.0) {
-            return null;
-        }
+        if (croppedImage.getHeight() == 0.0) return null;
 
         size = (int) (nodeToClip.getWidth() / 2);
-        System.out.println(size);
         Circle clip = new Circle(size, size, size-2);
         nodeToClip.setClip(clip);
 
         return croppedImage;
     }
+
+	/*
+	 * Get image from computer, crop it and display in specified ImageView
+	 */
+	public static Image loadNewProfilePictureInto(Region imagePane) {
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(App.getMainStage());
+        Image croppedImage = null;
+
+        if (selectedFile != null) {
+            try {
+				BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            	croppedImage = Utils.cropImage(SwingFXUtils.toFXImage(bufferedImage, null), imagePane);
+			} catch (IOException e) {}
+        }
+		return croppedImage;
+	}
 }

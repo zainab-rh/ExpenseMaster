@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="1080.0" maxWidth="1620.0" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.SettingsController">
+  <content>
+    <StackPane maxHeight="1080.0" maxWidth="1620.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1620.0">
+         <children>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="300.0" minHeight="-Infinity" minWidth="300.0">
+               <children>
+                  <StackPane>
+                     <children>
+                        <StackPane fx:id="profilePicPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" StackPane.alignment="CENTER">
+            				<children>
+            				<Pane fx:id="profilePicPaneCroppable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0">
+            					<children>
+            						<ImageView fx:id="profilePic" fitHeight="146.0" fitWidth="146.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="2.0" y="2.0" />
+            					</children>
+            				</Pane>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="icon" text="" StackPane.alignment="CENTER" />
+            				</children>
+            			</StackPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="16.0" />
+                     </VBox.margin>
+                  </StackPane>
+                  <Label styleClass="authenticationLabels" text="Enter your name:" />
+                  <AnchorPane fx:id="updateNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <TextField fx:id="updateName" promptText="Pedro" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updateNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Name" textAlignment="CENTER" visible="false" wrapText="true" />
+                  <Label styleClass="authenticationLabels" text="Enter your surname/s:" />
+                  <AnchorPane fx:id="updateSurnameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <TextField fx:id="updateSurname" promptText="Martinez Ramirez" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updateSurnameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Surname" textAlignment="CENTER" visible="false" wrapText="true" />
+                  <Label disable="true" opacity="0.4" styleClass="authenticationLabels" text="Enter a memorable nickname:" />
+                  <AnchorPane fx:id="updateNicknameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <TextField fx:id="updateNickname" disable="true" opacity="0.4" promptText="Pedrito89" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updateNicknameError" contentDisplay="TEXT_ONLY" disable="true" maxWidth="1.7976931348623157E308" opacity="0.4" styleClass="errorMessage" text="Incorrect nickname" visible="false" wrapText="true" />
+                  <Label styleClass="authenticationLabels" text="Enter your email:" />
+                  <AnchorPane fx:id="updateEmailBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <TextField fx:id="updateEmail" promptText="pedromarti@gmail.com" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updateEmailError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect email" visible="false" wrapText="true" />
+                  <Label styleClass="authenticationLabels" text="Enter a memorable password:" />
+                  <AnchorPane fx:id="updatePassBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <PasswordField fx:id="updatePass" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updatePassError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Password too short" visible="false" wrapText="true" />
+                  <Label styleClass="authenticationLabels" text="Rewrite your password:" />
+                  <AnchorPane fx:id="updatePassConfirmBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+                     <children>
+                        <PasswordField fx:id="updatePassConfirm" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="updatePassConfirmError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Password different" visible="false" wrapText="true" />
+                  <Label fx:id="updateBrowseProfilePicError" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Label" visible="false" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Label>
+				  <AnchorPane>
+                     <children>
+                        <Button fx:id="discardChanges" onAction="#onDiscardChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+							<graphic>
+								<HBox alignment="CENTER">
+									<children>
+										<Label text="Discard Changes" />
+										<Label styleClass="icon" text="" />
+									</children>
+									<VBox.margin>
+										<Insets left="32.0" right="32.0" />
+									</VBox.margin>
+								</HBox>
+							</graphic>
+						</Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+				  <AnchorPane>
+                     <children>
+                        <Button fx:id="saveChanges" onAction="#onSaveChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+							<graphic>
+								<HBox alignment="CENTER">
+									<children>
+										<Label text="Save Changes" />
+										<Label styleClass="icon" text="" />
+									</children>
+									<VBox.margin>
+										<Insets left="32.0" right="32.0" />
+									</VBox.margin>
+								</HBox>
+							</graphic>
+						</Button>
+                     </children>
+                  </AnchorPane>
+				  
+				  
+               </children>
+               <StackPane.margin>
+                  <Insets top="64.0" />
+               </StackPane.margin>
+            </VBox>
+         </children>
+	</StackPane>
+  </content>
+   <stylesheets>
+      <URL value="@../styles/global.css" />
+      <URL value="@../styles/login.css" />
+      <URL value="@../styles/settings.css" />
+   </stylesheets>
+</ScrollPane>

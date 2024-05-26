@@ -26,6 +26,17 @@ public class AccountWrapper {
         return (isOk ? 1 : 0);
     }
 
+	/*
+	 * Update user given current User object and parameters to update
+	 */
+	public static void updateUser(User user, String name, String surname, String email, String password, Image image) {
+		user.setName(name);
+		user.setSurname(surname);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setImage(image);
+	}
+
     /*
      * Wrapper call to the LogIn method from the Acount API
      */

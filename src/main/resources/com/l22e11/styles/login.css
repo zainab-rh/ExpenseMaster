@@ -57,13 +57,13 @@
 }
 
 .errorMessage {
-	-fx-text-fill: -fx-accent4;
+	-fx-text-fill: -fx-accent-red;
     -fx-padding: 0 8 0 8;
     -fx-font-size: 12px;
 }
 
 .inputBackground {
-	/* -fx-background-color: -fx-accent1-soft; */
+	/* -fx-background-color: -fx-accent-blue-soft; */
 	-fx-background-radius: 20px;
 	-fx-pref-height: 54px;
 }
@@ -71,7 +71,7 @@
 .inputBox {
 	-fx-background-color: -fx-background-primary;
 	-fx-background-radius: 16px;
-	/* -fx-border-color: -fx-accent1; */
+	/* -fx-border-color: -fx-accent-blue; */
 	-fx-border-color: -fx-primary-soft;
 	-fx-border-width: 2px;
 	-fx-border-radius: 16px;
@@ -104,8 +104,8 @@
 }
 
 #profilePicPicker:hover {
-    -fx-background-color: -fx-accent1-soft;
-    -fx-border-color: -fx-accent1;
+    -fx-background-color: -fx-accent-blue-soft;
+    -fx-border-color: -fx-accent-blue;
     -fx-cursor: hand;
 }
 

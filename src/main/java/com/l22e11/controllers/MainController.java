@@ -1,40 +1,29 @@
 package com.l22e11.controllers;
 
 import javafx.scene.input.MouseEvent;
-import java.util.regex.Pattern;
-import java.util.Iterator;
-import java.util.List;
-import model.Category;
+import java.util.Map;
+import static java.util.Map.entry;
 
 import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.Utils;
-import com.l22e11.helper.Colors;
+import com.l22e11.helper.MainTab;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.l22e11.App;
-import com.l22e11.helper.AccountWrapper;
-
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ChoiceBox;
 import model.User;
 
 public class MainController implements Initializable {
@@ -45,18 +34,35 @@ public class MainController implements Initializable {
     private ImageView profilePic;
     @FXML
     private Label fullName;
-    @FXML
-    private Button logOutSubmit, addCategory, removeCategory;
+	@FXML
+	private Pane profilePicPaneCroppable;
+	@FXML
+	private StackPane mainTab;
+	@FXML
+	private HBox logOutArea;
+	@FXML
+	private VBox userArea, tabOptions;
 
-    @FXML
-	private TextField categoryName;; //, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
-    @FXML
-    private TextArea categoryDescription;
-    @FXML
-	private AnchorPane categoryNameBack, categoryDescriptionBack; //chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
+	private MainTab currentTab = MainTab.NONE;
+	final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
+	final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
+		entry(MainTab.NONE, 0),
+		entry(TABS[0], 0),
+		entry(TABS[1], 1),
+		entry(TABS[2], 2)
+	);
+	ObservableList<Node> tabList;
+    // @FXML
+    // private Button addCategory, removeCategory;
+    // @FXML
+	// private TextField categoryName, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory;
+    // @FXML
+    // private TextArea categoryDescription;
+    // @FXML
+	// private AnchorPane categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack;
 
-    @FXML
-	private Label categoryNameError, categoryDescriptionError; // chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError;
+    // @FXML
+	// private Label categoryNameError, categoryDescriptionError, chargeNameError, chargeDescriptionError, chargeCostError, chargeUnitsError, chargeCategoryError;
 
     /* 
 
@@ -65,24 +71,31 @@ public class MainController implements Initializable {
     private TextInputControl inputBoxes[];
     private AnchorPane inputBoxesBack[];
     private Label inputErrorMessages[];
-
-
-    private final Pattern NAMES_PATTERN = Pattern.compile("^([A-ZÑ]{1}[a-zñ]{1,}[\\s]{0,1})*$");
-    private final Pattern EXTRA_SPACES_PATTERN = Pattern.compile("(^\\s|\\s\\s|\\s$)");
-    private final Pattern DIGITS_AND_SYMBOLS_PATTERN = Pattern.compile("[^A-ZÑa-zñ\\s]");
-    private final String NAME_ERROR = "Invalid name of a category";
-    private final String DESCRIPTION_ERROR = "Description should be less than 500 charcaters";
-    private final String EMPTY_ERROR = "Field empty";
-    private final String DIGITS_AND_SYMBOLS_ERROR = "Remove any symbols or digits";
-    private final String CAPITALIZATION_ERROR = "Incorrect capitalization"; 
     */
 	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+		// Display name and profile picture in sidebar
         User user = AccountWrapper.getAuthenticatedUser();
         Platform.runLater(() -> {
-            profilePic.setImage(user.getImage());
+            profilePic.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
             fullName.setText(user.getName() + " " + user.getSurname());
         });
+
+		// Logout button
+		logOutArea.setOnMouseClicked((event) -> {
+			boolean isOk = AccountWrapper.logOutUser();
+        	if (isOk) App.showLandingStage();
+		});
+
+		userArea.setOnMouseClicked((event) -> {setMainTab(MainTab.SETTINGS);});
+
+		tabList = tabOptions.getChildren();
+		for (int idx = 0; idx < tabList.size(); ++idx) {
+			final int i = idx;
+			tabList.get(i).setOnMouseClicked((event) -> {setMainTab(TABS[i]);});
+		}
+
+		setMainTab(MainTab.DASHBOARD);
 
         /*inputBoxes = new TextInputControl[]{categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory};
         inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack};
@@ -138,33 +151,6 @@ public class MainController implements Initializable {
         setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, Colors.RED_ACCENT);
 
         return isEmpty;
-    }
-
-    
-    private boolean validateName(int idx) {
-        if (checkIfEmpty(idx)) return false;
-
-        String textToCheck = inputBoxes[idx].getText();
-        String inputWithoutDiacritics = Utils.removeAccents(textToCheck);
-
-        boolean result = true;
-        
-        // Check for digits and symbols
-        if (DIGITS_AND_SYMBOLS_PATTERN.matcher(inputWithoutDiacritics).find()) {
-            inputErrorMessages[idx].setText(DIGITS_AND_SYMBOLS_ERROR);
-            result = false;
-        }
-        
-        inputErrorMessages[idx].setVisible(!result);
-        setInputBoxColor(inputBoxes[idx], inputBoxesBack[idx], true, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-
-        if (result) {
-            textToCheck = Utils.removeExtraWhiteSpaces(textToCheck);
-            textToCheck = Utils.capitalize(textToCheck);
-            inputBoxes[idx].setText(textToCheck);
-        }
-
-        return result;
     }
     
     private boolean validateDescription(int idx) {
@@ -235,24 +221,32 @@ public class MainController implements Initializable {
 
         List<Category> categories = AccountWrapper.getUserCategories();
         // DISPLAY EACH CATEGORY
-    }
-
-
-
-
-    private void setInputBoxColor(Node inputBox, Node inputBoxBack, boolean active, String color) {
-        inputBox.setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
-        inputBoxBack.setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
     }*/
 
+	/*
+	 * Correct way of switching tabs
+	 */
+	private void setMainTab(MainTab selection) {
+		if (selection == currentTab) return;
 
+		if (currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(currentTab)).getStyleClass().remove("selectedSideBarItem");
+		if (selection != MainTab.SETTINGS) tabList.get(TABS_MAP.get(selection)).getStyleClass().add("selectedSideBarItem");
+		currentTab = selection;
 
-    @FXML
-    private void onLogOut(MouseEvent event) {
-        boolean isOk = AccountWrapper.logOutUser();
-        if (isOk) App.showLandingStage();
-    }
+		String fxmlName = null;
+		switch (selection) {
+			case DASHBOARD: fxmlName = "Dashboard"; break;
+			case CATEGORIES: fxmlName = "Categories"; break;
+			case EXPENSES: fxmlName = "Expenses"; break;
+			case SETTINGS: fxmlName = "Settings"; break;
+			default: break;
+		}
 
+		Node tab = App.loadFXML(fxmlName);
+		mainTab.getChildren().clear();
+		mainTab.getChildren().add(tab);
+		
+	}
 
     @FXML
     private void onAppMinimize(MouseEvent event) {

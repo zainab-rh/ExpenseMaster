@@ -44,23 +44,24 @@
 
     -fx-primary: #2C2C2C;
 	-fx-primary-soft: #2C2C2C60;
+	-fx-primary-dark: #222222;
     -fx-primary-grey: #e0e0e0;
     -fx-primary-light: #F1EFE3;
     -fx-background-primary: #F8F7F2;
     -fx-background-secondary: #FFFFFF;
-    -fx-accent1: #A8ADFD;
-	-fx-accent1-soft: #A8ADFD7F;
-    -fx-accent2: #F7D78A;
-	-fx-accent2-soft: #F7D78A7F;
-    -fx-accent3: #C7D0BD;
-	-fx-accent3-soft: #C7D0BD7F;
-    -fx-accent4: #F78A8A;
-	-fx-accent4-soft: #F78A8A7F;
+    -fx-accent-blue: #A8ADFD;
+	-fx-accent-blue-soft: #A8ADFD7F;
+    -fx-accent-yellow: #F7D78A;
+	-fx-accent-yellow-soft: #F7D78A7F;
+    -fx-accent-green: #C7D0BD;
+	-fx-accent-green-soft: #C7D0BD7F;
+    -fx-accent-red: #F78A8A;
+	-fx-accent-red-soft: #F78A8A7F;
 }
 
 #rootPane {
     -fx-background-color: -fx-background-primary;
-    /* -fx-background-color: -fx-accent2-soft; */
+    /* -fx-background-color: -fx-accent-yellow-soft; */
 }
 
 * {
@@ -74,7 +75,7 @@
     -fx-font-size: 32px;
     -fx-font-family: 'Montserrat Black';
     -fx-font-weight: 800;
-    -fx-text-fill: -fx-accent2;
+    -fx-text-fill: -fx-accent-yellow;
 }
 
 .icon {
@@ -106,5 +107,5 @@
 
 .window-bar .icon:hover {
     -fx-cursor: hand;
-    -fx-text-fill: -fx-accent4;
+    -fx-text-fill: -fx-accent-red;
 }

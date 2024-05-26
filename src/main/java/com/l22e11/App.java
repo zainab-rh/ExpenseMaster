@@ -38,11 +38,14 @@ public class App extends Application {
 		mainStage.initStyle(StageStyle.TRANSPARENT);
         loadFonts();
         loadStyles();
-		// Start in login:
-        showLandingStage();
 
-		// Start in main:
-        AccountWrapper.loginUser("pediro89", "123456789"); showMainStage();
+		final boolean START_IN_LOGIN = false;
+		if (START_IN_LOGIN) {
+        	showLandingStage();
+		} else {
+			AccountWrapper.loginUser("pediro89", "12345678");
+			showMainStage();
+		}
     }
 
     /*
@@ -50,12 +53,12 @@ public class App extends Application {
      */
     public static void showLandingStage() {
         App.close();
-        scene = new Scene(loadFXML("Landing"), 1000, 1000);
         mainStage.setTitle("Expense Master - Login");
+        scene = new Scene(loadFXML("Landing"), 1000, 1000);
+        scene.setFill(Color.TRANSPARENT);
         mainStage.setScene(scene);
         mainStage.setResizable(false);
         mainStage.sizeToScene();
-        scene.setFill(Color.TRANSPARENT);
         mainStage.show();
     }
 
@@ -64,13 +67,13 @@ public class App extends Application {
      */
     public static void showMainStage() {
         App.close();
-        scene = new Scene(loadFXML("Main"), 1920, 1080);
         mainStage.setTitle("Expense Master");
+        scene = new Scene(loadFXML("Main"), 1920, 1080);
+        scene.setFill(Color.TRANSPARENT);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
         mainStage.setMaximized(true);
         // mainStage.setFullScreen(true);
-        scene.setFill(Color.TRANSPARENT);
         mainStage.show();
     }
 
@@ -89,7 +92,7 @@ public class App extends Application {
      * Used by this.setRoot() for loading fxml structure
      * If we want to read "primary.fxml", just call loadFXML("primary")s
      */
-    private static Parent loadFXML(String fxml) {
+    public static Parent loadFXML(String fxml) {
         String viewsDirectory = "views" + File.separator;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewsDirectory + fxml + ".fxml"));
         try { return fxmlLoader.load(); }
@@ -118,11 +121,13 @@ public class App extends Application {
         // String fontStyles[] = {"Medium"};
         String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black"};//, "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
         for (int i = 0; i < fontStyles.length; ++i) {
-            Font a = Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 14);
-            System.out.println(a.getName() + "   " + a.getFamily());
+            // Font a = 
+			Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 14);
+            // System.out.println(a.getName() + "   " + a.getFamily());
         }
-        Font a = Font.loadFont(getClass().getResourceAsStream("fonts/bootstrap-icons.ttf"), 26);
-        System.out.println(a.getName() + "   " + a.getFamily());
+        // Font a = 
+		Font.loadFont(getClass().getResourceAsStream("fonts/bootstrap-icons.ttf"), 26);
+        // System.out.println(a.getName() + "   " + a.getFamily());
     }
     
     /*

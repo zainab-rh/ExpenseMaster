@@ -2,12 +2,16 @@
     -fx-background-color: -fx-primary;
 }
 
+#sideBar * {
+	-fx-text-fill: -fx-primary-light;
+}
+
 #title, #title * {
+	-fx-text-fill: -fx-accent-yellow;
     -fx-font-size: 16px;
 }
 
 #userArea * {
-    -fx-text-fill: -fx-primary-light;
     -fx-font-size: 14px;
 }
 
@@ -17,16 +21,70 @@
 
 #userArea:hover {
     -fx-background-radius: 32px;
-    -fx-background-color: -fx-accent2-soft;
+    -fx-background-color: -fx-accent-yellow-soft;
     -fx-cursor: hand;
 }
 
-#profilePic {
-    -fx-background-radius: 40px;
-    -fx-border-radius: 40px;
+#profilePicPane {
+    -fx-background-radius: 55px;
+    -fx-border-radius: 55px;
+    -fx-border-color: -fx-primary-dark;
+    -fx-border-width: 2px;
 }
 
-#logOutSubmit {
-    -fx-text-fill: -fx-primary-light;
+.sideBarItem {
+	-fx-alignment: CENTER-LEFT;
+	-fx-cursor: hand;
 }
 
+.sideBarItem * {
+	-fx-fill: -fx-primary-light;
+}
+
+.sideBarItem .rectangle {
+	-fx-fill: transparent; /*-fx-primary-light;*/
+	-fx-arc-height: 0;
+	-fx-arc-height: 0;
+	-fx-stroke-width: 0;
+}
+
+.sideBarItem .icon * {
+	-fx-font-size: 20px;
+}
+
+.sideBarItem:hover {
+	-fx-background-color: -fx-primary-dark;
+}
+
+.sideBarItem:hover .label * {
+	-fx-fill: -fx-accent-yellow;
+}
+
+.smallArrow * {
+	-fx-fill: transparent;
+}
+
+.sideBarItem:hover .smallArrow * {
+	-fx-fill: -fx-accent-yellow;
+}
+
+.selectedSideBarItem .label * {
+	-fx-fill: -fx-accent-yellow;
+}
+
+.selectedSideBarItem .smallArrow * {
+	-fx-fill: transparent;
+}
+
+.selectedSideBarItem .rectangle {
+	-fx-fill: -fx-accent-yellow;
+}
+
+#logOutArea {
+	-fx-background-radius: 32px;
+	-fx-cursor: hand;
+}
+
+#logOutArea:hover {
+	-fx-background-color: -fx-accent-red-soft;
+}
