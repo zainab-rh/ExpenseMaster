@@ -1,5 +1,4 @@
 package com.l22e11.helper;
-
 import java.time.LocalDate;
 import java.util.Random;
 import model.Category;
