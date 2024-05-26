@@ -11,6 +11,8 @@ import com.l22e11.helper.MainTab;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -65,18 +67,16 @@ public class MainController implements Initializable {
 
     private final int CATEGORY_NAME_IDX = 0, CATEGORY_DESCRIPTION_IDX = 1, CHARGE_NAME_IDX = 2, CHARGE_DESCRIPTION_IDX = 3, CHARGE_COST_IDX = 4, CHARGE_UNITS_IDX = 5, CHARGE_CATEGORY_IDX = 6;
     private final int MAX_LENGTH_DESCRIPTION = 500;
-    private TextInputControl inputBoxes[];
-    private AnchorPane inputBoxesBack[];
-    private Label inputErrorMessages[];
     */
 	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		// Display name and profile picture in sidebar
         User user = AccountWrapper.getAuthenticatedUser();
-        Platform.runLater(() -> {
-            profilePic.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
+
+		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
+			profilePic.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
             fullName.setText(user.getName() + " " + user.getSurname());
-        });
+		}), 50, TimeUnit.MILLISECONDS);
 
 		// Logout button
 		logOutArea.setOnMouseClicked((event) -> {

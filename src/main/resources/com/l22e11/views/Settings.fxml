@@ -13,10 +13,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <Pane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.SettingsController">
    <children>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="300.0" minHeight="-Infinity" minWidth="300.0">
+      <VBox maxWidth="364.0" minHeight="-Infinity" minWidth="364.0">
          <children>
             <StackPane>
                <children>
@@ -122,6 +121,9 @@
 				  
                                           				  
          </children>
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="64.0" />
+         </padding>
       </VBox>
    </children>
    <stylesheets>

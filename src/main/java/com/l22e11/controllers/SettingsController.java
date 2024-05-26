@@ -2,6 +2,8 @@ package com.l22e11.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.FieldValidation;
 import com.l22e11.helper.Utils;
@@ -9,10 +11,12 @@ import com.l22e11.helper.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -72,7 +76,11 @@ public class SettingsController implements Initializable {
 
 	@FXML
 	private void onDiscardChanges(ActionEvent event) {
-		resetFields();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirm Discard");
+		alert.setHeaderText("Discard Changes");
+		alert.setContentText("Are you sure you want to discard your changes?");
+		if (alert.showAndWait().isPresent()) resetFields();
 	}
 
 	@FXML
@@ -86,7 +94,15 @@ public class SettingsController implements Initializable {
 				FieldValidation.inputBoxes[FieldValidation.REGISTER_PASS_IDX].getText(),
 				FieldValidation.profileImage.getImage()
 			);
-			resetFields();
+
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirm Save");
+			alert.setHeaderText("Save Changes");
+			alert.setContentText("Are you sure you want to save your changes?");
+			if (alert.showAndWait().isPresent()) {
+				resetFields();
+				App.setRoot("Main");
+			}
 		}
 	}
 }

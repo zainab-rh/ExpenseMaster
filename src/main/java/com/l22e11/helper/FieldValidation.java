@@ -300,6 +300,7 @@ public class FieldValidation {
 		inputBoxes[REGISTER_EMAIL_IDX].setText(user.getEmail());
 		inputBoxes[REGISTER_PASS_IDX].setText(user.getPassword());
 		inputBoxes[REGISTER_PASS_CONFIRM_IDX].setText(user.getPassword());
+		
 		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
 			profileImage.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
 		}), 50, TimeUnit.MILLISECONDS);

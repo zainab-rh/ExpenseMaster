@@ -109,3 +109,40 @@
     -fx-cursor: hand;
     -fx-text-fill: -fx-accent-red;
 }
+
+.alert, .text-input-dialog {
+	-fx-background-color: -fx-primary-light;
+	-fx-padding: 32px;
+	-fx-background-radius: 48 48 48 48;
+    -fx-border-radius: 48 48 48 48;
+}
+
+.alert .button, .text-input-dialog .button {
+	-fx-background-radius: 8px;
+	-fx-alignment: CENTER;
+	-fx-padding: 8 8 8 8;
+	-fx-cursor: hand;
+}
+
+.alert .button *, .text-input-dialog .button * {
+	-fx-font-family: 'Montserrat SemiBold';
+}
+
+.alert .label, .text-input-dialog .label {
+	-fx-padding: 8 8 8 8;
+}
+
+.alert .button:hover, .text-input-dialog .button:hover {
+	-fx-background-color: -fx-primary-grey;
+}
+
+.text-input-dialog .text-field {
+	-fx-background-color: -fx-background-primary;
+	-fx-background-radius: 16px;
+	-fx-border-color: -fx-primary-soft;
+	-fx-border-width: 2px;
+	-fx-border-radius: 16px;
+	-fx-padding: 12px;
+	-fx-prompt-text-fill: -fx-primary-soft;
+	-fx-cursor: text;
+}
