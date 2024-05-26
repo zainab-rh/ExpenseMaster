@@ -115,7 +115,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Region VBox.vgrow="ALWAYS" />
                         <HBox fx:id="logOutArea" alignment="CENTER" spacing="8.0">
                            <children>
                               <Label minWidth="-Infinity" onMouseClicked="#onAppMinimize" styleClass="icon" text="" textAlignment="RIGHT" />
@@ -132,7 +132,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <StackPane fx:id="mainTab" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="mainTab" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" styleClass="window-bar" StackPane.alignment="TOP_RIGHT">

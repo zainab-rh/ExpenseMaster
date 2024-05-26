@@ -21,7 +21,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import model.User;
@@ -37,9 +36,7 @@ public class MainController implements Initializable {
 	@FXML
 	private Pane profilePicPaneCroppable;
 	@FXML
-	private StackPane mainTab;
-	@FXML
-	private HBox logOutArea;
+	private HBox logOutArea, mainTab;
 	@FXML
 	private VBox userArea, tabOptions;
 
