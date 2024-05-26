@@ -36,6 +36,27 @@ public class CategoriesController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+<<<<<<< HEAD
+        // FieldValidation.authenticationBoxes = new TextInputControl[]{categoryName, categoryDescription};
+        // FieldValidation.authenticationBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
+        // FieldValidation.authenticationErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
+    }
+
+    private boolean validateCategory() {
+        String name = categoryName.getText();
+        String description = categoryDescription.getText();
+        boolean isOk = AccountWrapper.registerCategory(name, description);
+        
+        // setInputBoxColor(authenticationBoxes[CATEGORY_NAME_IDX], authenticationBoxesBack[CATEGORY_NAME_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        // setInputBoxColor(authenticationBoxes[CATEGORY_DESCRIPTION_IDX], authenticationBoxesBack[CATEGORY_DESCRIPTION_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        
+        // categoryNameError.setText(NAME_ERROR);
+        // categoryNameError.setVisible(!isOk);
+        // categoryDescriptionError.setText(DESCRIPTION_ERROR);
+        // categoryDescriptionError.setVisible(!isOk);
+        
+        return isOk;
+=======
         FieldValidation.inputBoxes = new TextInputControl[]{categoryName, categoryDescription};
         FieldValidation.inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
         FieldValidation.inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
@@ -45,6 +66,7 @@ public class CategoriesController implements Initializable {
             boolean isOk = FieldValidation.validateCategoryName() && FieldValidation.validateCategoryDescription();
             return isOk;
   
+>>>>>>> 4fd0fe1fe9fbd8c8fd53c9caac0af1e178ce2f15
     }
     @FXML //TODO 
     private void onAddCategory(ActionEvent event) {

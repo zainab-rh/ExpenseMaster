@@ -36,7 +36,7 @@ public class MainController implements Initializable {
     @FXML
     private ImageView profilePic;
     @FXML
-    private Label fullName;
+    private Label fullName, tabTitle, tabSubTitle;
 	@FXML
 	private Pane profilePicPaneCroppable;
 	@FXML
@@ -49,6 +49,7 @@ public class MainController implements Initializable {
 	private static ImageView staticProfilePic;
 	private static Pane staticProfilePicPaneCroppable;
 	private static Label staticFullName;
+	private static Label staticTabTitle, staticTabSubTitle;
 
 	private static MainTab currentTab = MainTab.NONE;
 	private static SideTab currentSideTab = SideTab.NONE;
@@ -69,6 +70,8 @@ public class MainController implements Initializable {
 		staticProfilePic = profilePic;
 		staticFullName = fullName;
 		staticProfilePicPaneCroppable = profilePicPaneCroppable;
+		staticTabTitle = tabTitle;
+		staticTabSubTitle = tabSubTitle;
 		
 		// Display name and profile picture in sidebar
         reloadSideBar();
@@ -137,18 +140,36 @@ public class MainController implements Initializable {
 		if (selection != MainTab.SETTINGS) tabList.get(TABS_MAP.get(selection)).getStyleClass().add("selectedSideBarItem");
 		currentTab = selection;
 
-		String fxmlName = null;
+		String fxmlName = null, title = null, subTitle = null;
 		switch (selection) {
-			case DASHBOARD: fxmlName = "Dashboard"; break;
-			case CATEGORIES: fxmlName = "Categories"; break;
-			case EXPENSES: fxmlName = "Expenses"; break;
-			case SETTINGS: fxmlName = "Settings"; break;
+			case DASHBOARD:
+				fxmlName = "Dashboard";
+				title = "Dashboard";
+				subTitle = "Explore your Account";
+				break;
+			case CATEGORIES:
+				fxmlName = "Categories";
+				title = "Categories";
+				subTitle = "Manage Categories";
+				break;
+			case EXPENSES:
+				fxmlName = "Expenses";
+				title = "Expenses";
+				subTitle = "Manage Expenses";
+				break;
+			case SETTINGS:
+				fxmlName = "Settings";
+				title = "Settings";
+				subTitle = "Account Settings";
+				break;
 			default: break;
 		}
 
 		staticMainTab.getChildren().clear();
 		Node tab = App.loadFXML(fxmlName);
 		staticMainTab.getChildren().add(tab);
+		staticTabTitle.setText(title);
+		staticTabSubTitle.setText(subTitle);
 
 		VBox.setVgrow(tab, Priority.ALWAYS);
         HBox.setHgrow(tab, Priority.ALWAYS);

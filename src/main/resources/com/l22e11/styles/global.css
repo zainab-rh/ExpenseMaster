@@ -161,7 +161,7 @@
 	-fx-font-family: 'Montserrat Bold';
 }
 
-#tabTitleArea #tabSubtitle {
+#tabTitleArea #tabSubTitle {
 	-fx-font-size: 16px;
 	-fx-text-fill: -fx-primary-soft;
 	-fx-font-family: 'Montserrat SemiBold';

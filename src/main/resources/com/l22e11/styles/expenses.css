@@ -1,5 +1,5 @@
 #addExpenseButton {
-	-fx-border-color: -fx-primary-light;
+	-fx-border-color: -fx-primary;
 	-fx-border-width: 2px;
 	-fx-cursor: hand;
 	-fx-background-radius: 24px;
@@ -7,5 +7,9 @@
 }
 
 #addExpenseButton:hover {
-	-fx-background-color: -fx-primary-light;
+	-fx-background-color: -fx-primary;
+}
+
+#addExpenseButton:hover .label {
+	-fx-text-fill: -fx-primary-light;
 }

@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -140,15 +141,40 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minHeight="318.0" prefHeight="1920.0" HBox.hgrow="ALWAYS">
-               <content>
-                  <AnchorPane>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox fx:id="tabTitleArea" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
                      <children>
-                        <HBox fx:id="mainTab" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox>
+                           <children>
+                              <Label fx:id="tabTitle" />
+                              <Label fx:id="tabSubTitle" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
                      </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
+                     <padding>
+                        <Insets bottom="16.0" left="32.0" right="32.0" top="32.0" />
+                     </padding>
+                  </HBox>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets left="32.0" right="32.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minHeight="318.0" prefHeight="1920.0">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <HBox fx:id="mainTab" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="0.0" prefHeight="1920.0" HBox.hgrow="NEVER">
                <content>
                   <AnchorPane>

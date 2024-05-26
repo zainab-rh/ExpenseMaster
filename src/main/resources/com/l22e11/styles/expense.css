@@ -1,0 +1,7 @@
+* {
+	-fx-border-color: #00000022;
+}
+
+.inputBox .text-area * {
+	-fx-margin: 0;
+}

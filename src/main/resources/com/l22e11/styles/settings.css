@@ -3,6 +3,7 @@
     -fx-border-radius: 75px;
     -fx-border-color: -fx-primary-soft;
     -fx-border-width: 2px;
+	-fx-cursor: hand;
 }
 
 #profilePicPane .icon {
