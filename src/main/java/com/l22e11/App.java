@@ -56,6 +56,8 @@ public class App extends Application {
         mainStage.setTitle("Expense Master - Login");
         scene = new Scene(loadFXML("Landing"), 1000, 1000);
         scene.setFill(Color.TRANSPARENT);
+		mainStage.setMinHeight(1000);
+		mainStage.setMinWidth(1000);
         mainStage.setScene(scene);
         mainStage.setResizable(false);
         mainStage.sizeToScene();
@@ -70,6 +72,7 @@ public class App extends Application {
         mainStage.setTitle("Expense Master");
         scene = new Scene(loadFXML("Main"), 1500, 900);
         scene.setFill(Color.TRANSPARENT);
+		mainStage.setMinWidth(900);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
         mainStage.setMaximized(true);

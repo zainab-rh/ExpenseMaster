@@ -111,10 +111,10 @@
 }
 
 .alert, .text-input-dialog {
-	-fx-background-color: -fx-primary-light;
+	-fx-background-color: -fx-background;
 	-fx-padding: 32px;
-	-fx-background-radius: 48 48 48 48;
-    -fx-border-radius: 48 48 48 48;
+	/* -fx-background-radius: 48 48 48 48;
+    -fx-border-radius: 48 48 48 48; */
 }
 
 .alert .button, .text-input-dialog .button {

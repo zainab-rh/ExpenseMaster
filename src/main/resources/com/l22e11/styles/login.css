@@ -10,7 +10,7 @@
     -fx-text-fill: -fx-primary-light;
 }
 
-#authors *{
+#authors * {
     -fx-font-size: 16px;
 }
 
@@ -49,49 +49,6 @@
 
 .tab:selected .tab-label {
     -fx-text-fill: -fx-primary-light;
-}
-
-.authenticationLabels {
-	-fx-text-fill: -fx-primary;
-	-fx-padding: 0 8 0 8;
-}
-
-.errorMessage {
-	-fx-text-fill: -fx-accent-red;
-    -fx-padding: 0 8 0 8;
-    -fx-font-size: 12px;
-}
-
-.inputBackground {
-	/* -fx-background-color: -fx-accent-blue-soft; */
-	-fx-background-radius: 20px;
-	-fx-pref-height: 54px;
-}
-
-.inputBox {
-	-fx-background-color: -fx-background-primary;
-	-fx-background-radius: 16px;
-	/* -fx-border-color: -fx-accent-blue; */
-	-fx-border-color: -fx-primary-soft;
-	-fx-border-width: 2px;
-	-fx-border-radius: 16px;
-	-fx-padding: 12px;
-	-fx-prompt-text-fill: -fx-primary-soft;
-	-fx-cursor: text;
-}
-
-.buttonWithIcon {
-    -fx-cursor: hand;
-    -fx-pref-height: 40px;
-    -fx-padding: 0 32 0 44;
-    -fx-background-color: -fx-primary;
-    -fx-background-radius: 16px;
-}
-
-.buttonWithIcon * {
-    -fx-text-fill: -fx-primary-light;
-    -fx-font-weight: 700;
-    -fx-font-family: 'Montserrat Bold';
 }
 
 #profilePicPicker {

@@ -60,14 +60,14 @@
                         <children>
                            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
                               <children>
-                                 <Label styleClass="authenticationLabels" text="Enter your nickname:" />
+                                 <Label styleClass="inputFieldLabels" text="Enter your nickname:" />
                                  <AnchorPane fx:id="loginUserBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                     <children>
                                        <TextField fx:id="loginUser" promptText="nick123" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                     </children>
                                  </AnchorPane>
                                     <Label fx:id="loginNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" visible="false" wrapText="true" />
-                                 <Label styleClass="authenticationLabels" text="Enter your password:" />
+                                 <Label styleClass="inputFieldLabels" text="Enter your password:" />
                                  <AnchorPane fx:id="loginPassBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                     <children>
                                        <PasswordField fx:id="loginPass" promptText="********" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
@@ -95,7 +95,7 @@
                                        </Button>
                                     </children>
                                  </AnchorPane>
-                                    <Label fx:id="forgotPassword" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="authenticationLabels" text="Forgot nickname or password?" underline="true">
+                                    <Label fx:id="forgotPassword" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="inputFieldLabels" text="Forgot nickname or password?" underline="true">
                                        <VBox.margin>
                                           <Insets top="16.0" />
                                        </VBox.margin>
@@ -104,7 +104,7 @@
                                        </cursor>
                                     </Label>
                                     <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                    <Label fx:id="goToRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="authenticationLabels" text="Don't have an account? Register!" underline="true" VBox.vgrow="ALWAYS">
+                                    <Label fx:id="goToRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="inputFieldLabels" text="Don't have an account? Register!" underline="true" VBox.vgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Label>
@@ -120,42 +120,42 @@
                            <children>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="16.0">
                                  <children>
-                                    <Label styleClass="authenticationLabels" text="Enter your name:" />
+                                    <Label styleClass="inputFieldLabels" text="Enter your name:" />
                                     <AnchorPane fx:id="registerNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <TextField fx:id="registerName" promptText="Pedro" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                        </children>
                                     </AnchorPane>
                                     <Label fx:id="registerNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Name" textAlignment="CENTER" visible="false" wrapText="true" />
-                                    <Label styleClass="authenticationLabels" text="Enter your surname/s:" />
+                                    <Label styleClass="inputFieldLabels" text="Enter your surname/s:" />
                                     <AnchorPane fx:id="registerSurnameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <TextField fx:id="registerSurname" promptText="Martinez Ramirez" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                        </children>
                                     </AnchorPane>
                                     <Label fx:id="registerSurnameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Surname" textAlignment="CENTER" visible="false" wrapText="true" />
-                                    <Label styleClass="authenticationLabels" text="Enter a memorable nickname:" />
+                                    <Label styleClass="inputFieldLabels" text="Enter a memorable nickname:" />
                                     <AnchorPane fx:id="registerNicknameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <TextField fx:id="registerNickname" promptText="Pedrito89" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                        </children>
                                     </AnchorPane>
                                     <Label fx:id="registerNicknameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect nickname" visible="false" wrapText="true" />
-                                    <Label styleClass="authenticationLabels" text="Enter your email:" />
+                                    <Label styleClass="inputFieldLabels" text="Enter your email:" />
                                     <AnchorPane fx:id="registerEmailBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <TextField fx:id="registerEmail" promptText="pedromarti@gmail.com" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                        </children>
                                     </AnchorPane>
                                     <Label fx:id="registerEmailError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect email" visible="false" wrapText="true" />
-                                    <Label styleClass="authenticationLabels" text="Enter a memorable password:" />
+                                    <Label styleClass="inputFieldLabels" text="Enter a memorable password:" />
                                     <AnchorPane fx:id="registerPassBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <PasswordField fx:id="registerPass" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                        </children>
                                     </AnchorPane>
                                     <Label fx:id="registerPassError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Password too short" visible="false" wrapText="true" />
-                                    <Label styleClass="authenticationLabels" text="Rewrite your password:" />
+                                    <Label styleClass="inputFieldLabels" text="Rewrite your password:" />
                                     <AnchorPane fx:id="registerPassConfirmBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                                        <children>
                                           <PasswordField fx:id="registerPassConfirm" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
@@ -214,7 +214,7 @@
                                        </VBox.margin>
                                     </AnchorPane>
                                     <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-                                    <Label fx:id="goToLogin" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="authenticationLabels" text="Have an account? Log in!" underline="true">
+                                    <Label fx:id="goToLogin" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="inputFieldLabels" text="Have an account? Log in!" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Label>
@@ -240,6 +240,7 @@
    </children>
    <stylesheets>
       <URL value="@../styles/global.css" />
+	  <URL value="@../styles/input.css" />
       <URL value="@../styles/login.css" />
    </stylesheets>
 </StackPane>

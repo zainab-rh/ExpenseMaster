@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.ExpenseController">
+   <children>
+      <HBox>
+         <children>
+            <Label text="Expense ID:" />
+            <Label text="None" />
+         </children>
+      </HBox>
+      <Label styleClass="inputFieldLabels" text="Name of the Expense:" />
+   </children>
+   <stylesheets>
+      <URL value="@../styles/global.css" />
+      <URL value="@../styles/input.css" />
+   </stylesheets>
+</VBox>

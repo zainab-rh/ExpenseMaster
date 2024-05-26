@@ -140,7 +140,7 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="1920.0" HBox.hgrow="ALWAYS">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minHeight="318.0" prefHeight="1920.0" HBox.hgrow="ALWAYS">
                <content>
                   <AnchorPane>
                      <children>
@@ -149,11 +149,11 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minWidth="0.0" prefHeight="1920.0" HBox.hgrow="NEVER">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="0.0" prefHeight="1920.0" HBox.hgrow="NEVER">
                <content>
                   <AnchorPane>
                      <children>
-                        <HBox fx:id="subSideBar" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <HBox fx:id="sideTab" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>

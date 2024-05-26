@@ -8,6 +8,7 @@ import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.Utils;
 import com.l22e11.helper.MainTab;
+import com.l22e11.helper.SideTab;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,19 +40,22 @@ public class MainController implements Initializable {
 	@FXML
 	private Pane profilePicPaneCroppable;
 	@FXML
-	private HBox logOutArea, mainTab, subSideBar;
+	private HBox logOutArea, mainTab, sideTab;
 	@FXML
 	private VBox userArea, tabOptions;
 
 	private static HBox staticMainTab;
-	private static HBox staticSubSideBar;
+	private static HBox staticSideTab;
 	private static ImageView staticProfilePic;
 	private static Pane staticProfilePicPaneCroppable;
 	private static Label staticFullName;
+
 	private static MainTab currentTab = MainTab.NONE;
+	private static SideTab currentSideTab = SideTab.NONE;
+
 	private static ObservableList<Node> tabList;
-	public static final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
-	public static final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
+	private static final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
+	private static final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
 		entry(MainTab.NONE, 0),
 		entry(TABS[0], 0),
 		entry(TABS[1], 1),
@@ -61,7 +65,7 @@ public class MainController implements Initializable {
 	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		staticMainTab = mainTab;
-		staticSubSideBar = subSideBar;
+		staticSideTab = sideTab;
 		staticProfilePic = profilePic;
 		staticFullName = fullName;
 		staticProfilePicPaneCroppable = profilePicPaneCroppable;
@@ -86,12 +90,6 @@ public class MainController implements Initializable {
 		setMainTab(MainTab.DASHBOARD);
 
     }
-	/*
-	 * Correct way of reloading subSideBar
-	 */
-	public static void reloadSubSideBar() {
-
-	}
 
 	/*
 	 * Correct way of reloading sideBar
@@ -103,6 +101,30 @@ public class MainController implements Initializable {
 			staticProfilePic.setImage(Utils.cropImage(user.getImage(), staticProfilePicPaneCroppable));
             staticFullName.setText(user.getName() + " " + user.getSurname());
 		}), 50, TimeUnit.MILLISECONDS);
+	}
+
+	/*
+	 * Correct way of reloading sideTab
+	 */
+	public static void setSideTab(SideTab selection) {
+		if (selection == currentSideTab) return;
+		currentSideTab = selection;
+
+		String fxmlName = null;
+		switch (selection) {
+			case MANAGE_EXPENSE: fxmlName = "Expense"; break;
+			case MANAGE_CATEGORY: fxmlName = "Category"; break;
+			default: break;
+		}
+
+		staticSideTab.getChildren().clear();
+		if (selection != SideTab.NONE) {
+			Node tab = App.loadFXML(fxmlName);
+			staticSideTab.getChildren().add(tab);
+
+			VBox.setVgrow(tab, Priority.ALWAYS);
+			HBox.setHgrow(tab, Priority.ALWAYS);
+		}
 	}
 
 	/*
@@ -124,13 +146,12 @@ public class MainController implements Initializable {
 			default: break;
 		}
 
-		Node tab = App.loadFXML(fxmlName);
 		staticMainTab.getChildren().clear();
+		Node tab = App.loadFXML(fxmlName);
 		staticMainTab.getChildren().add(tab);
 
 		VBox.setVgrow(tab, Priority.ALWAYS);
         HBox.setHgrow(tab, Priority.ALWAYS);
-		
 	}
 
     @FXML
@@ -142,5 +163,4 @@ public class MainController implements Initializable {
     private void onAppClose(MouseEvent event) {
         App.close();
     }
-    
 }
