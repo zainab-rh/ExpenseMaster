@@ -50,10 +50,10 @@ public class LandingController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        FieldValidation.inputBoxes = new TextInputControl[]{loginUser, loginPass, registerName, registerSurname, registerNickname, registerEmail, registerPass, registerPassConfirm, null};
-        FieldValidation.inputBoxesBack = new AnchorPane[]{loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, null};
-        FieldValidation.inputErrorMessages = new Label[]{loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError};
-		FieldValidation.profileImage = registerProfileView;
+        FieldValidation.authenticationBoxes = new TextInputControl[]{loginUser, loginPass, registerName, registerSurname, registerNickname, registerEmail, registerPass, registerPassConfirm, null};
+        FieldValidation.authenticationBoxesBack = new AnchorPane[]{loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, null};
+        FieldValidation.authenticationErrorMessages = new Label[]{loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError};
+		FieldValidation.authenticationProfileImage = registerProfileView;
 
         for (int idx = FieldValidation.LOGIN_USER_IDX; idx <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
 			FieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
@@ -114,7 +114,7 @@ public class LandingController implements Initializable {
             authenticationPane.getSelectionModel().selectFirst();
 
             for (int i = FieldValidation.REGISTER_NAME_IDX; i <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++i) {
-                FieldValidation.inputBoxes[i].setText("");
+                FieldValidation.authenticationBoxes[i].setText("");
                 FieldValidation.setInputBoxColor(i, false, "");
             }
             registerProfileView.setImage(null);

@@ -40,10 +40,10 @@ public class SettingsController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {		
-		FieldValidation.inputBoxes = new TextInputControl[]{null, null, updateName, updateSurname, updateNickname, updateEmail, updatePass, updatePassConfirm, null};
-        FieldValidation.inputBoxesBack = new AnchorPane[]{null, null, updateNameBack, updateSurnameBack, updateNicknameBack, updateEmailBack, updatePassBack, updatePassConfirmBack, null};
-        FieldValidation.inputErrorMessages = new Label[]{null, null, updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError, updateNicknameError};
-		FieldValidation.profileImage = profilePic;
+		FieldValidation.authenticationBoxes = new TextInputControl[]{null, null, updateName, updateSurname, updateNickname, updateEmail, updatePass, updatePassConfirm, null};
+        FieldValidation.authenticationBoxesBack = new AnchorPane[]{null, null, updateNameBack, updateSurnameBack, updateNicknameBack, updateEmailBack, updatePassBack, updatePassConfirmBack, null};
+        FieldValidation.authenticationErrorMessages = new Label[]{null, null, updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError, updateNicknameError};
+		FieldValidation.authenticationProfileImage = profilePic;
 
 		resetFields();
 
@@ -92,11 +92,11 @@ public class SettingsController implements Initializable {
 		User user = AccountWrapper.getAuthenticatedUser();
 		if (FieldValidation.checkRegisterFields()) {
 			AccountWrapper.updateUser(user,
-				FieldValidation.inputBoxes[FieldValidation.REGISTER_NAME_IDX].getText(),
-				FieldValidation.inputBoxes[FieldValidation.REGISTER_SURNAME_IDX].getText(),
-				FieldValidation.inputBoxes[FieldValidation.REGISTER_EMAIL_IDX].getText(),
-				FieldValidation.inputBoxes[FieldValidation.REGISTER_PASS_IDX].getText(),
-				FieldValidation.profileImage.getImage()
+				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_NAME_IDX].getText(),
+				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_SURNAME_IDX].getText(),
+				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_EMAIL_IDX].getText(),
+				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_PASS_IDX].getText(),
+				FieldValidation.authenticationProfileImage.getImage()
 			);
 
 			Alert alert = new Alert(AlertType.CONFIRMATION);

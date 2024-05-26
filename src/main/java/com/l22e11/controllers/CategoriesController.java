@@ -33,9 +33,9 @@ public class CategoriesController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // FieldValidation.inputBoxes = new TextInputControl[]{categoryName, categoryDescription};
-        // FieldValidation.inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
-        // FieldValidation.inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
+        // FieldValidation.authenticationBoxes = new TextInputControl[]{categoryName, categoryDescription};
+        // FieldValidation.authenticationBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
+        // FieldValidation.authenticationErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
     }
 
     private boolean validateCategory() {
@@ -43,8 +43,8 @@ public class CategoriesController implements Initializable {
         String description = categoryDescription.getText();
         boolean isOk = AccountWrapper.registerCategory(name, description);
         
-        // setInputBoxColor(inputBoxes[CATEGORY_NAME_IDX], inputBoxesBack[CATEGORY_NAME_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-        // setInputBoxColor(inputBoxes[CATEGORY_DESCRIPTION_IDX], inputBoxesBack[CATEGORY_DESCRIPTION_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        // setInputBoxColor(authenticationBoxes[CATEGORY_NAME_IDX], authenticationBoxesBack[CATEGORY_NAME_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+        // setInputBoxColor(authenticationBoxes[CATEGORY_DESCRIPTION_IDX], authenticationBoxesBack[CATEGORY_DESCRIPTION_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
         
         // categoryNameError.setText(NAME_ERROR);
         // categoryNameError.setVisible(!isOk);
