@@ -146,3 +146,23 @@
 	-fx-prompt-text-fill: -fx-primary-soft;
 	-fx-cursor: text;
 }
+
+.separator .line {
+    -fx-border-width: 1px;
+	-fx-border-color: -fx-primary-light;
+}
+
+#tabTitleArea {
+	
+}
+
+#tabTitleArea #tabTitle * {
+	-fx-font-size: 20px;
+	-fx-font-family: 'Montserrat Bold';
+}
+
+#tabTitleArea #tabSubtitle {
+	-fx-font-size: 16px;
+	-fx-text-fill: -fx-primary-soft;
+	-fx-font-family: 'Montserrat SemiBold';
+}

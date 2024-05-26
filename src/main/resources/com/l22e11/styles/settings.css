@@ -1,7 +1,7 @@
 #profilePicPane {
     -fx-background-radius: 75px;
     -fx-border-radius: 75px;
-    -fx-border-color: -fx-primary-dark;
+    -fx-border-color: -fx-primary-soft;
     -fx-border-width: 2px;
 }
 
@@ -25,4 +25,13 @@
 
 #discardChanges .label {
 	-fx-text-fill: -fx-primary;
+}
+
+.buttonWithIcon {
+	-fx-padding: 4 0 4 0;
+}
+
+.buttonWithIcon .icon {
+	-fx-font-size: 20px;
+	-fx-padding: 8 0 0 8;
 }

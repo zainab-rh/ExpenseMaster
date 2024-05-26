@@ -11,6 +11,12 @@
     -fx-font-size: 16px;
 }
 
+#userArea {
+	-fx-background-color: #00000017;
+    -fx-background-radius: 32px;
+    -fx-cursor: hand;
+}
+
 #userArea * {
     -fx-font-size: 14px;
 }
@@ -20,9 +26,7 @@
 }
 
 #userArea:hover {
-    -fx-background-radius: 32px;
     -fx-background-color: -fx-accent-yellow-soft;
-    -fx-cursor: hand;
 }
 
 #profilePicPane {
@@ -87,4 +91,8 @@
 
 #logOutArea:hover {
 	-fx-background-color: -fx-accent-red-soft;
+}
+
+#subSideBar {
+	-fx-background-color: -fx-background-secondary;
 }

@@ -17,6 +17,7 @@
    <children>
       <VBox maxWidth="364.0" minHeight="-Infinity" minWidth="364.0">
          <children>
+            <Label styleClass="authenticationLabels" text="Update your profile image:" />
             <StackPane>
                <children>
                   <StackPane fx:id="profilePicPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" StackPane.alignment="CENTER">
@@ -31,38 +32,38 @@
       			</StackPane>
                </children>
                <VBox.margin>
-                  <Insets bottom="16.0" />
+                  <Insets bottom="16.0" top="8.0" />
                </VBox.margin>
             </StackPane>
-            <Label styleClass="authenticationLabels" text="Enter your name:" />
+            <Label styleClass="authenticationLabels" text="Update your name:" />
             <AnchorPane fx:id="updateNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
                   <TextField fx:id="updateName" promptText="Pedro" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="updateNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Name" textAlignment="CENTER" visible="false" wrapText="true" />
-            <Label styleClass="authenticationLabels" text="Enter your surname/s:" />
+            <Label styleClass="authenticationLabels" text="Update your surname/s:" />
             <AnchorPane fx:id="updateSurnameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
                   <TextField fx:id="updateSurname" promptText="Martinez Ramirez" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="updateSurnameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Surname" textAlignment="CENTER" visible="false" wrapText="true" />
-            <Label disable="true" opacity="0.4" styleClass="authenticationLabels" text="Enter a memorable nickname:" />
+            <Label fx:id="nickNameLabel" disable="true" opacity="0.4" styleClass="authenticationLabels" text="Update a memorable nickname:" />
             <AnchorPane fx:id="updateNicknameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
                   <TextField fx:id="updateNickname" disable="true" opacity="0.4" promptText="Pedrito89" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="updateNicknameError" contentDisplay="TEXT_ONLY" disable="true" maxWidth="1.7976931348623157E308" opacity="0.4" styleClass="errorMessage" text="Incorrect nickname" visible="false" wrapText="true" />
-            <Label styleClass="authenticationLabels" text="Enter your email:" />
+            <Label styleClass="authenticationLabels" text="Update your email:" />
             <AnchorPane fx:id="updateEmailBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
                   <TextField fx:id="updateEmail" promptText="pedromarti@gmail.com" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="updateEmailError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect email" visible="false" wrapText="true" />
-            <Label styleClass="authenticationLabels" text="Enter a memorable password:" />
+            <Label styleClass="authenticationLabels" text="Update your password:" />
             <AnchorPane fx:id="updatePassBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
                   <PasswordField fx:id="updatePass" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
@@ -122,7 +123,7 @@
                                           				  
          </children>
          <padding>
-            <Insets bottom="32.0" left="32.0" right="32.0" top="64.0" />
+            <Insets bottom="32.0" left="32.0" right="32.0" top="48.0" />
          </padding>
       </VBox>
    </children>

@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Expenses (Testing)" />
+      <HBox fx:id="tabTitleArea" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+         <children>
+            <VBox>
+               <children>
+                  <Label fx:id="tabTitle" text="Expenses" />
+                  <Label fx:id="tabSubtitle" text="Manage expenses" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding>
+      </HBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <HBox fx:id="addExpenseButton" alignment="CENTER" spacing="8.0">
+               <children>
+                  <Label styleClass="icon" text="" />
+                  <Label text="New expense" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </HBox>
+            <Separator maxWidth="1.7976931348623157E308" />
+            <ListView />
+         </children>
+      </VBox>
    </children>
-</Pane>
+   <stylesheets>
+      <URL value="@../styles/global.css" />
+      <URL value="@../styles/expenses.css" />
+   </stylesheets>
+</VBox>

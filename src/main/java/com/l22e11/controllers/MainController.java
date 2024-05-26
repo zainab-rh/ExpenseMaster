@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import model.User;
@@ -38,19 +39,24 @@ public class MainController implements Initializable {
 	@FXML
 	private Pane profilePicPaneCroppable;
 	@FXML
-	private HBox logOutArea, mainTab;
+	private HBox logOutArea, mainTab, subSideBar;
 	@FXML
 	private VBox userArea, tabOptions;
 
-	private MainTab currentTab = MainTab.NONE;
-	final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
-	final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
+	private static HBox staticMainTab;
+	private static HBox staticSubSideBar;
+	private static ImageView staticProfilePic;
+	private static Pane staticProfilePicPaneCroppable;
+	private static Label staticFullName;
+	private static MainTab currentTab = MainTab.NONE;
+	private static ObservableList<Node> tabList;
+	public static final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
+	public static final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
 		entry(MainTab.NONE, 0),
 		entry(TABS[0], 0),
 		entry(TABS[1], 1),
 		entry(TABS[2], 2)
 	);
-	ObservableList<Node> tabList;
     // @FXML
     // private Button addCategory, removeCategory;
     // @FXML
@@ -70,13 +76,14 @@ public class MainController implements Initializable {
     */
 	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+		staticMainTab = mainTab;
+		staticSubSideBar = subSideBar;
+		staticProfilePic = profilePic;
+		staticFullName = fullName;
+		staticProfilePicPaneCroppable = profilePicPaneCroppable;
+		
 		// Display name and profile picture in sidebar
-        User user = AccountWrapper.getAuthenticatedUser();
-
-		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
-			profilePic.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
-            fullName.setText(user.getName() + " " + user.getSurname());
-		}), 50, TimeUnit.MILLISECONDS);
+        reloadSideBar();
 
 		// Logout button
 		logOutArea.setOnMouseClicked((event) -> {
@@ -93,6 +100,11 @@ public class MainController implements Initializable {
 		}
 
 		setMainTab(MainTab.DASHBOARD);
+
+		// mainTab.widthProperty().addListener((obs, oldV, newV) -> {
+		// 	System.out.println(newV);
+		// 	mainTab.getChildren().get(0).minWidth((double)newV);
+		// });
 
         /*inputBoxes = new TextInputControl[]{categoryName, categoryDescription, chargeName, chargeDescription, chargeCost, chargeUnits, chargeCategory};
         inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, chargeNameBack, chargeDescriptionBack, chargeCostBack, chargeUnitsBack, chargeCategoryBack};
@@ -221,9 +233,28 @@ public class MainController implements Initializable {
     }*/
 
 	/*
+	 * Correct way of reloading subSideBar
+	 */
+	public static void reloadSubSideBar() {
+
+	}
+
+	/*
+	 * Correct way of reloading sideBar
+	 */
+	public static void reloadSideBar() {
+		User user = AccountWrapper.getAuthenticatedUser();
+
+		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
+			staticProfilePic.setImage(Utils.cropImage(user.getImage(), staticProfilePicPaneCroppable));
+            staticFullName.setText(user.getName() + " " + user.getSurname());
+		}), 50, TimeUnit.MILLISECONDS);
+	}
+
+	/*
 	 * Correct way of switching tabs
 	 */
-	private void setMainTab(MainTab selection) {
+	public static void setMainTab(MainTab selection) {
 		if (selection == currentTab) return;
 
 		if (currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(currentTab)).getStyleClass().remove("selectedSideBarItem");
@@ -240,8 +271,11 @@ public class MainController implements Initializable {
 		}
 
 		Node tab = App.loadFXML(fxmlName);
-		mainTab.getChildren().clear();
-		mainTab.getChildren().add(tab);
+		staticMainTab.getChildren().clear();
+		staticMainTab.getChildren().add(tab);
+
+		VBox.setVgrow(tab, Priority.ALWAYS);
+        HBox.setHgrow(tab, Priority.ALWAYS);
 		
 	}
 

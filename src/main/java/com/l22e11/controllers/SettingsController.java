@@ -36,7 +36,7 @@ public class SettingsController implements Initializable {
 	@FXML
 	private AnchorPane updateNameBack, updateSurnameBack, updateNicknameBack, updateEmailBack, updatePassBack, updatePassConfirmBack;
 	@FXML
-	private Label updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError;
+	private Label updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError, nickNameLabel;
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {		
@@ -55,6 +55,10 @@ public class SettingsController implements Initializable {
 		profilePicPane.setOnMouseClicked((event) -> {
 			browseProfilePicture();
 		});
+
+		nickNameLabel.setManaged(false);
+		updateNicknameBack.setManaged(false);
+		updateNicknameError.setManaged(false);
     }
 
     private void browseProfilePicture() {
@@ -101,7 +105,7 @@ public class SettingsController implements Initializable {
 			alert.setContentText("Are you sure you want to save your changes?");
 			if (alert.showAndWait().isPresent()) {
 				resetFields();
-				App.setRoot("Main");
+				MainController.reloadSideBar();
 			}
 		}
 	}

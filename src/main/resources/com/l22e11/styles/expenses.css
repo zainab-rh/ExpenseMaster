@@ -1,0 +1,11 @@
+#addExpenseButton {
+	-fx-border-color: -fx-primary-light;
+	-fx-border-width: 2px;
+	-fx-cursor: hand;
+	-fx-background-radius: 24px;
+	-fx-border-radius: 24px;
+}
+
+#addExpenseButton:hover {
+	-fx-background-color: -fx-primary-light;
+}
