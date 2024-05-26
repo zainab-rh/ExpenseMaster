@@ -1,9 +1,11 @@
 package com.l22e11.controllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import com.l22e11.helper.FieldValidation;
 import com.l22e11.helper.AccountWrapper;
+import com.l22e11.helper.Colors;
 
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputControl;
+import model.Category; // Import the Category class
 
 public class CategoriesController implements Initializable {
 
@@ -33,47 +36,64 @@ public class CategoriesController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // FieldValidation.inputBoxes = new TextInputControl[]{categoryName, categoryDescription};
-        // FieldValidation.inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
-        // FieldValidation.inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
+        FieldValidation.inputBoxes = new TextInputControl[]{categoryName, categoryDescription};
+        FieldValidation.inputBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
+        FieldValidation.inputErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
     }
 
-    private boolean validateCategory() {
-        String name = categoryName.getText();
-        String description = categoryDescription.getText();
-        boolean isOk = AccountWrapper.registerCategory(name, description);
-        
-        // setInputBoxColor(inputBoxes[CATEGORY_NAME_IDX], inputBoxesBack[CATEGORY_NAME_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-        // setInputBoxColor(inputBoxes[CATEGORY_DESCRIPTION_IDX], inputBoxesBack[CATEGORY_DESCRIPTION_IDX], true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-        
-        // categoryNameError.setText(NAME_ERROR);
-        // categoryNameError.setVisible(!isOk);
-        // categoryDescriptionError.setText(DESCRIPTION_ERROR);
-        // categoryDescriptionError.setVisible(!isOk);
-        
-        return isOk;
+     private boolean validateCategory() {
+            boolean isOk = FieldValidation.validateCategoryName() && FieldValidation.validateCategoryDescription();
+            return isOk;
+  
     }
-    
+}
     @FXML //TODO 
     private void onAddCategory(ActionEvent event) {
         boolean isOk = validateCategory();
-        // if (isOk) // SHOW IT WAS SUCCESFULL
+        if (isOk) {
+            categoryName.clear();
+            categoryDescription.clear();
+            categoryNameError.setVisible(false);
+            categoryDescriptionError.setVisible(false);
+        }
+
     }
-    
     @FXML //TODO
+ 
     private void onRemoveCategory(ActionEvent event) {
-
-        // List<Category> categories = AccountWrapper.getUserCategories();
-        // Category victimCategory = 
-
-        // if (categories.contains(victimCategory)) AccountWrapper.removeCategory(); CATEGORY REMOVED CORRECTLY
-        // else CATEGORY WAS ALREADY REMOVED
+        String categoryNameText = categoryName.getText();
+        List<Category> categories = AccountWrapper.getUserCategories();
+        Category victimCategory = null;
+        for (Category category : categories) {
+            if (category.getName().equals(categoryNameText)) {
+                victimCategory = category;
+                break;
+            }
+        }
+        if (victimCategory!= null) {
+            if (AccountWrapper.removeCategory(victimCategory)) {
+                categoryName.clear();
+                categoryDescription.clear();
+                categoryNameError.setVisible(false);
+                categoryDescriptionError.setVisible(false);
+            } else {
+                categoryNameError.setText("Error removing category");
+                categoryNameError.setVisible(true);
+            }
+        } else {
+            categoryNameError.setText("Category not found");
+            categoryNameError.setVisible(true);
+        }
     }
-
-    @FXML //TODO
     private void onListCategories(ActionEvent event) {
 
-        // List<Category> categories = AccountWrapper.getUserCategories();
+        List<Category> categories = AccountWrapper.getUserCategories();
         // DISPLAY EACH CATEGORY
+        for (Category category : categories) {
+            System.out.println(category.getName() + " - " + category.getDescription());
+        }
     }
-}
+
+
+
+
