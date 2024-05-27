@@ -3,9 +3,7 @@ package com.l22e11.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.ExpenseFieldValidation;
-import com.l22e11.helper.LoginFieldValidation;
 import com.l22e11.helper.SideTab;
 
 import javafx.event.ActionEvent;
@@ -13,15 +11,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import model.Category;
 import model.Charge;
@@ -61,6 +61,16 @@ public class ExpenseController implements Initializable {
 			ExpenseFieldValidation.setFocusListener(idx);
 			ExpenseFieldValidation.setTabSimulator(idx);
 		}
+
+		ExpenseFieldValidation.setFocusListenerByElement(expenseCategory, ExpenseFieldValidation.EXPENSE_CATEGORY_IDX);
+		ExpenseFieldValidation.setTabSimulatorByElement(expenseCategory);
+		ExpenseFieldValidation.setFocusListenerByElement(expenseUnits, ExpenseFieldValidation.EXPENSE_UNIT_IDX);
+		ExpenseFieldValidation.setTabSimulatorByElement(expenseUnits);
+		ExpenseFieldValidation.setFocusListenerByElement(expenseDate, ExpenseFieldValidation.EXPENSE_DATE_IDX);
+		ExpenseFieldValidation.setTabSimulatorByElement(expenseDate);
+
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 2000000000, 1, 1);
+        ExpenseFieldValidation.expenseUnits.setValueFactory(valueFactory);
     }
 
 	@FXML
@@ -77,6 +87,7 @@ public class ExpenseController implements Initializable {
 
 	@FXML
 	private void onSaveChanges(ActionEvent event) {
+		ExpenseFieldValidation.checkExpenseFields();
 		// if (ExpenseFieldValidation.checkExpenseFields()) {
 		// 	AccountWrapper.registerCharge(
 

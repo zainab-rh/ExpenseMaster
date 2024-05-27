@@ -3,7 +3,6 @@ package com.l22e11.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.LoginFieldValidation;
 import com.l22e11.helper.Utils;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,7 @@
 
 <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.ExpenseController">
    <children>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
          <children>
             <HBox disable="true" spacing="8.0">
                <children>
@@ -46,7 +47,11 @@
                <children>
                   <AnchorPane fx:id="expenseCategoryBack" styleClass="inputBackground">
                      <children>
-                        <ComboBox fx:id="expenseCategory" maxWidth="1.7976931348623157E308" promptText="Category" styleClass="inputBox" visibleRowCount="0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                        <ComboBox fx:id="expenseCategory" maxWidth="1.7976931348623157E308" promptText="Category" visibleRowCount="0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                           <styleClass>
+                              <String fx:value="inputBox" />
+                              <String fx:value="inputBoxNoPadding" />
+                           </styleClass></ComboBox>
                      </children>
                   </AnchorPane>
                   <Button mnemonicParsing="false" styleClass="buttonWithIcon" HBox.hgrow="ALWAYS">
@@ -71,14 +76,22 @@
             <Label styleClass="inputFieldLabels" text="Units:" />
             <AnchorPane fx:id="expenseUnitsBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
-                  <Spinner fx:id="expenseUnits" editable="true" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                  <Spinner fx:id="expenseUnits" editable="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                     <styleClass>
+                        <String fx:value="inputBox" />
+                        <String fx:value="inputBoxNoPadding" />
+                     </styleClass></Spinner>
                </children>
             </AnchorPane>
             <Label fx:id="expenseUnitsError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Units empty" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Date:" />
             <AnchorPane fx:id="expenseDateBack" styleClass="inputBackground">
                <children>
-                  <DatePicker fx:id="expenseDate" maxWidth="1.7976931348623157E308" promptText="Select date..." styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                  <DatePicker fx:id="expenseDate" editable="false" maxWidth="1.7976931348623157E308" promptText="Select date..." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                     <styleClass>
+                        <String fx:value="inputBox" />
+                        <String fx:value="inputBoxNoPadding" />
+                     </styleClass></DatePicker>
                </children>
             </AnchorPane>
             <Label fx:id="expenseDateError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Date" textAlignment="CENTER" visible="false" wrapText="true" />
@@ -88,7 +101,7 @@
             <Label fx:id="expenseImageError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Invalid image" textAlignment="CENTER" visible="false" wrapText="true" />
 			<AnchorPane>
 				<children>
-				<Button fx:id="discardChanges" onAction="#onDiscardChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+				<Button fx:id="discardChanges" onAction="#onDiscardChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
@@ -108,7 +121,7 @@
 			</AnchorPane>
 			<AnchorPane>
 				<children>
-				<Button fx:id="saveChanges" onAction="#onSaveChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+				<Button fx:id="saveChanges" onAction="#onSaveChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
