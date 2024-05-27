@@ -41,7 +41,7 @@
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
-									<Label text="Discard Category" />
+									<Label text="Discard Changes" />
 									<Label styleClass="icon" text="" />
 								</children>
 								<VBox.margin>

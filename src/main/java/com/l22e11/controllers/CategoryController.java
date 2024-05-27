@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.l22e11.helper.CategoryFieldValidation;
 import com.l22e11.helper.SideTab;
+import com.l22e11.helper.MainTab;
 import com.l22e11.helper.AccountWrapper;
 
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -53,7 +55,18 @@ public class CategoryController implements Initializable {
 		if (!CategoryFieldValidation.checkCategoryFields()) return;
 
         if (CategoryFieldValidation.validateCategory()) {
-            // All good and cleared
+            AccountWrapper.registerCategory(categoryName.getText(), categoryDescription.getText());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Category saver");
+		    alert.setHeaderText("");
+            alert.setContentText("Category saved correctly");
+            if (alert.showAndWait().isPresent()) {
+                currentCategory = null;
+                MainController.setSideTab(SideTab.NONE);
+                // BAD BUT CORRECT IMPLEMENTATION TO REFRESH
+                MainController.setMainTab(MainTab.DASHBOARD);
+                MainController.setMainTab(MainTab.CATEGORIES);
+            }
         }
     }
 
