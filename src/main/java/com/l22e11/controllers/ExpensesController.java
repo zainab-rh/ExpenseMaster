@@ -10,7 +10,6 @@ import com.l22e11.helper.SideTab;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
-import model.Acount;
 import model.Charge;
 
 public class ExpensesController implements Initializable {

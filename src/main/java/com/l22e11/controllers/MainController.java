@@ -91,6 +91,7 @@ public class MainController implements Initializable {
 		}
 
 		setMainTab(MainTab.DASHBOARD);
+		setSideTab(SideTab.MANAGE_CATEGORY);
 
     }
 
@@ -165,11 +166,11 @@ public class MainController implements Initializable {
 			default: break;
 		}
 
-		staticMainTab.getChildren().clear();
-		Node tab = App.loadFXML(fxmlName);
-		staticMainTab.getChildren().add(tab);
 		staticTabTitle.setText(title);
 		staticTabSubTitle.setText(subTitle);
+		Node tab = App.loadFXML(fxmlName);
+		staticMainTab.getChildren().clear();
+		staticMainTab.getChildren().add(tab);
 
 		VBox.setVgrow(tab, Priority.ALWAYS);
         HBox.setHgrow(tab, Priority.ALWAYS);

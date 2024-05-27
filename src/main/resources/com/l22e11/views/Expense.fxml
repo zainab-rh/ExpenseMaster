@@ -37,14 +37,14 @@
             <Label styleClass="inputFieldLabels" text="Description:" />
             <AnchorPane fx:id="expenseDescriptionBack" maxHeight="300.0" styleClass="inputBackground" VBox.vgrow="ALWAYS">
                <children>
-                  <TextArea fx:id="expenseDescription" maxHeight="200.0" promptText="Dinner with friends in Ca Rakel" styleClass="inputBox" wrapText="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                  <TextArea fx:id="expenseDescription" maxHeight="300.0" minHeight="-Infinity" promptText="Dinner with friends in Ca Rakel" styleClass="inputBox" wrapText="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="expenseDescriptionError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Description" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Select a category:" />
             <HBox>
                <children>
-                  <AnchorPane fx:id="expenseCategoryBack">
+                  <AnchorPane fx:id="expenseCategoryBack" styleClass="inputBackground">
                      <children>
                         <ComboBox fx:id="expenseCategory" maxWidth="1.7976931348623157E308" promptText="Category" styleClass="inputBox" visibleRowCount="0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                      </children>
@@ -76,7 +76,7 @@
             </AnchorPane>
             <Label fx:id="expenseUnitsError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Units empty" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Date:" />
-            <AnchorPane fx:id="expenseDateBack">
+            <AnchorPane fx:id="expenseDateBack" styleClass="inputBackground">
                <children>
                   <DatePicker fx:id="expenseDate" maxWidth="1.7976931348623157E308" promptText="Select date..." styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
@@ -84,7 +84,7 @@
             <Label fx:id="expenseDateError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Date" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Upload an invoice (Optional)" />
             <Button fx:id="expenseImage" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="invoiceView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="expenseImageError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Invalid image" textAlignment="CENTER" visible="false" wrapText="true" />
 			<AnchorPane>
 				<children>
@@ -129,6 +129,6 @@
    <stylesheets>
       <URL value="@../styles/global.css" />
       <URL value="@../styles/input.css" />
-      <URL value="@../styles/expense.css" />
+      <URL value="@../styles/sidetab.css" />
    </stylesheets>
 </AnchorPane>

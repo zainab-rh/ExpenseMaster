@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.CategoryController">
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+      	<children>
+      		<Label styleClass="inputFieldLabels" text="Enter Category name:">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
+      		<AnchorPane fx:id="categoryNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
+      			<children>
+      				<TextField fx:id="categoryName" promptText="Restaurants" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+      			</children>
+      		</AnchorPane>
+      		<Label fx:id="categoryNameError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" minHeight="34.0" styleClass="errorMessage" visible="false" wrapText="true" VBox.vgrow="ALWAYS" />
+      		<Label styleClass="inputFieldLabels" text="Enter Category description:" />
+      		<AnchorPane fx:id="categoryDescriptionBack" maxHeight="300.0" styleClass="inputBackground" VBox.vgrow="ALWAYS">
+      			<children>
+      				<TextArea fx:id="categoryDescription" maxHeight="300.0" minHeight="-Infinity" promptText="Money spent going out" styleClass="inputBox" wrapText="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+      			</children>
+      		</AnchorPane>
+      		<Label fx:id="categoryDescriptionError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" visible="false" wrapText="true">
+      			<VBox.margin>
+      				<Insets bottom="8.0" />
+      			</VBox.margin>
+      		</Label>
+      		<AnchorPane>
+				<children>
+				<Button fx:id="discardChanges" onAction="#onDiscardChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+						<graphic>
+							<HBox alignment="CENTER">
+								<children>
+									<Label text="Discard Category" />
+									<Label styleClass="icon" text="" />
+								</children>
+								<VBox.margin>
+									<Insets left="32.0" right="32.0" />
+								</VBox.margin>
+							</HBox>
+						</graphic>
+					</Button>
+				</children>
+				<VBox.margin>
+				<Insets bottom="8.0" />
+				</VBox.margin>
+			</AnchorPane>
+			<AnchorPane>
+				<children>
+				<Button fx:id="saveChanges" onAction="#onSaveChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+						<graphic>
+							<HBox alignment="CENTER">
+								<children>
+									<Label text="Save Category" />
+									<Label styleClass="icon" text="" />
+								</children>
+								<VBox.margin>
+									<Insets left="32.0" right="32.0" />
+								</VBox.margin>
+							</HBox>
+						</graphic>
+					</Button>
+				</children>
+			</AnchorPane>
+      	</children>
+      </VBox>
+    </children>
+	<stylesheets>
+		<URL value="@../styles/global.css" />
+		<URL value="@../styles/input.css" />
+		<URL value="@../styles/sidetab.css" />
+	</stylesheets>
+</AnchorPane>

@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import com.l22e11.App;
-import com.l22e11.helper.FieldValidation;
+import com.l22e11.helper.LoginFieldValidation;
 import com.l22e11.helper.Utils;
 
 import javafx.event.ActionEvent;
@@ -50,14 +50,14 @@ public class LandingController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        FieldValidation.authenticationBoxes = new TextInputControl[]{loginUser, loginPass, registerName, registerSurname, registerNickname, registerEmail, registerPass, registerPassConfirm, null};
-        FieldValidation.authenticationBoxesBack = new AnchorPane[]{loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, null};
-        FieldValidation.authenticationErrorMessages = new Label[]{loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError};
-		FieldValidation.authenticationProfileImage = registerProfileView;
+        LoginFieldValidation.authenticationBoxes = new TextInputControl[]{loginUser, loginPass, registerName, registerSurname, registerNickname, registerEmail, registerPass, registerPassConfirm, null};
+        LoginFieldValidation.authenticationBoxesBack = new AnchorPane[]{loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, null};
+        LoginFieldValidation.authenticationErrorMessages = new Label[]{loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError};
+		LoginFieldValidation.authenticationProfileImage = registerProfileView;
 
-        for (int idx = FieldValidation.LOGIN_USER_IDX; idx <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
-			FieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
-            FieldValidation.setTabSimulator(idx); // When pressing enter, traverse to next focusable element
+        for (int idx = LoginFieldValidation.LOGIN_USER_IDX; idx <= LoginFieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
+			LoginFieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
+            LoginFieldValidation.setTabSimulator(idx); // When pressing enter, traverse to next focusable element
         }
 
 		// Hide Image View when user has not yet selected image
@@ -76,7 +76,7 @@ public class LandingController implements Initializable {
             String email = "";
             boolean hasCanceled = false;
 
-            while (!FieldValidation.EMAIL_PATTERN.matcher(email).matches() && !hasCanceled) {
+            while (!LoginFieldValidation.EMAIL_PATTERN.matcher(email).matches() && !hasCanceled) {
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Reset Password or Nickname");
                 dialog.setHeaderText("Enter your email to send a password reset request, you will be reminded of your nickname in case you forgot it");
@@ -99,23 +99,23 @@ public class LandingController implements Initializable {
 
     @FXML
     private void onSubmitLogin(ActionEvent event) {
-        if (!FieldValidation.checkLoginFields()) return;
+        if (!LoginFieldValidation.checkLoginFields()) return;
 
-        boolean isOk = FieldValidation.validateLogin();
+        boolean isOk = LoginFieldValidation.validateLogin();
         if (isOk) App.showMainStage();
     }
 
     @FXML
     private void onSubmitRegister(ActionEvent event) {
-        if (!FieldValidation.checkRegisterFields()) return;
+        if (!LoginFieldValidation.checkRegisterFields()) return;
 
-        boolean isOk = FieldValidation.validateRegister();
+        boolean isOk = LoginFieldValidation.validateRegister();
         if (isOk) {
             authenticationPane.getSelectionModel().selectFirst();
 
-            for (int i = FieldValidation.REGISTER_NAME_IDX; i <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++i) {
-                FieldValidation.authenticationBoxes[i].setText("");
-                FieldValidation.setInputBoxColor(i, false, "");
+            for (int i = LoginFieldValidation.REGISTER_NAME_IDX; i <= LoginFieldValidation.REGISTER_PASS_CONFIRM_IDX; ++i) {
+                LoginFieldValidation.authenticationBoxes[i].setText("");
+                LoginFieldValidation.setInputBoxColor(i, false, "");
             }
             registerProfileView.setImage(null);
             registerProfileViewPane.setManaged(false);

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
-import com.l22e11.helper.FieldValidation;
+import com.l22e11.helper.LoginFieldValidation;
 import com.l22e11.helper.Utils;
 
 import javafx.event.ActionEvent;
@@ -40,16 +40,16 @@ public class SettingsController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {		
-		FieldValidation.authenticationBoxes = new TextInputControl[]{null, null, updateName, updateSurname, updateNickname, updateEmail, updatePass, updatePassConfirm, null};
-        FieldValidation.authenticationBoxesBack = new AnchorPane[]{null, null, updateNameBack, updateSurnameBack, updateNicknameBack, updateEmailBack, updatePassBack, updatePassConfirmBack, null};
-        FieldValidation.authenticationErrorMessages = new Label[]{null, null, updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError, updateNicknameError};
-		FieldValidation.authenticationProfileImage = profilePic;
+		LoginFieldValidation.authenticationBoxes = new TextInputControl[]{null, null, updateName, updateSurname, updateNickname, updateEmail, updatePass, updatePassConfirm, null};
+        LoginFieldValidation.authenticationBoxesBack = new AnchorPane[]{null, null, updateNameBack, updateSurnameBack, updateNicknameBack, updateEmailBack, updatePassBack, updatePassConfirmBack, null};
+        LoginFieldValidation.authenticationErrorMessages = new Label[]{null, null, updateNameError, updateSurnameError, updateNicknameError, updateEmailError, updatePassError, updatePassConfirmError, updateNicknameError};
+		LoginFieldValidation.authenticationProfileImage = profilePic;
 
 		resetFields();
 
-        for (int idx = FieldValidation.REGISTER_NAME_IDX; idx <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
-			FieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
-            FieldValidation.setTabSimulator(idx); // When pressing enter, traverse to next focusable elements
+        for (int idx = LoginFieldValidation.REGISTER_NAME_IDX; idx <= LoginFieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
+			LoginFieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
+            LoginFieldValidation.setTabSimulator(idx); // When pressing enter, traverse to next focusable elements
         }
 
 		profilePicPane.setOnMouseClicked((event) -> {
@@ -71,10 +71,10 @@ public class SettingsController implements Initializable {
 
 	private void resetFields() {
 		User user = AccountWrapper.getAuthenticatedUser();
-		FieldValidation.populateFieldsWithUser(user, profilePicPaneCroppable);
+		LoginFieldValidation.populateFieldsWithUser(user, profilePicPaneCroppable);
 
-        for (int idx = FieldValidation.REGISTER_NAME_IDX; idx <= FieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
-			FieldValidation.validateField(idx);
+        for (int idx = LoginFieldValidation.REGISTER_NAME_IDX; idx <= LoginFieldValidation.REGISTER_PASS_CONFIRM_IDX; ++idx) {
+			LoginFieldValidation.validateField(idx);
         }
 	}
 
@@ -90,13 +90,13 @@ public class SettingsController implements Initializable {
 	@FXML
 	private void onSaveChanges(ActionEvent event) {
 		User user = AccountWrapper.getAuthenticatedUser();
-		if (FieldValidation.checkRegisterFields()) {
+		if (LoginFieldValidation.checkRegisterFields()) {
 			AccountWrapper.updateUser(user,
-				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_NAME_IDX].getText(),
-				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_SURNAME_IDX].getText(),
-				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_EMAIL_IDX].getText(),
-				FieldValidation.authenticationBoxes[FieldValidation.REGISTER_PASS_IDX].getText(),
-				FieldValidation.authenticationProfileImage.getImage()
+				LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_NAME_IDX].getText(),
+				LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_SURNAME_IDX].getText(),
+				LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_EMAIL_IDX].getText(),
+				LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_PASS_IDX].getText(),
+				LoginFieldValidation.authenticationProfileImage.getImage()
 			);
 
 			Alert alert = new Alert(AlertType.CONFIRMATION);
