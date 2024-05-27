@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.Initializable;
 import model.Category;
 import javafx.scene.control.TextField;
@@ -29,20 +31,21 @@ public class CategoriesController implements Initializable {
     @FXML
     private Label categoryNameError;
     @FXML
-    private ListView<Category> categoriesListView;
+    private ListView<String> categoriesListView;
 
 
 	public static ObservableList<Category> categories;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        List<Category> list = new ArrayList<Category>();
+        List<Category> list = AccountWrapper.getUserCategories();
         categories = FXCollections.observableList(list);
-
-        categoriesListView.setItems(categories);
+        for(Category category : categories){
+            categoriesListView.getItems().add(category.getName());
+        }
 	}
 
-    private Category findCategory(String name){
+    public Category findCategory(String name){
 
         String categoryNameText = categoryName.getText();
         for (Category category : categories) {
@@ -81,12 +84,17 @@ public class CategoriesController implements Initializable {
         String categoryNameText = categoryName.getText();
         Category victimCategory = findCategory(categoryNameText);
 
-        System.out.println(victimCategory.getName());
         if (victimCategory!= null) {
             if (AccountWrapper.removeCategory(victimCategory)) {
                 categoryName.clear();
                 categoryNameError.setVisible(false);
-
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Category remover");
+                alert.setHeaderText("");
+                alert.setContentText("Category removed correctly");
+                if (alert.showAndWait().isPresent()) {
+                    MainController.setSideTab(SideTab.NONE);
+                }
             } else {
                 categoryNameError.setText("Error removing category");
                 categoryNameError.setVisible(true);

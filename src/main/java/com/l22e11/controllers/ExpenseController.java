@@ -2,10 +2,16 @@ package com.l22e11.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
 import com.l22e11.helper.ExpenseFieldValidation;
 import com.l22e11.helper.SideTab;
+import com.l22e11.helper.AccountWrapper;
+import com.l22e11.helper.LoginFieldValidation;
 
+import model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,12 +52,22 @@ public class ExpenseController implements Initializable {
 	private Label expenseNameError, expenseDescriptionError, expenseCategoryError, expenseCostError, expenseUnitsError, expenseDateError, expenseImageError;
 
 	public static Charge currentCharge;
+	public static ObservableList<Category> categories;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		ExpenseFieldValidation.expenseBoxes = new TextInputControl[]{expenseName, expenseDescription, expenseCost, null, null, null, null};
 		ExpenseFieldValidation.expenseBoxesBack = new AnchorPane[]{expenseNameBack, expenseDescriptionBack, expenseCostBack, expenseCategoryBack, expenseUnitsBack, expenseDateBack, null};
 		ExpenseFieldValidation.expenseErrorMessages = new Label[]{expenseNameError, expenseDescriptionError, expenseCostError, expenseCategoryError, expenseUnitsError, expenseDateError, expenseImageError};
+
+		// INITIALIZER OF COMBO BOX
+		List<Category> list = AccountWrapper.getUserCategories();
+        categories = FXCollections.observableList(list);
+        for(Category category : categories){
+            expenseCategory.getItems().add(category);
+
+        }
+
 		ExpenseFieldValidation.expenseCategory = expenseCategory;
 		ExpenseFieldValidation.expenseUnits = expenseUnits;
 		ExpenseFieldValidation.expenseDate = expenseDate;
@@ -88,23 +104,36 @@ public class ExpenseController implements Initializable {
 	@FXML
 	private void onSaveChanges(ActionEvent event) {
 		ExpenseFieldValidation.checkExpenseFields();
-		// if (ExpenseFieldValidation.checkExpenseFields()) {
-		// 	AccountWrapper.registerCharge(
 
-		// 	);
+		if (ExpenseFieldValidation.checkExpenseFields()) {
+			boolean isOk = ExpenseFieldValidation.validateExpense();
+			if (isOk){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Confirm Save");
+				alert.setHeaderText("");
+				alert.setContentText("Changes saved correctly");
+				if (alert.showAndWait().isPresent()) {
+					// resetFields();
+					MainController.reloadSideBar();
+				}
+			}
+			// TODO: Update listview
 
-		// 	// TODO: Update listview
-		// 	currentCharge = null;
-		// 	MainController.setSideTab(SideTab.NONE);
-		// }
+			currentCharge = null;
+			MainController.setSideTab(SideTab.NONE);
+
+		}
+		
 		// User user = AccountWrapper.getAuthenticatedUser();
-		// if (FieldValidation.checkRegisterFields()) {
+
+		
+		// if (LoginFieldValidation.checkRegisterFields()) {
 		// 	AccountWrapper.updateUser(user,
-		// 		FieldValidation.authenticationBoxes[FieldValidation.REGISTER_NAME_IDX].getText(),
-		// 		FieldValidation.authenticationBoxes[FieldValidation.REGISTER_SURNAME_IDX].getText(),
-		// 		FieldValidation.authenticationBoxes[FieldValidation.REGISTER_EMAIL_IDX].getText(),
-		// 		FieldValidation.authenticationBoxes[FieldValidation.REGISTER_PASS_IDX].getText(),
-		// 		FieldValidation.authenticationProfileImage.getImage()
+		// 	LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_NAME_IDX].getText(),
+		// 	LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_SURNAME_IDX].getText(),
+		// 	LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_EMAIL_IDX].getText(),
+		// 	LoginFieldValidation.authenticationBoxes[LoginFieldValidation.REGISTER_PASS_IDX].getText(),
+		// 	LoginFieldValidation.authenticationProfileImage.getImage()
 		// 	);
 
 		// 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -112,7 +141,7 @@ public class ExpenseController implements Initializable {
 		// 	alert.setHeaderText("Save Changes");
 		// 	alert.setContentText("Are you sure you want to save your changes?");
 		// 	if (alert.showAndWait().isPresent()) {
-		// 		resetFields();
+		// 		// resetFields();
 		// 		MainController.reloadSideBar();
 		// 	}
 		// }

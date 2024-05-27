@@ -33,7 +33,7 @@
 					<graphic>
 						<HBox alignment="CENTER">
 							<children>
-										<Label text="Remove Category" />
+							<Label text="Remove Category" />
 							<Label text="" />
 							</children>
 							<VBox.margin>
@@ -62,6 +62,7 @@
 				</Button>
 			</children>
 		</AnchorPane>
+      <Label text="List of current Categories:" />
 
       	<ListView fx:id="categoriesListView" editable="true" prefHeight="78.0" prefWidth="570.0" />
 		<AnchorPane maxWidth="1.7976931348623157E308">
