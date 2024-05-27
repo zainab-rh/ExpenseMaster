@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.l22e11.helper.CategoryFieldValidation;
 import com.l22e11.helper.SideTab;
+import com.l22e11.helper.MainTab;
 import com.l22e11.helper.AccountWrapper;
 
 import javafx.fxml.Initializable;
@@ -62,6 +63,9 @@ public class CategoryController implements Initializable {
             if (alert.showAndWait().isPresent()) {
                 currentCategory = null;
                 MainController.setSideTab(SideTab.NONE);
+                // BAD BUT CORRECT IMPLEMENTATION TO REFRESH
+                MainController.setMainTab(MainTab.DASHBOARD);
+                MainController.setMainTab(MainTab.CATEGORIES);
             }
         }
     }

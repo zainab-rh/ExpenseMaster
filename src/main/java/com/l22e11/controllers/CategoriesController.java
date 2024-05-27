@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.l22e11.helper.AccountWrapper;
+import com.l22e11.helper.MainTab;
 import com.l22e11.helper.SideTab;
 
 import javafx.collections.FXCollections;
@@ -94,7 +95,13 @@ public class CategoriesController implements Initializable {
                 alert.setContentText("Category removed correctly");
                 if (alert.showAndWait().isPresent()) {
                     MainController.setSideTab(SideTab.NONE);
+
+                    // BAD BUT CORRECT IMPLEMENTATION TO REFRESH
+                    MainController.setMainTab(MainTab.DASHBOARD);
+                    MainController.setMainTab(MainTab.CATEGORIES);
+
                 }
+                
             } else {
                 categoryNameError.setText("Error removing category");
                 categoryNameError.setVisible(true);

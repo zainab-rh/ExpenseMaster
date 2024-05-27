@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.l22e11.helper.ExpenseFieldValidation;
 import com.l22e11.helper.SideTab;
+import com.l22e11.helper.MainTab;
 import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.LoginFieldValidation;
 
@@ -121,6 +122,9 @@ public class ExpenseController implements Initializable {
 
 			currentCharge = null;
 			MainController.setSideTab(SideTab.NONE);
+			// BAD BUT CORRECT IMPLEMENTATION TO REFRESH
+			MainController.setMainTab(MainTab.DASHBOARD);
+			MainController.setMainTab(MainTab.EXPENSES);
 
 		}
 		
@@ -146,4 +150,9 @@ public class ExpenseController implements Initializable {
 		// 	}
 		// }
 	}
+
+	// @FXML //TODO
+    // private void onRemoveCharge(MouseEvent event) {
+
+	// }
 }
