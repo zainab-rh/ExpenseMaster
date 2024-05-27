@@ -19,7 +19,7 @@ import model.User;
 public class LoginFieldValidation {
 
 	public static final int LOGIN_USER_IDX = 0, LOGIN_PASS_IDX = 1, REGISTER_NAME_IDX = 2, REGISTER_SURNAME_IDX = 3, REGISTER_NICKNAME_IDX = 4, REGISTER_EMAIL_IDX = 5, REGISTER_PASS_IDX = 6, REGISTER_PASS_CONFIRM_IDX = 7, REGISTER_PROFILE_IMAGE_IDX = 8;
-	    
+    
 	public static final Pattern NICK_PATTERN = Pattern.compile("^[A-Za-z0-9]{4,}$");
     public static final Pattern NAMES_PATTERN = Pattern.compile("^([A-ZÑ]{1}[a-zñ]{1,}[\\s]{0,1})*$");
     public static final Pattern EXTRA_SPACES_PATTERN = Pattern.compile("(^\\s|\\s\\s|\\s$)");

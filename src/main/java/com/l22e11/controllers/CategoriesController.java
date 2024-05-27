@@ -17,8 +17,8 @@ public class CategoriesController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
 
 	}
-
-	@FXML //TODOs
+	
+    @FXML //TODO
     private void onRemoveCategory(ActionEvent event) {
         // String categoryNameText = categoryName.getText();
         // List<Category> categories = AccountWrapper.getUserCategories();
@@ -44,12 +44,4 @@ public class CategoriesController implements Initializable {
         //     categoryNameError.setVisible(true);
         // }
     }
-
-	// private void onListCategories(ActionEvent event) {
-    //     List<Category> categories = AccountWrapper.getUserCategories();
-    //     // DISPLAY EACH CATEGORY
-    //     for (Category category : categories) {
-    //         System.out.println(category.getName() + " - " + category.getDescription());
-    //     }
-    // }
 }
