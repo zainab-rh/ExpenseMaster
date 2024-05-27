@@ -3,6 +3,7 @@ package com.l22e11.helper;
 import java.time.LocalDate;
 
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -20,6 +21,7 @@ public class ExpenseFieldValidation {
 	
 	public static final String EMPTY_ERROR = "Field empty";
 	public static final String NOT_A_NUMBER = "Not a valid number";
+	public static final String ZERO_ERROR = "This has to be more than 0";
 
 	public static Label expenseErrorMessages[];
     public static TextInputControl expenseBoxes[];
@@ -31,17 +33,23 @@ public class ExpenseFieldValidation {
 
 	public static void setInputBoxColor(int i, boolean active, String color) {
 		if (expenseBoxes[i] != null) expenseBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
-		expenseBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
+		if (expenseBoxesBack[i] != null) expenseBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
     }
 
 	public static void setFocusListener(int i) {
 		expenseBoxes[i].focusedProperty().addListener((obs, oldV, newV) ->  {
-			System.out.println(expenseBoxes[i].getText());
 			if (newV.booleanValue()) { setInputBoxColor(i, true, Colors.BLUE_ACCENT); }
 			else {
 				if (expenseBoxes[i].getText().length() == 0) { setInputBoxColor(i, false, ""); }
 				else { validateField(i); }
 			}
+		});
+	}
+
+	public static void setFocusListenerByElement(Control element, int i) {
+		element.focusedProperty().addListener((obs, oldV, newV) ->  {
+			if (newV.booleanValue()) { setInputBoxColor(i, true, Colors.BLUE_ACCENT); }
+			else {validateField(i);}
 		});
 	}
 
@@ -56,6 +64,21 @@ public class ExpenseFieldValidation {
 					false, false, false, false
 				);
 				expenseBoxes[i].fireEvent(tabKeyEvent);
+			}
+		});
+	}
+
+	public static void setTabSimulatorByElement(Control element) {
+		element.setOnKeyPressed((event) -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				KeyEvent tabKeyEvent = new KeyEvent(
+					KeyEvent.KEY_PRESSED,
+					KeyCode.TAB.getChar(),
+					KeyCode.TAB.getName(),
+					KeyCode.TAB,
+					false, false, false, false
+				);
+				element.fireEvent(tabKeyEvent);
 			}
 		});
 	}
@@ -88,7 +111,7 @@ public class ExpenseFieldValidation {
 		if (checkIfEmpty(EXPENSE_NAME_IDX)) return false;
 
 		expenseErrorMessages[EXPENSE_NAME_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_NAME_IDX, false, Colors.GREEN_ACCENT);
+		setInputBoxColor(EXPENSE_NAME_IDX, true, Colors.GREEN_ACCENT);
 		return true;
 	}
 
@@ -96,58 +119,89 @@ public class ExpenseFieldValidation {
 		if (checkIfEmpty(EXPENSE_DESCRIPTION_IDX)) return false;
 
 		expenseErrorMessages[EXPENSE_DESCRIPTION_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_DESCRIPTION_IDX, false, Colors.GREEN_ACCENT);
+		setInputBoxColor(EXPENSE_DESCRIPTION_IDX, true, Colors.GREEN_ACCENT);
 		return true;
 	}
 
 	public static boolean validateCost() {
 		if (checkIfEmpty(EXPENSE_COST_IDX)) return false;
 
-		boolean result = false;
+		boolean allGood = true;
 		String textToCheck = expenseBoxes[EXPENSE_COST_IDX].getText().replaceAll(",", ".");
 		double valueEquivalent = 0;
+		
 		try {
 			valueEquivalent = Double.parseDouble(textToCheck);
-			result = true;
 			expenseBoxes[EXPENSE_COST_IDX].setText(String.valueOf(Math.round(valueEquivalent * 100)/100.0));
 		} catch (NumberFormatException e) {
 			expenseErrorMessages[EXPENSE_COST_IDX].setText(NOT_A_NUMBER);
+			allGood = false;
 		}
 
-		expenseErrorMessages[EXPENSE_COST_IDX].setVisible(!result);
-		setInputBoxColor(EXPENSE_COST_IDX, false, (result ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-		return true;
+		if (allGood && valueEquivalent <= 0) {
+			expenseErrorMessages[EXPENSE_COST_IDX].setText(ZERO_ERROR);
+			allGood = false;
+		}
+
+		expenseErrorMessages[EXPENSE_COST_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_COST_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		return allGood;
 	}
 
 	public static boolean validateCategory() {
-		// if (expenseCategory.getValue() == null) return false;
+		boolean allGood = true;
 
-		expenseErrorMessages[EXPENSE_CATEGORY_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_CATEGORY_IDX, false, Colors.GREEN_ACCENT);
-		return true;
+		if (allGood && expenseCategory.getValue() == null) {
+			expenseErrorMessages[EXPENSE_CATEGORY_IDX].setText(EMPTY_ERROR);
+			allGood = false;
+		}
+
+		expenseErrorMessages[EXPENSE_CATEGORY_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_CATEGORY_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		return allGood;
 	}
 
-	public static boolean validateUnit() { //TODO:
-		// if (expenseUnits.getValue() == null) return false;
+	public static boolean validateUnit() {
+		boolean allGood = true;
 
-		expenseErrorMessages[EXPENSE_UNIT_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_UNIT_IDX, false, Colors.GREEN_ACCENT);
-		return true;
+		expenseUnits.getValueFactory().setValue(expenseUnits.getValue().intValue());
+		System.out.println(expenseUnits.getValue().intValue());
+
+		if (allGood && expenseUnits.getValue() == null) {
+			expenseErrorMessages[EXPENSE_UNIT_IDX].setText(EMPTY_ERROR);
+			allGood = false;
+		}
+
+		if (allGood && expenseUnits.getValue().intValue() < 1) {
+			expenseErrorMessages[EXPENSE_UNIT_IDX].setText(ZERO_ERROR);
+			allGood = false;
+		}
+
+		expenseErrorMessages[EXPENSE_UNIT_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_UNIT_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		return allGood;
 	}
 
-	public static boolean validateDate() { //TODO:
-		// if (expenseDate.getValue() == null) return false;
+	public static boolean validateDate() {
+		boolean allGood = true;
 
-		expenseErrorMessages[EXPENSE_DATE_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_DATE_IDX, false, Colors.GREEN_ACCENT);
-		return true;
+		LocalDate date = expenseDate.getValue();
+		
+		if (allGood && date == null) {
+			expenseErrorMessages[EXPENSE_DATE_IDX].setText(EMPTY_ERROR);
+			allGood = false;
+		}
+
+		expenseErrorMessages[EXPENSE_DATE_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_DATE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		return allGood;
 	}
 
-	public static boolean validateInvoice() { //TODO:
-		if (checkIfEmpty(EXPENSE_INVOICE_IDX)) return false;
+	public static boolean validateInvoice() {
+		boolean allGood = true;
 
-		expenseErrorMessages[EXPENSE_INVOICE_IDX].setVisible(false);
-		setInputBoxColor(EXPENSE_INVOICE_IDX, false, Colors.GREEN_ACCENT);
+		expenseErrorMessages[EXPENSE_INVOICE_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_INVOICE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return true;
 	}
 
