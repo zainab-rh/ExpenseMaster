@@ -53,7 +53,15 @@ public class CategoryController implements Initializable {
 		if (!CategoryFieldValidation.checkCategoryFields()) return;
 
         if (CategoryFieldValidation.validateCategory()) {
-            // All good and cleared
+            AccountWrapper.registerCategory(categoryName.getText(), categoryDescription.getText());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Category saver");
+		    alert.setHeaderText("");
+            alert.setContentText("Category saved correctly");
+            if (alert.showAndWait().isPresent()) {
+                currentCategory = null;
+                MainController.setSideTab(SideTab.NONE);
+            }
         }
     }
 
