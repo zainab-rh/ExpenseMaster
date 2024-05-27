@@ -257,7 +257,6 @@ private void printExpensesReport() {
     List<Charge> userCharges = AccountWrapper.getUserCharges();
     // Implement the logic to generate and print the PDF report
 }
-
 }
 
     
