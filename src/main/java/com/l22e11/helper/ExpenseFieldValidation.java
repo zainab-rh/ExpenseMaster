@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,8 +25,7 @@ public class ExpenseFieldValidation {
 	public static Label expenseErrorMessages[];
     public static TextInputControl expenseBoxes[];
     public static AnchorPane expenseBoxesBack[];
-	public static ComboBox<Category> expenseCategory;
-	public static Spinner<Integer> expenseUnits;
+	public static ComboBox<String> expenseCategory;
 	public static DatePicker expenseDate;
 	public static ImageView invoiceView;
 
@@ -162,17 +160,21 @@ public class ExpenseFieldValidation {
 	}
 
 	public static boolean validateUnit() {
+		if (checkIfEmpty(EXPENSE_UNIT_IDX)) return false;
+
 		boolean allGood = true;
-
-		expenseUnits.getValueFactory().setValue(expenseUnits.getValue().intValue());
-		System.out.println(expenseUnits.getValue().intValue());
-
-		if (allGood && expenseUnits.getValue() == null) {
-			expenseErrorMessages[EXPENSE_UNIT_IDX].setText(EMPTY_ERROR);
+		String textToCheck = expenseBoxes[EXPENSE_UNIT_IDX].getText().replaceAll(",", ".");
+		int valueEquivalent = 0;
+		
+		try {
+			valueEquivalent = Integer.parseInt(textToCheck);
+			expenseBoxes[EXPENSE_UNIT_IDX].setText(String.valueOf(valueEquivalent));
+		} catch (NumberFormatException e) {
+			expenseErrorMessages[EXPENSE_UNIT_IDX].setText(NOT_A_NUMBER);
 			allGood = false;
 		}
 
-		if (allGood && expenseUnits.getValue().intValue() < 1) {
+		if (allGood && valueEquivalent <= 0) {
 			expenseErrorMessages[EXPENSE_UNIT_IDX].setText(ZERO_ERROR);
 			allGood = false;
 		}
@@ -217,12 +219,12 @@ public class ExpenseFieldValidation {
 		return allGood;
     }
 	
-	public static boolean validateExpense() {
+	public static boolean validateAndRegisterExpense() {
 		String name = expenseBoxes[EXPENSE_NAME_IDX].getText();
 		String description = expenseBoxes[EXPENSE_DESCRIPTION_IDX].getText();
 		double cost = Double.parseDouble(expenseBoxes[EXPENSE_COST_IDX].getText());
-		Category category = expenseCategory.getValue();
-		int unit = expenseUnits.getValue();
+		Category category = Utils.getCategoryByName(expenseCategory.getValue());
+		int unit = Integer.parseInt(expenseBoxes[EXPENSE_UNIT_IDX].getText());
 		LocalDate date = expenseDate.getValue();
 		Image invoice = invoiceView.getImage();
         

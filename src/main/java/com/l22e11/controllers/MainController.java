@@ -6,6 +6,7 @@ import static java.util.Map.entry;
 
 import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
+import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.Utils;
 import com.l22e11.helper.MainTab;
 import com.l22e11.helper.SideTab;
@@ -16,6 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +29,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
-import model.User;
 
 public class MainController implements Initializable {
 
@@ -51,9 +52,6 @@ public class MainController implements Initializable {
 	private static Label staticFullName;
 	private static Label staticTabTitle, staticTabSubTitle;
 
-	private static MainTab currentTab = MainTab.NONE;
-	private static SideTab currentSideTab = SideTab.NONE;
-
 	private static ObservableList<Node> tabList;
 	private static final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
 	private static final Map<MainTab, Integer> TABS_MAP = Map.ofEntries(
@@ -72,14 +70,19 @@ public class MainController implements Initializable {
 		staticProfilePicPaneCroppable = profilePicPaneCroppable;
 		staticTabTitle = tabTitle;
 		staticTabSubTitle = tabSubTitle;
+
+		GlobalState.user = AccountWrapper.getAuthenticatedUser();
+
+        GlobalState.reloadCategories();
+		GlobalState.reloadExpenses();
 		
 		// Display name and profile picture in sidebar
-        reloadSideBar();
+        reloadTabBar();
 
 		// Logout button
 		logOutArea.setOnMouseClicked((event) -> {
 			boolean isOk = AccountWrapper.logOutUser();
-        	if (isOk) App.showLandingStage();
+			if (isOk) App.showLandingStage();
 		});
 
 		userArea.setOnMouseClicked((event) -> {setMainTab(MainTab.SETTINGS);});
@@ -90,20 +93,19 @@ public class MainController implements Initializable {
 			tabList.get(i).setOnMouseClicked((event) -> {setMainTab(TABS[i]);});
 		}
 
-		setMainTab(MainTab.DASHBOARD);
+		setMainTab(MainTab.EXPENSES);
 		setSideTab(SideTab.MANAGE_CATEGORY);
 
+		// TODO: Set search bar support
     }
 
 	/*
 	 * Correct way of reloading sideBar
 	 */
-	public static void reloadSideBar() {
-		User user = AccountWrapper.getAuthenticatedUser();
-
+	public static void reloadTabBar() {
 		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
-			staticProfilePic.setImage(Utils.cropImage(user.getImage(), staticProfilePicPaneCroppable));
-            staticFullName.setText(user.getName() + " " + user.getSurname());
+			staticProfilePic.setImage(Utils.cropImage(GlobalState.user.getImage(), staticProfilePicPaneCroppable));
+            staticFullName.setText(GlobalState.user.getName() + " " + GlobalState.user.getSurname());
 		}), 50, TimeUnit.MILLISECONDS);
 	}
 
@@ -111,8 +113,8 @@ public class MainController implements Initializable {
 	 * Correct way of reloading sideTab
 	 */
 	public static void setSideTab(SideTab selection) {
-		if (selection == currentSideTab) return;
-		currentSideTab = selection;
+		if (selection == GlobalState.currentSideTab) return;
+		GlobalState.currentSideTab = selection;
 
 		String fxmlName = null;
 		switch (selection) {
@@ -135,11 +137,11 @@ public class MainController implements Initializable {
 	 * Correct way of switching tabs
 	 */
 	public static void setMainTab(MainTab selection) {
-		if (selection == currentTab) return;
+		if (selection == GlobalState.currentTab) return;
 
-		if (currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(currentTab)).getStyleClass().remove("selectedSideBarItem");
+		if (GlobalState.currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(GlobalState.currentTab)).getStyleClass().remove("selectedSideBarItem");
 		if (selection != MainTab.SETTINGS) tabList.get(TABS_MAP.get(selection)).getStyleClass().add("selectedSideBarItem");
-		currentTab = selection;
+		GlobalState.currentTab = selection;
 
 		String fxmlName = null, title = null, subTitle = null;
 		switch (selection) {

@@ -41,7 +41,7 @@ public class App extends Application {
 
 		final boolean START_IN_LOGIN = false;
 		if (START_IN_LOGIN) {
-        	showLandingStage();
+            showLandingStage();
 		} else {
 			AccountWrapper.loginUser("pediro89", "12345678");
 			showMainStage();
@@ -73,6 +73,9 @@ public class App extends Application {
         scene = new Scene(loadFXML("Main"), 1500, 900);
         scene.setFill(Color.TRANSPARENT);
 		mainStage.setMinWidth(900);
+        mainStage.setMinWidth(900);
+        mainStage.setWidth(1500);
+        mainStage.setHeight(900);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
         mainStage.setMaximized(true);
@@ -84,7 +87,8 @@ public class App extends Application {
      * Used for changing screen visble on window
      * 
      * NOTICE THAT THIS FUNCTION IS STATIC!! In any part of the application you can do:
-     *      App.setRoot("screenName");
+     *      App.setRoot("screenName");            // Font a = 
+
      * to change the scene of the window
      */
     public static void setRoot(String fxml) {
@@ -124,13 +128,9 @@ public class App extends Application {
         // String fontStyles[] = {"Medium"};
         String fontStyles[] = {"Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Black"};//, "ThinItalic", "ExtraLightItalic", "LightItalic", "Italic", "MediumItalic", "SemiBoldItalic", "BoldItalic", "ExtraBoldItalic", "BlackItalic"};
         for (int i = 0; i < fontStyles.length; ++i) {
-            // Font a = 
 			Font.loadFont(getClass().getResourceAsStream("fonts/Montserrat-" + fontStyles[i] + ".ttf"), 14);
-            // System.out.println(a.getName() + "   " + a.getFamily());
         }
-        // Font a = 
 		Font.loadFont(getClass().getResourceAsStream("fonts/bootstrap-icons.ttf"), 26);
-        // System.out.println(a.getName() + "   " + a.getFamily());
     }
     
     /*

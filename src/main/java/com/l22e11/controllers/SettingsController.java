@@ -55,6 +55,7 @@ public class SettingsController implements Initializable {
 			browseProfilePicture();
 		});
 
+		// Disable nickname input box
 		nickNameLabel.setManaged(false);
 		updateNicknameBack.setManaged(false);
 		updateNicknameError.setManaged(false);
@@ -62,9 +63,7 @@ public class SettingsController implements Initializable {
 
     private void browseProfilePicture() {
 		Image croppedImage = Utils.loadNewProfilePictureInto(profilePicPaneCroppable);
-
         if (croppedImage == null) return;
-
 		profilePic.setImage(croppedImage);
     }
 
@@ -86,7 +85,7 @@ public class SettingsController implements Initializable {
 		if (alert.showAndWait().isPresent()) resetFields();
 	}
 
-	@FXML
+	@FXML //TODO: Image is optional
 	private void onSaveChanges(ActionEvent event) {
 		User user = AccountWrapper.getAuthenticatedUser();
 		if (LoginFieldValidation.checkRegisterFields()) {
@@ -104,7 +103,7 @@ public class SettingsController implements Initializable {
 			alert.setContentText("Are you sure you want to save your changes?");
 			if (alert.showAndWait().isPresent()) {
 				resetFields();
-				MainController.reloadSideBar();
+				MainController.reloadTabBar();
 			}
 		}
 	}

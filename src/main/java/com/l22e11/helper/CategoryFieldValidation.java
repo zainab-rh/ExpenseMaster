@@ -90,7 +90,7 @@ public class CategoryFieldValidation {
 		return allGood;
     }
 	
-	public static boolean validateCategory() {
+	public static boolean validateAndRegisterCategory() {
 		String name = categoryBoxes[CATEGORY_NAME_IDX].getText();
         String description = categoryBoxes[CATEGORY_DESCRIPTION_IDX].getText();
         
@@ -99,7 +99,7 @@ public class CategoryFieldValidation {
 		if (!isOk) {
 			categoryErrorMessages[CATEGORY_NAME_IDX].setText(NAME_ERROR);
 			categoryErrorMessages[CATEGORY_NAME_IDX].setVisible(!isOk);
-        	setInputBoxColor(CATEGORY_NAME_IDX, true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+			setInputBoxColor(CATEGORY_NAME_IDX, true, (isOk ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 
 			return false;
 		}

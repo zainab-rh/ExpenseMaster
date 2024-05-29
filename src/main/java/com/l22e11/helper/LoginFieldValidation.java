@@ -225,7 +225,7 @@ public class LoginFieldValidation {
         return result;
     }
     
-    public static boolean validateImage() {
+    public static boolean validateImage() { //TODO: IMAGE IS OPTIONAL!!
         boolean result = authenticationProfileImage.getImage() != null;
         
         if (!result) authenticationErrorMessages[REGISTER_PROFILE_IMAGE_IDX].setText(NO_IMAGE_ERROR);
@@ -254,6 +254,8 @@ public class LoginFieldValidation {
 	}
 
 	public static boolean validateLogin() {
+
+        
         String nick = authenticationBoxes[LOGIN_USER_IDX].getText();
         String pass = authenticationBoxes[LOGIN_PASS_IDX].getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
@@ -271,9 +273,9 @@ public class LoginFieldValidation {
 	public static boolean validateRegister() {
         String name = authenticationBoxes[REGISTER_NAME_IDX].getText();
         String surname = authenticationBoxes[REGISTER_SURNAME_IDX].getText();
+        String email = authenticationBoxes[REGISTER_EMAIL_IDX].getText();
         String nick = authenticationBoxes[REGISTER_NICKNAME_IDX].getText();
-        String email = authenticationBoxes[REGISTER_PASS_IDX].getText();
-        String pass = authenticationBoxes[REGISTER_PASS_CONFIRM_IDX].getText();
+        String pass = authenticationBoxes[REGISTER_PASS_IDX].getText();
         Image profilePic = authenticationProfileImage.getImage();
         LocalDate dateNow = LocalDate.now();
 

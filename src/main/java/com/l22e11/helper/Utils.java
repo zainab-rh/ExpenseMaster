@@ -15,6 +15,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import model.Category;
 
 public class Utils {
 
@@ -84,9 +85,16 @@ public class Utils {
         if (selectedFile != null) {
             try {
 				BufferedImage bufferedImage = ImageIO.read(selectedFile);
-            	croppedImage = Utils.cropImage(SwingFXUtils.toFXImage(bufferedImage, null), imagePane);
+                croppedImage = Utils.cropImage(SwingFXUtils.toFXImage(bufferedImage, null), imagePane);
 			} catch (IOException e) {}
         }
 		return croppedImage;
 	}
+
+    public static Category getCategoryByName(String name) {
+        for (Category cat : GlobalState.categoriesObservableList) {
+            if (cat.getName().equals(name)) return cat;
+        }
+        return null;
+    }
 }

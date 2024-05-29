@@ -125,7 +125,7 @@
                               <Region VBox.vgrow="ALWAYS" />
                               <HBox fx:id="logOutArea" alignment="CENTER" spacing="8.0">
                                  <children>
-                                    <Label minWidth="-Infinity" onMouseClicked="#onAppMinimize" styleClass="icon" text="" textAlignment="RIGHT" />
+                                    <Label minWidth="-Infinity" styleClass="icon" text="" textAlignment="RIGHT" />
                                     <Label text="Log Out" />
                                  </children>
                                  <VBox.margin>
