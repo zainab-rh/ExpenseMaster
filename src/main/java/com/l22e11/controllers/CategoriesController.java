@@ -5,22 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.GlobalState;
-import com.l22e11.helper.MainTab;
-import com.l22e11.helper.SideTab;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import model.Category;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
@@ -38,8 +35,40 @@ public class CategoriesController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // categoriesListView.setItems(GlobalState.categoriesObservableList);
+		reloadList();
 	}
+
+	private void reloadList() {
+		List<HBox> listItems = new ArrayList<>();
+		for (Category category : GlobalState.categoriesObservableList) {
+			HBox listItem = new HBox(); listItem.getStyleClass().add("categoryItem");
+			VBox nameAndDescription = new VBox(); nameAndDescription.getStyleClass().add("nameAndDescription");
+			Label name = new Label(); name.getStyleClass().add("itemName");
+			Label description = new Label(); description.getStyleClass().add("itemDescription");
+			Region spacer = new Region();
+			Label modifyIcon = new Label(); modifyIcon.getStyleClass().add("itemIcon");
+			Label deleteIcon = new Label(); deleteIcon.getStyleClass().addAll("itemIcon", "itemDelete");
+
+			HBox.setMargin(listItem, new Insets(16, 16, 16, 16));
+			HBox.setHgrow(spacer, Priority.ALWAYS);
+			listItem.setPrefWidth(categoriesListView.getWidth());
+			name.setText(category.getName());
+			// name.setMaxHeight(24);
+			description.setText(category.getDescription());
+			VBox.setVgrow(description, Priority.ALWAYS);
+			description.setWrapText(true);
+			modifyIcon.setText("");
+			deleteIcon.setText("");
+
+			nameAndDescription.getChildren().addAll(name, description);
+			listItem.getChildren().addAll(nameAndDescription, spacer, modifyIcon, deleteIcon);
+			listItems.add(listItem);
+
+		}
+		categoriesListView.setItems(FXCollections.observableList(listItems));
+	}
+
+
 
     // public Category findCategory(String name){
     //     String categoryNameText = categoryName.getText();

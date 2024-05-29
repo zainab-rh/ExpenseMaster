@@ -3,14 +3,12 @@ package com.l22e11.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.SideTab;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.ListView;
-import model.Charge;
 
 public class ExpensesController implements Initializable {
 

@@ -16,7 +16,7 @@ import model.Category;
 
 public class ExpenseFieldValidation {
 
-	public static final int EXPENSE_NAME_IDX = 0, EXPENSE_DESCRIPTION_IDX = 1, EXPENSE_COST_IDX = 2, EXPENSE_CATEGORY_IDX = 3, EXPENSE_UNIT_IDX = 4, EXPENSE_DATE_IDX = 5, EXPENSE_INVOICE_IDX = 6;
+	public static final int EXPENSE_NAME_IDX = 0, EXPENSE_DESCRIPTION_IDX = 1, EXPENSE_COST_IDX = 2, EXPENSE_UNIT_IDX = 3, EXPENSE_CATEGORY_IDX = 4, EXPENSE_DATE_IDX = 5, EXPENSE_INVOICE_IDX = 6;
 	
 	public static final String EMPTY_ERROR = "Field empty";
 	public static final String NOT_A_NUMBER = "Not a valid number";
@@ -146,19 +146,6 @@ public class ExpenseFieldValidation {
 		return allGood;
 	}
 
-	public static boolean validateCategory() {
-		boolean allGood = true;
-
-		if (allGood && expenseCategory.getValue() == null) {
-			expenseErrorMessages[EXPENSE_CATEGORY_IDX].setText(EMPTY_ERROR);
-			allGood = false;
-		}
-
-		expenseErrorMessages[EXPENSE_CATEGORY_IDX].setVisible(!allGood);
-		setInputBoxColor(EXPENSE_CATEGORY_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
-		return allGood;
-	}
-
 	public static boolean validateUnit() {
 		if (checkIfEmpty(EXPENSE_UNIT_IDX)) return false;
 
@@ -181,6 +168,19 @@ public class ExpenseFieldValidation {
 
 		expenseErrorMessages[EXPENSE_UNIT_IDX].setVisible(!allGood);
 		setInputBoxColor(EXPENSE_UNIT_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		return allGood;
+	}
+
+	public static boolean validateCategory() {
+		boolean allGood = true;
+
+		if (allGood && expenseCategory.getValue() == null) {
+			expenseErrorMessages[EXPENSE_CATEGORY_IDX].setText(EMPTY_ERROR);
+			allGood = false;
+		}
+
+		expenseErrorMessages[EXPENSE_CATEGORY_IDX].setVisible(!allGood);
+		setInputBoxColor(EXPENSE_CATEGORY_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return allGood;
 	}
 

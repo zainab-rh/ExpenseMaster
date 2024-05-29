@@ -1,0 +1,56 @@
+/* * {
+	-fx-border-color: #00000022;
+} */
+
+.list-cell {
+    -fx-padding: 4 0 4 0;
+}
+
+.categoryItem {
+	-fx-cursor: hand;
+	-fx-alignment: CENTER;
+	-fx-padding: 16 8 16 16;
+	-fx-background-radius: 16px;
+	-fx-border-radius: 16;
+	-fx-border-color: -fx-primary-light;
+	-fx-border-width: 2px;
+	-fx-pref-height: 96px;
+}
+
+.categoryItem:hover {
+	-fx-background-color: -fx-primary-light;
+}
+
+.nameAndDescription {
+	-fx-spacing: 8px;
+}
+
+.itemName * {
+	-fx-font-family: 'Montserrat SemiBold';
+	-fx-font-size: 16px;
+	-fx-max-height: 16px;
+}
+
+.itemDescription {
+	-fx-alignment: TOP-LEFT;
+	-fx-min-height: 36px;
+}
+
+.itemIcon {
+	-fx-min-height: 40px;
+	-fx-min-width: 40px;
+	-fx-font-family: 'bootstrap-icons';
+	-fx-alignment: BOTTOM-CENTER;
+	-fx-font-size: 24px;
+	-fx-background-radius: 8px;
+}
+
+.itemIcon:hover {
+	-fx-background-color: -fx-accent-blue-soft;
+	-fx-text-fill: -fx-accent-blue;
+}
+
+.itemDelete:hover {
+	-fx-background-color: -fx-accent-red-soft;
+	-fx-text-fill: -fx-accent-red;
+}

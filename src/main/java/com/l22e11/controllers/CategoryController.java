@@ -5,8 +5,6 @@ import java.util.ResourceBundle;
 import com.l22e11.helper.CategoryFieldValidation;
 import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.SideTab;
-import com.l22e11.helper.AccountWrapper;
-
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import model.Category;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -41,10 +38,9 @@ public class CategoryController implements Initializable {
         CategoryFieldValidation.categoryBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
         CategoryFieldValidation.categoryErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
 
-		for (int idx = CategoryFieldValidation.CATEGORY_NAME_IDX; idx <= CategoryFieldValidation.CATEGORY_DESCRIPTION_IDX; ++idx) {
-			CategoryFieldValidation.setFocusListener(idx);
-			CategoryFieldValidation.setTabSimulator(idx);
-		}
+		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_NAME_IDX);
+		CategoryFieldValidation.setTabSimulator(CategoryFieldValidation.CATEGORY_NAME_IDX);
+		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_DESCRIPTION_IDX);
     }
 
     @FXML //TODO: Set color

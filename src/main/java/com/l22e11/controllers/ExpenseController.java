@@ -3,7 +3,6 @@ package com.l22e11.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.ExpenseFieldValidation;
 import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.SideTab;
@@ -26,7 +25,7 @@ public class ExpenseController implements Initializable {
 	@FXML
 	private AnchorPane expenseNameBack, expenseDescriptionBack, expenseCategoryBack, expenseCostBack, expenseUnitsBack, expenseDateBack;
 	@FXML
-	private TextField expenseName, expenseCost, expenseUnit;
+	private TextField expenseName, expenseCost, expenseUnits;
 	@FXML
 	private TextArea expenseDescription;
 	@FXML
@@ -40,7 +39,7 @@ public class ExpenseController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-		ExpenseFieldValidation.expenseBoxes = new TextInputControl[]{expenseName, expenseDescription, expenseCost, expenseUnit, null, null, null};
+		ExpenseFieldValidation.expenseBoxes = new TextInputControl[]{expenseName, expenseDescription, expenseCost, expenseUnits, null, null, null};
 		ExpenseFieldValidation.expenseBoxesBack = new AnchorPane[]{expenseNameBack, expenseDescriptionBack, expenseCostBack, expenseUnitsBack, expenseCategoryBack, expenseDateBack, null};
 		ExpenseFieldValidation.expenseErrorMessages = new Label[]{expenseNameError, expenseDescriptionError, expenseCostError, expenseUnitsError, expenseCategoryError, expenseDateError, expenseImageError};
 

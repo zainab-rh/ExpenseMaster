@@ -78,7 +78,7 @@ public class App extends Application {
         mainStage.setHeight(900);
         mainStage.setScene(scene);
         mainStage.setResizable(true);
-        mainStage.setMaximized(true);
+        // mainStage.setMaximized(true);
         // mainStage.setFullScreen(true);
         mainStage.show();
     }
