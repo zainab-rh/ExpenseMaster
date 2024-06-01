@@ -20,7 +20,10 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -32,7 +35,7 @@ import javafx.scene.image.ImageView;
 public class MainController implements Initializable {
 
     @FXML
-    private AnchorPane sideBar;
+    private ScrollPane sideBar;
     @FXML
     private ImageView profilePic;
     @FXML
@@ -80,6 +83,7 @@ public class MainController implements Initializable {
 
 		// Logout button
 		logOutArea.setOnMouseClicked((event) -> {
+			setSideTab(SideTab.NONE);
 			boolean isOk = AccountWrapper.logOutUser();
 			if (isOk) App.showLandingStage();
 		});
@@ -93,7 +97,6 @@ public class MainController implements Initializable {
 		}
 
 		setMainTab(MainTab.EXPENSES);
-		setSideTab(SideTab.MANAGE_CATEGORY);
 
 		// TODO: Set search bar support
     }
@@ -111,8 +114,18 @@ public class MainController implements Initializable {
 	/*
 	 * Correct way of reloading sideTab
 	 */
-	public static void setSideTab(SideTab selection) {
-		if (selection == GlobalState.currentSideTab) return;
+	public static boolean setSideTab(SideTab selection) {
+		if (GlobalState.sideTabModified) {
+			switch (GlobalState.currentSideTab) {
+				case MANAGE_EXPENSE:
+					if (ExpenseController.requestDiscardChanges() == false) return false;
+					break;
+				case MANAGE_CATEGORY:
+					if (CategoryController.requestDiscardChanges() == false) return false;
+					break;
+				default: break;
+			}
+		}
 		GlobalState.currentSideTab = selection;
 
 		String fxmlName = null;
@@ -130,6 +143,8 @@ public class MainController implements Initializable {
 			VBox.setVgrow(tab, Priority.ALWAYS);
 			HBox.setHgrow(tab, Priority.ALWAYS);
 		}
+
+		return true;
 	}
 
 	/*
@@ -137,6 +152,17 @@ public class MainController implements Initializable {
 	 */
 	public static void setMainTab(MainTab selection) {
 		if (selection == GlobalState.currentTab) return;
+
+		if (setSideTab(SideTab.NONE) == false) return;
+
+		if (GlobalState.mainTabModified) {
+			switch (GlobalState.currentTab) {
+				case SETTINGS:
+					if (SettingsController.requestDiscardChanges() == false) return;
+					break;
+				default: break;
+			}
+		}
 
 		if (GlobalState.currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(GlobalState.currentTab)).getStyleClass().remove("selectedSideBarItem");
 		if (selection != MainTab.SETTINGS) tabList.get(TABS_MAP.get(selection)).getStyleClass().add("selectedSideBarItem");

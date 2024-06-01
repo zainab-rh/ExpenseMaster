@@ -1,3 +1,15 @@
-* {
+/* * {
 	-fx-border-color: #00000022;
+} */
+
+.icon {
+	-fx-font-size: 20px;
+}
+
+#addNewCategory {
+	-fx-padding: 0 0 0 2;
+}
+
+#expenseIDBox {
+	-fx-font-size: 10px;
 }

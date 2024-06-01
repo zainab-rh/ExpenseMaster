@@ -2,6 +2,7 @@ package com.l22e11.helper;
 
 import java.time.LocalDate;
 
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import model.Category;
 
 public class ExpenseFieldValidation {
@@ -27,11 +29,18 @@ public class ExpenseFieldValidation {
     public static AnchorPane expenseBoxesBack[];
 	public static ComboBox<String> expenseCategory;
 	public static DatePicker expenseDate;
-	public static ImageView invoiceView;
+	public static HBox expenseDateBox;
+	public static HBox expenseCategoryBox;
+	public static ImageView expenseInvoice;
 
 	public static void setInputBoxColor(int i, boolean active, String color) {
-		if (expenseBoxes[i] != null) expenseBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
-		if (expenseBoxesBack[i] != null) expenseBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
+		expenseBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
+		expenseBoxesBack[i].setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
+    }
+
+	public static void setInputBoxColor(Node node, Node nodeBack, boolean active, String color) {
+		node.setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
+		nodeBack.setStyle("-fx-background-color: " + (active ? color + "-soft;" : "transparent;"));
     }
 
 	public static void setFocusListener(int i) {
@@ -44,10 +53,10 @@ public class ExpenseFieldValidation {
 		});
 	}
 
-	public static void setFocusListenerByElement(Control element, int i) {
+	public static void setFocusListenerByElement(Node element, Node elementBox, Node elementBack, int i) {
 		element.focusedProperty().addListener((obs, oldV, newV) ->  {
-			if (newV.booleanValue()) { setInputBoxColor(i, true, Colors.BLUE_ACCENT); }
-			else {validateField(i);}
+			if (newV.booleanValue()) { setInputBoxColor(elementBox, elementBack, true, Colors.BLUE_ACCENT); }
+			else { validateField(i); }
 		});
 	}
 
@@ -180,7 +189,7 @@ public class ExpenseFieldValidation {
 		}
 
 		expenseErrorMessages[EXPENSE_CATEGORY_IDX].setVisible(!allGood);
-		setInputBoxColor(EXPENSE_CATEGORY_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		setInputBoxColor(expenseCategoryBox, expenseBoxesBack[EXPENSE_CATEGORY_IDX], true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return allGood;
 	}
 
@@ -195,7 +204,7 @@ public class ExpenseFieldValidation {
 		}
 
 		expenseErrorMessages[EXPENSE_DATE_IDX].setVisible(!allGood);
-		setInputBoxColor(EXPENSE_DATE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		setInputBoxColor(expenseDateBox, expenseBoxesBack[EXPENSE_DATE_IDX], true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return allGood;
 	}
 
@@ -205,6 +214,41 @@ public class ExpenseFieldValidation {
 		expenseErrorMessages[EXPENSE_INVOICE_IDX].setVisible(!allGood);
 		setInputBoxColor(EXPENSE_INVOICE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return true;
+	}
+
+	public static void populateFields() {
+		if (GlobalState.currentCharge == null) return;
+		expenseBoxes[EXPENSE_NAME_IDX].setText(GlobalState.currentCharge.getName());
+		expenseBoxes[EXPENSE_DESCRIPTION_IDX].setText(GlobalState.currentCharge.getDescription());
+		expenseBoxes[EXPENSE_COST_IDX].setText(String.valueOf(GlobalState.currentCharge.getCost()));
+		expenseBoxes[EXPENSE_UNIT_IDX].setText(String.valueOf(GlobalState.currentCharge.getUnits()));
+		expenseCategory.setValue(GlobalState.currentCharge.getCategory().getName());
+		expenseDate.setValue(GlobalState.currentCharge.getDate());
+		expenseInvoice.setImage(GlobalState.currentCharge.getImageScan());
+	}
+
+	public static void setChangeListeners() {
+		expenseBoxes[EXPENSE_NAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseBoxes[EXPENSE_DESCRIPTION_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseBoxes[EXPENSE_COST_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseBoxes[EXPENSE_UNIT_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseCategory.valueProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseDate.valueProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		expenseInvoice.imageProperty().addListener((obs, oldV, newVs) -> {
+			GlobalState.sideTabModified = true;
+		});
 	}
 
 	public static boolean checkExpenseFields() {
@@ -226,7 +270,7 @@ public class ExpenseFieldValidation {
 		Category category = Utils.getCategoryByName(expenseCategory.getValue());
 		int unit = Integer.parseInt(expenseBoxes[EXPENSE_UNIT_IDX].getText());
 		LocalDate date = expenseDate.getValue();
-		Image invoice = invoiceView.getImage();
+		Image invoice = expenseInvoice.getImage();
         
 		boolean isOk = AccountWrapper.registerCharge(name, description, cost, unit, invoice, date, category);
 

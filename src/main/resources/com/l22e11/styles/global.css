@@ -152,10 +152,6 @@
 	-fx-border-color: -fx-primary-light;
 }
 
-#tabTitleArea {
-	
-}
-
 #tabTitleArea #tabTitle * {
 	-fx-font-size: 20px;
 	-fx-font-family: 'Montserrat Bold';
@@ -167,4 +163,13 @@
 	-fx-font-family: 'Montserrat SemiBold';
 }
 
-/* TODO: Scrollbar*/
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+    -fx-background-color: #00000010;
+}
+
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb, .scroll-bar .thumb {
+    -fx-background-color: #00000040;
+    -fx-max-width: 4px;
+    -fx-background-insets: 4px;
+    -fx-background-radius: 0.5em;
+}

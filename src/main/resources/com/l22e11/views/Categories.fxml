@@ -2,94 +2,43 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.CategoriesController">
+<HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.CategoriesController">
 	<children>
-      <AnchorPane maxWidth="1.7976931348623157E308">
-         <children>
-      		<Label styleClass="inputFieldLabels" text="Name of category to edit or remove: ">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="categoryName" styleClass="inputBox" />
-            <Label fx:id="categoryNameError" />
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </AnchorPane>
-		<AnchorPane maxWidth="1.7976931348623157E308">
+		<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
 			<children>
-				<Button fx:id="removeCategory" maxWidth="1.7976931348623157E308" onMouseClicked="#onRemoveCategory" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-					<graphic>
-						<HBox alignment="CENTER">
+				<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+					<children>
+						<HBox fx:id="bigAddButton" alignment="CENTER" spacing="8.0">
 							<children>
-							<Label text="Remove Category" />
-							<Label text="" />
+								<Label styleClass="icon" text="" />
+								<Label text="New Category" />
 							</children>
 							<VBox.margin>
-							<Insets left="32.0" right="32.0" />
+								<Insets />
 							</VBox.margin>
+							<padding>
+								<Insets bottom="16.0" left="8.0" right="8.0" top="16.0" />
+							</padding>
 						</HBox>
-					</graphic>
-				</Button>
+						<Label text="List of current categories:" />
+						<ListView fx:id="categoriesListView" prefHeight="419.0" prefWidth="248.0" />
+					</children>
+					<padding>
+						<Insets bottom="32.0" left="32.0" right="32.0" top="8.0" />
+					</padding>
+				</VBox>
 			</children>
 		</AnchorPane>
-
-		<AnchorPane maxWidth="1.7976931348623157E308">
-			<children>
-				<Button fx:id="modifyCategory" maxWidth="1.7976931348623157E308" onAction="#onModifyCategory" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-					<graphic>
-						<HBox alignment="CENTER">
-							<children>
-							<Label text="Modify Category" />
-                        	<Label text="⊷" />
-							</children>
-							<VBox.margin>
-							<Insets left="32.0" right="32.0" />
-							</VBox.margin>
-						</HBox>
-					</graphic>
-				</Button>
-			</children>
-		</AnchorPane>
-      <Label text="List of current Categories:" />
-
-      	<ListView fx:id="categoriesListView" editable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" />
-		<AnchorPane maxWidth="1.7976931348623157E308">
-			<children>
-				<Button fx:id="addCategory" maxWidth="1.7976931348623157E308" onAction="#onAddCategory" styleClass="buttonWithIcon" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-					<graphic>
-      						<HBox alignment="CENTER">
-      							<children>
-      							<Label text="Add Category" />
-                        	<Label />
-      							</children>
-							<VBox.margin>
-							<Insets left="32.0" right="32.0" />
-							</VBox.margin>
-      						</HBox>
-					</graphic>
-				</Button>
-			</children>
-		</AnchorPane>
-
 	</children>
-   <stylesheets>
-      <URL value="@../styles/global.css" />
-      <URL value="@../styles/input.css" />
-      <URL value="@../styles/categories.css" />
-   </stylesheets>
-   <padding>
-      <Insets left="32.0" right="32.0" top="8.0" />
-   </padding>
-</VBox>
+	<stylesheets>
+		<URL value="@../styles/global.css" />
+		<URL value="@../styles/input.css" />
+		<URL value="@../styles/categories.css" />
+	</stylesheets>
+</HBox>

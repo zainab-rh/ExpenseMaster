@@ -3,11 +3,11 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -19,7 +19,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
          <children>
-            <HBox disable="true" spacing="8.0">
+            <HBox fx:id="expenseIDBox" opacity="0.3" spacing="4.0">
                <children>
                   <Label text="Expense ID:" />
                   <Label fx:id="expenseID" text="None" />
@@ -27,6 +27,9 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <padding>
+                  <Insets bottom="16.0" left="8.0" top="16.0" />
+               </padding>
             </HBox>
             <Label styleClass="inputFieldLabels" text="Name:" />
             <AnchorPane fx:id="expenseNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
@@ -43,25 +46,32 @@
             </AnchorPane>
             <Label fx:id="expenseDescriptionError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Description" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Select a category:" />
-            <HBox>
+            <HBox maxHeight="56.0" spacing="4.0" VBox.vgrow="ALWAYS">
                <children>
-                  <AnchorPane fx:id="expenseCategoryBack" styleClass="inputBackground">
+                  <AnchorPane fx:id="expenseCategoryBack" maxHeight="56.0" styleClass="inputBackground" HBox.hgrow="ALWAYS">
                      <children>
-                        <ComboBox fx:id="expenseCategory" maxWidth="1.7976931348623157E308" promptText="Category" visibleRowCount="0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                        <HBox fx:id="expenseCategoryBox" maxHeight="48.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                           <children>
+                              <ComboBox fx:id="expenseCategory" maxHeight="44.0" maxWidth="1.7976931348623157E308" minHeight="44.0" prefHeight="44.0" promptText="Category" visibleRowCount="0" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" maxHeight="44.0" styleClass="iconInInputField" text="" />
+                           </children>
                            <styleClass>
                               <String fx:value="inputBox" />
                               <String fx:value="inputBoxNoPadding" />
-                           </styleClass></ComboBox>
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
                      </children>
                   </AnchorPane>
-                  <Button mnemonicParsing="false" styleClass="buttonWithIcon" HBox.hgrow="ALWAYS">
+                  <Button fx:id="addNewCategory" maxHeight="47.0" maxWidth="48.0" minHeight="47.0" minWidth="48.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="48.0" styleClass="buttonWithIcon" HBox.hgrow="NEVER">
                      <graphic>
-                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
-                           <children>
-                              <Label alignment="CENTER" styleClass="icon" text="" />
-                           </children>
-                        </HBox>
+                        <Label alignment="CENTER" styleClass="iconInInputField" text="" />
                      </graphic>
+                     <HBox.margin>
+                        <Insets top="4.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
@@ -83,17 +93,25 @@
             <Label styleClass="inputFieldLabels" text="Date:" />
             <AnchorPane fx:id="expenseDateBack" styleClass="inputBackground">
                <children>
-                  <DatePicker fx:id="expenseDate" editable="false" maxWidth="1.7976931348623157E308" promptText="Select date..." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                  <HBox fx:id="expenseDateBox" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                     <children>
+                        <DatePicker fx:id="expenseDate" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Select date..." HBox.hgrow="ALWAYS" />
+                        <Label alignment="CENTER" styleClass="iconInInputField" text="" />
+                     </children>
                      <styleClass>
                         <String fx:value="inputBox" />
                         <String fx:value="inputBoxNoPadding" />
-                     </styleClass></DatePicker>
+                     </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
                </children>
             </AnchorPane>
             <Label fx:id="expenseDateError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Date" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Upload an invoice (Optional)" />
             <Button fx:id="expenseImage" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
-            <ImageView fx:id="invoiceView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="expenseInvoice" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="expenseImageError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Invalid image" textAlignment="CENTER" visible="false" wrapText="true" />
 			<AnchorPane>
 				<children>
@@ -101,7 +119,7 @@
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
-									<Label text="Discard Expense" />
+									<Label fx:id="destructiveLabel" text="Discard Expense" />
 									<Label styleClass="icon" text="" />
 								</children>
 								<VBox.margin>
@@ -121,7 +139,7 @@
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
-									<Label text="Save Expense" />
+									<Label fx:id="constructiveLabel" text="Save Expense" />
 									<Label styleClass="icon" text="" />
 								</children>
 								<VBox.margin>

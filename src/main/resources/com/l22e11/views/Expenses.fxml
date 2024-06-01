@@ -14,10 +14,10 @@
          <children>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox fx:id="addExpenseButton" alignment="CENTER" spacing="8.0">
+                  <HBox fx:id="bigAddButton" alignment="CENTER" spacing="8.0">
                      <children>
                         <Label styleClass="icon" text="" />
-                        <Label text="New expense" />
+                        <Label text="New Expense" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -38,6 +38,7 @@
    </children>
    <stylesheets>
       <URL value="@../styles/global.css" />
+      <URL value="@../styles/input.css" />
       <URL value="@../styles/expenses.css" />
    </stylesheets>
 </HBox>

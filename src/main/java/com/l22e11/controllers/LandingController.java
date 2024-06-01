@@ -5,7 +5,10 @@ import javafx.scene.input.MouseEvent;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import com.l22e11.App;
+import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.LoginFieldValidation;
+import com.l22e11.helper.MainTab;
+import com.l22e11.helper.SideTab;
 import com.l22e11.helper.Utils;
 
 import javafx.event.ActionEvent;
@@ -100,6 +103,11 @@ public class LandingController implements Initializable {
     @FXML
     private void onSubmitLogin(ActionEvent event) {
         if (!LoginFieldValidation.checkLoginFields()) return;
+
+        GlobalState.currentTab = MainTab.NONE;
+        GlobalState.currentSideTab = SideTab.NONE;
+        GlobalState.sideTabModified = false;
+        GlobalState.mainTabModified = false;
 
         boolean isOk = LoginFieldValidation.validateLogin();
         if (isOk) App.showMainStage();

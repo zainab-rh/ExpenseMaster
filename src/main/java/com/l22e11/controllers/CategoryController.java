@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputControl;
@@ -30,7 +31,7 @@ public class CategoryController implements Initializable {
     @FXML
 	private AnchorPane categoryNameBack, categoryDescriptionBack;
     @FXML
-	private Label categoryNameError, categoryDescriptionError;
+	private Label categoryNameError, categoryDescriptionError, constructiveLabel, destructiveLabel;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -38,10 +39,23 @@ public class CategoryController implements Initializable {
         CategoryFieldValidation.categoryBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
         CategoryFieldValidation.categoryErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
 
-		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_NAME_IDX);
 		CategoryFieldValidation.setTabSimulator(CategoryFieldValidation.CATEGORY_NAME_IDX);
+		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_NAME_IDX);
 		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_DESCRIPTION_IDX);
+
+        CategoryFieldValidation.populateFields();
+        CategoryFieldValidation.setChangeListeners();
+
+        if (GlobalState.currentCategory == null) {
+			constructiveLabel.setText("Save Category");
+			destructiveLabel.setText("Discard Category");
+		} else {
+			constructiveLabel.setText("Save Changes");
+			destructiveLabel.setText("Discard Changes");
+		}
     }
+
+
 
     @FXML //TODO: Set color
     private void onSaveChanges(ActionEvent event) {
@@ -55,6 +69,7 @@ public class CategoryController implements Initializable {
             alert.setHeaderText("Category Saved");
             alert.setContentText("Category saved correctly");
             if (alert.showAndWait().isPresent()) {
+                // TODO: Add category
                 GlobalState.currentCategory = null;
                 MainController.setSideTab(SideTab.NONE);
             }
@@ -63,13 +78,20 @@ public class CategoryController implements Initializable {
 
 	@FXML
     private void onDiscardChanges(ActionEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
+		requestDiscardChanges();
+    }
+
+    public static boolean requestDiscardChanges() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirm Discard");
 		alert.setHeaderText("Discard Changes");
-		alert.setContentText("Are you sure you want to discard this category?");
-		if (alert.showAndWait().isPresent()) {
+		alert.setContentText("Are you sure you want to discard your changes?");
+		if (GlobalState.sideTabModified == false || alert.showAndWait().get() == ButtonType.OK) {
 			GlobalState.currentCategory = null;
+            GlobalState.sideTabModified = false;
 			MainController.setSideTab(SideTab.NONE);
+            return true;
 		}
+        return false;
     }
 }

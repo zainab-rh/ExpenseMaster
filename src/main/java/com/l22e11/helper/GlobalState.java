@@ -11,6 +11,8 @@ public class GlobalState {
     public static ObservableList<Charge> expensesObservableList;
     public static MainTab currentTab = MainTab.NONE;
 	public static SideTab currentSideTab = SideTab.NONE;
+    public static boolean sideTabModified = false;
+    public static boolean mainTabModified = false;
     public static User user;
     public static Charge currentCharge = null;
     public static Category currentCategory = null;

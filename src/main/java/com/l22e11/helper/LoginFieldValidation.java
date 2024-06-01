@@ -254,8 +254,6 @@ public class LoginFieldValidation {
 	}
 
 	public static boolean validateLogin() {
-
-        
         String nick = authenticationBoxes[LOGIN_USER_IDX].getText();
         String pass = authenticationBoxes[LOGIN_PASS_IDX].getText();
         boolean isOk = AccountWrapper.loginUser(nick, pass);
@@ -295,16 +293,44 @@ public class LoginFieldValidation {
         return true;
     }
 
-	public static void populateFieldsWithUser(User user, Region profilePicPaneCroppable) {
-		authenticationBoxes[REGISTER_NAME_IDX].setText(user.getName());
-		authenticationBoxes[REGISTER_SURNAME_IDX].setText(user.getSurname());
-		authenticationBoxes[REGISTER_NICKNAME_IDX].setText(user.getNickName());
-		authenticationBoxes[REGISTER_EMAIL_IDX].setText(user.getEmail());
-		authenticationBoxes[REGISTER_PASS_IDX].setText(user.getPassword());
-		authenticationBoxes[REGISTER_PASS_CONFIRM_IDX].setText(user.getPassword());
+    public static void updateUser() {
+        AccountWrapper.updateUser(GlobalState.user,
+            authenticationBoxes[REGISTER_NAME_IDX].getText(),
+            authenticationBoxes[REGISTER_SURNAME_IDX].getText(),
+            authenticationBoxes[REGISTER_EMAIL_IDX].getText(),
+            authenticationBoxes[REGISTER_PASS_IDX].getText(),
+            authenticationProfileImage.getImage()
+        );
+    }
+
+    public static void setChangeListeners() {
+		authenticationBoxes[REGISTER_NAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.mainTabModified = true;
+		});
+		authenticationBoxes[REGISTER_SURNAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.mainTabModified = true;
+		});
+		authenticationBoxes[REGISTER_EMAIL_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.mainTabModified = true;
+		});
+		authenticationBoxes[REGISTER_PASS_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.mainTabModified = true;
+		});
+		authenticationProfileImage.imageProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.mainTabModified = true;
+		});
+    }
+
+	public static void populateFields(Region profilePicPaneCroppable) {
+		authenticationBoxes[REGISTER_NAME_IDX].setText(GlobalState.user.getName());
+		authenticationBoxes[REGISTER_SURNAME_IDX].setText(GlobalState.user.getSurname());
+		authenticationBoxes[REGISTER_NICKNAME_IDX].setText(GlobalState.user.getNickName());
+		authenticationBoxes[REGISTER_EMAIL_IDX].setText(GlobalState.user.getEmail());
+		authenticationBoxes[REGISTER_PASS_IDX].setText(GlobalState.user.getPassword());
+		authenticationBoxes[REGISTER_PASS_CONFIRM_IDX].setText(GlobalState.user.getPassword());
 		
 		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
-			authenticationProfileImage.setImage(Utils.cropImage(user.getImage(), profilePicPaneCroppable));
+			authenticationProfileImage.setImage(Utils.cropImage(GlobalState.user.getImage(), profilePicPaneCroppable));
 		}), 50, TimeUnit.MILLISECONDS);
 	}
 }

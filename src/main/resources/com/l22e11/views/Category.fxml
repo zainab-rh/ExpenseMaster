@@ -16,7 +16,7 @@
       	<children>
       		<Label styleClass="inputFieldLabels" text="Enter Category name:">
                <VBox.margin>
-                  <Insets />
+                  <Insets top="48.0" />
                </VBox.margin></Label>
       		<AnchorPane fx:id="categoryNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
       			<children>
@@ -41,7 +41,7 @@
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
-									<Label text="Discard Changes" />
+									<Label fx:id="destructiveLabel" text="Discard Changes" />
 									<Label styleClass="icon" text="" />
 								</children>
 								<VBox.margin>
@@ -61,7 +61,7 @@
 						<graphic>
 							<HBox alignment="CENTER">
 								<children>
-									<Label text="Save Category" />
+									<Label fx:id="constructiveLabel" text="Save Category" />
 									<Label styleClass="icon" text="" />
 								</children>
 								<VBox.margin>

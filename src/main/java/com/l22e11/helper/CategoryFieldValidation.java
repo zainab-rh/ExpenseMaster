@@ -83,6 +83,21 @@ public class CategoryFieldValidation {
         return true;
     }
 
+	public static void populateFields() {
+		if (GlobalState.currentCategory == null) return;
+		categoryBoxes[CATEGORY_NAME_IDX].setText(GlobalState.currentCategory.getName());
+		categoryBoxes[CATEGORY_DESCRIPTION_IDX].setText(GlobalState.currentCategory.getDescription());
+	}
+
+	public static void setChangeListeners() {
+		categoryBoxes[CATEGORY_NAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+		categoryBoxes[CATEGORY_DESCRIPTION_IDX].textProperty().addListener((obs, oldV, newV) -> {
+			GlobalState.sideTabModified = true;
+		});
+	}
+
 	public static boolean checkCategoryFields() {
 		boolean allGood = true;
 		allGood &= validateName();
