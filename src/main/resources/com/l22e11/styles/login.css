@@ -51,26 +51,6 @@
     -fx-text-fill: -fx-primary-light;
 }
 
-#profilePicPicker {
-    -fx-background-color: -fx-primary-light;
-    -fx-background-radius: 32px;
-    -fx-border-color: -fx-primary-grey;
-    -fx-border-radius: 32px;
-    -fx-border-width: 4px;
-    -fx-border-style: dashed;
-}
-
-#profilePicPicker:hover {
-    -fx-background-color: -fx-accent-blue-soft;
-    -fx-border-color: -fx-accent-blue;
-    -fx-cursor: hand;
-}
-
-#profilePicPicker * {
-    -fx-text-fill: -fx-primary-soft;
-    -fx-padding: 0;
-}
-
 #registerProfileViewPane {
     -fx-background-radius: 40px;
     -fx-border-radius: 40px;

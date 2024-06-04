@@ -2,6 +2,10 @@
 	-fx-border-color: #00000022;
 } */
 
+.root {
+	-fx-background-color: -fx-background-secondary;
+}
+
 .icon {
 	-fx-font-size: 20px;
 }
@@ -10,6 +14,65 @@
 	-fx-padding: 0 0 0 2;
 }
 
-#expenseIDBox {
-	-fx-font-size: 10px;
+.color-picker, .color-square {
+	-fx-cursor: hand;
+}
+
+.color-picker > .color-picker-label {
+	-fx-padding: 0 0 0 48;
+}
+
+.color-picker .picker-color, .picker-color-rect {
+	-fx-scale-x: 2;
+    -fx-scale-y: 2;
+	-fx-arc-height: 6px;
+	-fx-arc-width: 6px;
+	-fx-padding: 0 0 0 -32;
+}
+
+.color-palette {
+    -fx-spacing: 0.833333em; /* 10px */
+    -fx-background-color: -fx-primary-light;
+	-fx-border-color: -fx-primary-soft;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6, 5;
+	-fx-border-radius: 6, 5;
+	-fx-border-width: 2px;
+    -fx-padding: 12 12 -30 12;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.color-palette .hyperlink, .color-palette .separator {
+    visibility: hidden;
+}
+
+.color-palette > .color-picker-grid {
+    -fx-padding: 0.5px;
+    -fx-snap-to-pixel: false;
+}
+
+.color-palette > .color-picker-grid > .color-square {
+    -fx-background-color: transparent;
+    -fx-padding: 0.5px;
+}
+
+/* the color over which the user is hovering */
+.color-palette-region > .color-square.hover-square {
+    -fx-background-insets: -3,-1;
+    -fx-background-radius: 5,0;
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+    -fx-border-color: -fx-focus-color;
+    -fx-border-insets: -1, -1;
+}
+
+#colourPickerBack {
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 12, 0.25, 0, 4);
+}
+
+#invoicePane {
+	-fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: -fx-primary-soft;
+    -fx-border-width: 2px;
 }

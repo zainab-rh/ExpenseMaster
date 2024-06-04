@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.l22e11.helper.AccountWrapper;
 import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.SideTab;
 
@@ -12,8 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import model.Category;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -29,137 +30,99 @@ public class CategoriesController implements Initializable {
     @FXML
 	private HBox bigAddButton;
     @FXML
-    private ListView<HBox> categoriesListView;
+    private ListView<AnchorPane> categoriesListView;
+
+	public static boolean firstTime = true;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		reloadList();
-
-        GlobalState.categoriesObservableList.addListener((ListChangeListener<Category>) change -> {
-            reloadList();
-        });
+		if (firstTime) {
+			GlobalState.categoriesObservableList.addListener((ListChangeListener<Category>) change -> {
+				reloadList();
+			});
+		}
+		firstTime = false;
 
         bigAddButton.setOnMouseClicked((event) -> {
 			GlobalState.currentCategory = null;
-			MainController.setSideTab(SideTab.MANAGE_CATEGORY);
+			MainController.openSideTab(SideTab.CREATE_CATEGORY);
 		});
 	}
 
 	private void reloadList() {
-		List<HBox> listItems = new ArrayList<>();
+		if (GlobalState.categoriesObservableList.contains(null)) return;
+
+		List<AnchorPane> listItems = new ArrayList<>();
 		for (Category category : GlobalState.categoriesObservableList) {
+			AnchorPane pane = new AnchorPane(); pane.getStyleClass().add("itemBack");
 			HBox listItem = new HBox(); listItem.getStyleClass().add("categoryItem");
 			VBox nameAndDescription = new VBox(); nameAndDescription.getStyleClass().add("nameAndDescription");
 			Label name = new Label(); name.getStyleClass().add("itemName");
 			Label description = new Label(); description.getStyleClass().add("itemDescription");
 			Region spacer = new Region();
+			VBox icons = new VBox();
 			Label modifyIcon = new Label(); modifyIcon.getStyleClass().add("itemIcon");
 			Label deleteIcon = new Label(); deleteIcon.getStyleClass().addAll("itemIcon", "itemDelete");
 
-			HBox.setMargin(listItem, new Insets(16, 16, 16, 16));
+			pane.prefWidthProperty().bind(categoriesListView.widthProperty().subtract(16));
+			AnchorPane.setTopAnchor(listItem, 4.0);
+			AnchorPane.setRightAnchor(listItem, 4.0);
+			AnchorPane.setBottomAnchor(listItem, 4.0);
+			AnchorPane.setLeftAnchor(listItem, 24.0);
 			HBox.setHgrow(spacer, Priority.ALWAYS);
-			listItem.setPrefWidth(categoriesListView.getWidth());
-			name.setText(category.getName());
+			
+			pane.setStyle("-fx-background-color: #" + category.getName().substring(0, 8));
+			pane.setOnMouseClicked((event) -> {
+				clickedOnCategory(category);
+			});
+			name.setText(category.getName().substring(8));
 			description.setText(category.getDescription());
 			VBox.setVgrow(description, Priority.ALWAYS);
 			description.setWrapText(true);
 			modifyIcon.setText("");
             modifyIcon.setOnMouseClicked((event) -> {
+				event.consume();
                 clickedModifyOnCategory(category);
             });
 			deleteIcon.setText("");
             deleteIcon.setOnMouseClicked((event) -> {
+				event.consume();
                 clickedDeleteOnCategory(category);
             });
 
 			nameAndDescription.getChildren().addAll(name, description);
-			listItem.getChildren().addAll(nameAndDescription, spacer, modifyIcon, deleteIcon);
-			listItems.add(listItem);
+			icons.getChildren().addAll(modifyIcon, deleteIcon);
+			listItem.getChildren().addAll(nameAndDescription, spacer, icons);
+			pane.getChildren().add(listItem);
+			listItems.add(pane);
 
 		}
 		categoriesListView.setItems(FXCollections.observableList(listItems));
+		categoriesListView.setMinHeight(listItems.size() * (12 + 108));
 	}
 
+	private void clickedOnCategory(Category category) {
+        // TODO: What happens if a user clicks on a category?
+		System.out.println(category.getName());
+    }
+
     private void clickedModifyOnCategory(Category category) {
-        System.out.println(category.getName());
-        if (MainController.setSideTab(SideTab.NONE)) {
+        if (MainController.closeAllTabs()) {
             GlobalState.currentCategory = category;
-            MainController.setSideTab(SideTab.MANAGE_CATEGORY);
+            MainController.openSideTab(SideTab.UPDATE_CATEGORY);
         }
     }
 
     private void clickedDeleteOnCategory(Category category) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Delete Category");
-		alert.setHeaderText("Delete Category");
-		alert.setContentText("Are you sure you want to delete the \"" + category.getName() + "\" category?");
-		if (alert.showAndWait().get() == ButtonType.OK) {
-			GlobalState.categoriesObservableList.remove(category);
+		if (MainController.closeAllTabs()) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Category");
+			alert.setHeaderText("Delete Category");
+			alert.setContentText("Are you sure you want to delete the \"" + category.getName().substring(8) + "\" category?");
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				AccountWrapper.removeCategory(category);
+			}
 		}
-        System.out.println(category.getName());
     }
-
-
-
-    // public Category findCategory(String name){
-    //     String categoryNameText = categoryName.getText();
-    //     for (Category category : GlobalState.categories) {
-    //         if (category.getName().equals(categoryNameText)) {
-    //             return category;
-    //         }
-    //     }
-    //     return null;
-    // }
-
-    // @FXML 
-    // private void onModifyCategory(ActionEvent event) {
-        // String categoryNameText = categoryName.getText();
-        // Category victimCategory = findCategory(categoryNameText);
-
-        // GlobalState.currentCategory = victimCategory;
-        // MainController.setSideTab(SideTab.MANAGE_CATEGORY);
-    // }
-
-    // @FXML 
-    // private void onAddCategory(ActionEvent event) {
-        // if (GlobalState.currentSideTab == SideTab.MANAGE_CATEGORY && GlobalState.currentCategory == null) return;
-        // GlobalState.sideTabModified = true;
-        // String categoryNameText = categoryName.getText();
-        // Category victimCategory = findCategory(categoryNameText);
-
-        // GlobalState.currentCategory = victimCategory;
-        // MainController.setSideTab(SideTab.MANAGE_CATEGORY);
-    // }
-
-    // @FXML
-    // private void onRemoveCategory(MouseEvent event) {
-        // String categoryNameText = categoryName.getText();
-        // Category victimCategory = findCategory(categoryNameText);
-
-        // if (victimCategory!= null) {
-        //     if (AccountWrapper.removeCategory(victimCategory)) {
-        //         categoryName.clear();
-        //         categoryNameError.setVisible(false);
-        //         Alert alert = new Alert(AlertType.INFORMATION);
-        //         alert.setTitle("Category remover");
-        //         alert.setHeaderText("");
-        //         alert.setContentText("Category removed correctly");
-        //         if (alert.showAndWait().isPresent()) {
-        //             MainController.setSideTab(SideTab.NONE);
-
-        //             // BAD BUT CORRECT IMPLEMENTATION TO REFRESH
-        //             MainController.setMainTab(MainTab.DASHBOARD);
-        //             MainController.setMainTab(MainTab.CATEGORIES);
-
-        //         }
-                
-        //     } else {
-        //         categoryNameError.setText("Error removing category");
-        //         categoryNameError.setVisible(true);
-        //     }
-        // } else {
-        //     categoryNameError.setText("Category not found");
-        //     categoryNameError.setVisible(true);
-        // }
-    // }
 }

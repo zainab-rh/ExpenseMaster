@@ -1,9 +1,9 @@
 package com.l22e11.helper;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.Normalizer;
+import java.time.LocalDate;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +13,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import model.Category;
 
@@ -53,18 +54,31 @@ public class Utils {
         return text.strip();
     }
 
-    /*
-     * JavaFX Image to fit and round borders
+	/*
+     * JavaFX crop Image to fit inside rounded rectangle borders, use radius = Integer.MAX_VALUE for a circle
      */
-    public static Image cropImage(Image imageToCrop, Region nodeToClip) {
-        int size = (int) Math.min(imageToCrop.getHeight(), imageToCrop.getWidth());
-        int x = (int) (imageToCrop.getWidth() - size)/2;
-        Image croppedImage = new WritableImage(imageToCrop.getPixelReader(), x, 0, size, size);
+    public static Image cropImage(Image imageToCrop, Region nodeToClip, double radius) {
+		double imageWHRatio = imageToCrop.getWidth() / imageToCrop.getHeight();
+		double regionWHRatio = nodeToClip.getWidth() / nodeToClip.getHeight();
+		double x, y, w, h;
+		if (imageWHRatio > regionWHRatio) {
+			h = imageToCrop.getHeight();
+			w = h / (nodeToClip.getHeight() / nodeToClip.getWidth());
+			x = (imageToCrop.getWidth() - w) / 2.0;
+			y = 0;
+		} else {
+			w = imageToCrop.getWidth();
+			h = w / (nodeToClip.getWidth() / nodeToClip.getHeight());
+			x = 0;
+			y = (imageToCrop.getHeight() - h) / 2.0;
+		}
 
-        if (croppedImage.getHeight() == 0.0) return null;
+		Image croppedImage = new WritableImage(imageToCrop.getPixelReader(), (int)x, (int)y, (int)w, (int)h);
+		if (croppedImage.getHeight() == 0.0) return null;
 
-        size = (int) (nodeToClip.getWidth() / 2);
-        Circle clip = new Circle(size, size, size-2);
+		Rectangle clip = new Rectangle(2, 2, nodeToClip.getWidth()-4, nodeToClip.getHeight()-4);
+		clip.setArcHeight(radius);
+		clip.setArcWidth(radius);
         nodeToClip.setClip(clip);
 
         return croppedImage;
@@ -73,28 +87,43 @@ public class Utils {
 	/*
 	 * Get image from computer, crop it and display in specified ImageView
 	 */
-	public static Image loadNewProfilePictureInto(Region imagePane) {
+	public static Image loadNewPictureInto(Region imagePane, int radius) {
+		return Utils.cropImage(loadNewPicture(), imagePane, radius);
+	}
+
+	public static Image loadNewPicture() {
 		FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Picture");
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
         File selectedFile = fileChooser.showOpenDialog(App.getMainStage());
-        Image croppedImage = null;
+        Image uncroppedImage = null;
 
         if (selectedFile != null) {
             try {
-				BufferedImage bufferedImage = ImageIO.read(selectedFile);
-                croppedImage = Utils.cropImage(SwingFXUtils.toFXImage(bufferedImage, null), imagePane);
+				uncroppedImage = SwingFXUtils.toFXImage(ImageIO.read(selectedFile), null);
 			} catch (IOException e) {}
         }
-		return croppedImage;
+		return uncroppedImage;
 	}
 
     public static Category getCategoryByName(String name) {
         for (Category cat : GlobalState.categoriesObservableList) {
-            if (cat.getName().equals(name)) return cat;
+            if (cat.getName().substring(8).equals(name)) return cat;
         }
         return null;
     }
+
+	public static String localDateToString(LocalDate date) {
+		return date.getDayOfMonth() + " " + Utils.capitalize(date.getMonth().toString()) + " " + date.getYear();
+	}
+
+	public static String toPrice(double d) {
+		return String.format("%.2f", Math.round(d * 100)/100.0);
+	}
+
+	public static double getBrightness(Color color) {
+		return 0.2126*color.getRed() + 0.7152*color.getGreen() + 0.0722*color.getBlue();
+	}
 }

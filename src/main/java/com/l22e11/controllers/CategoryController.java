@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import com.l22e11.helper.CategoryFieldValidation;
 import com.l22e11.helper.GlobalState;
-import com.l22e11.helper.SideTab;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -15,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputControl;
@@ -29,19 +29,23 @@ public class CategoryController implements Initializable {
     @FXML
     private TextArea categoryDescription;
     @FXML
-	private AnchorPane categoryNameBack, categoryDescriptionBack;
+	private AnchorPane categoryNameBack, categoryDescriptionBack, colourPickerBack;
+	@FXML
+	private ColorPicker colourPicker;
     @FXML
-	private Label categoryNameError, categoryDescriptionError, constructiveLabel, destructiveLabel;
+	private Label categoryNameError, categoryDescriptionError, constructiveLabel, destructiveLabel, categoryColourError, colourPickerArrow;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        CategoryFieldValidation.categoryBoxes = new TextInputControl[]{categoryName, categoryDescription};
-        CategoryFieldValidation.categoryBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack};
-        CategoryFieldValidation.categoryErrorMessages = new Label[]{categoryNameError, categoryDescriptionError};
+        CategoryFieldValidation.categoryBoxes = new TextInputControl[]{categoryName, categoryDescription, null};
+        CategoryFieldValidation.categoryBoxesBack = new AnchorPane[]{categoryNameBack, categoryDescriptionBack, colourPickerBack};
+        CategoryFieldValidation.categoryErrorMessages = new Label[]{categoryNameError, categoryDescriptionError, categoryColourError};
+		CategoryFieldValidation.colourPicker = colourPicker;
 
 		CategoryFieldValidation.setTabSimulator(CategoryFieldValidation.CATEGORY_NAME_IDX);
 		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_NAME_IDX);
 		CategoryFieldValidation.setFocusListener(CategoryFieldValidation.CATEGORY_DESCRIPTION_IDX);
+		CategoryFieldValidation.setColourPickerTabSimulator();
 
         CategoryFieldValidation.populateFields();
         CategoryFieldValidation.setChangeListeners();
@@ -53,32 +57,37 @@ public class CategoryController implements Initializable {
 			constructiveLabel.setText("Save Changes");
 			destructiveLabel.setText("Discard Changes");
 		}
+
+		colourPickerArrow.setOnMouseClicked((event) -> {
+			colourPicker.requestFocus();
+			colourPicker.show();
+		});
+
+		colourPicker.valueProperty().addListener((event) -> {
+			CategoryFieldValidation.setColourPickerBoxColor(colourPicker.getValue());
+		});
     }
 
-
-
-    @FXML //TODO: Set color
+    @FXML
     private void onSaveChanges(ActionEvent event) {
 		if (!CategoryFieldValidation.checkCategoryFields()) return;
 
-        if (CategoryFieldValidation.validateAndRegisterCategory()) {
-            GlobalState.reloadCategories();
-
+        if (CategoryFieldValidation.registerOrUpdateCategory()) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Category Saved");
             alert.setHeaderText("Category Saved");
             alert.setContentText("Category saved correctly");
             if (alert.showAndWait().isPresent()) {
-                // TODO: Add category
+				GlobalState.changesInCurrentCategory = false;
                 GlobalState.currentCategory = null;
-                MainController.setSideTab(SideTab.NONE);
+                MainController.closeSideTab();
             }
         }
     }
 
 	@FXML
     private void onDiscardChanges(ActionEvent event) {
-		requestDiscardChanges();
+		if (requestDiscardChanges()) MainController.closeSideTab();
     }
 
     public static boolean requestDiscardChanges() {
@@ -86,10 +95,9 @@ public class CategoryController implements Initializable {
 		alert.setTitle("Confirm Discard");
 		alert.setHeaderText("Discard Changes");
 		alert.setContentText("Are you sure you want to discard your changes?");
-		if (GlobalState.sideTabModified == false || alert.showAndWait().get() == ButtonType.OK) {
+		if (GlobalState.changesInCurrentCategory == false || alert.showAndWait().get() == ButtonType.OK) {
 			GlobalState.currentCategory = null;
-            GlobalState.sideTabModified = false;
-			MainController.setSideTab(SideTab.NONE);
+            GlobalState.changesInCurrentCategory = false;
             return true;
 		}
         return false;

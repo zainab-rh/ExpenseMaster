@@ -13,24 +13,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.ExpenseController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
          <children>
-            <HBox fx:id="expenseIDBox" opacity="0.3" spacing="4.0">
-               <children>
-                  <Label text="Expense ID:" />
-                  <Label fx:id="expenseID" text="None" />
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="16.0" left="8.0" top="16.0" />
-               </padding>
-            </HBox>
             <Label styleClass="inputFieldLabels" text="Name:" />
             <AnchorPane fx:id="expenseNameBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
@@ -65,7 +54,7 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="addNewCategory" maxHeight="47.0" maxWidth="48.0" minHeight="47.0" minWidth="48.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="48.0" styleClass="buttonWithIcon" HBox.hgrow="NEVER">
+                  <Button fx:id="addNewCategory" maxHeight="47.0" maxWidth="48.0" minHeight="47.0" minWidth="48.0" mnemonicParsing="false" onAction="#onCreateNewCategory" prefHeight="47.0" prefWidth="48.0" styleClass="buttonWithIcon" HBox.hgrow="NEVER">
                      <graphic>
                         <Label alignment="CENTER" styleClass="iconInInputField" text="" />
                      </graphic>
@@ -110,9 +99,44 @@
             </AnchorPane>
             <Label fx:id="expenseDateError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Incorrect Date" textAlignment="CENTER" visible="false" wrapText="true" />
             <Label styleClass="inputFieldLabels" text="Upload an invoice (Optional)" />
-            <Button fx:id="expenseImage" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
-            <ImageView fx:id="expenseInvoice" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="expenseImageError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Invalid image" textAlignment="CENTER" visible="false" wrapText="true" />
+            <Pane fx:id="invoicePane" maxHeight="150.0" maxWidth="260.0" minHeight="150.0" minWidth="260.0" prefHeight="150.0" prefWidth="260.0">
+               <children>
+                  <Pane fx:id="invoicePaneCroppable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="260.0">
+                     <children>
+                        <ImageView fx:id="expenseInvoice" fitHeight="150.0" fitWidth="260.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+               </children>
+               <VBox.margin>
+                  <Insets left="4.0" right="4.0" top="4.0" />
+               </VBox.margin>
+            </Pane>
+            <Button fx:id="browseInvoice" maxHeight="36.0" maxWidth="1.7976931348623157E308" minHeight="36.0" onAction="#onBrowseInvoice" prefHeight="36.0" styleClass="dottedButton">
+               <graphic>
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Browse invoice" />
+                        <Label styleClass="icon" text="" />
+                     </children>
+                  </HBox>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="4.0" top="8.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="resetInvoice" maxHeight="36.0" maxWidth="1.7976931348623157E308" minHeight="36.0" onAction="#onResetInvoice" prefHeight="36.0" styleClass="dottedButton">
+               <graphic>
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Reset invoice" />
+                        <Label styleClass="icon" text="" />
+                     </children>
+                  </HBox>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="4.0" top="4.0" />
+               </VBox.margin>
+            </Button>
 			<AnchorPane>
 				<children>
 				<Button fx:id="discardChanges" onAction="#onDiscardChanges" prefWidth="180.0" styleClass="buttonWithIcon" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -130,7 +154,7 @@
 					</Button>
 				</children>
 				<VBox.margin>
-				<Insets bottom="8.0" />
+				<Insets bottom="8.0" top="32.0" />
 				</VBox.margin>
 			</AnchorPane>
 			<AnchorPane>

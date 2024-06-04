@@ -20,7 +20,7 @@
 #discardChanges {
 	-fx-background-color: transparent;
 	-fx-border-color: -fx-primary;
-	-fx-border-width: 4px;
+	-fx-border-width: 2px;
 	-fx-border-radius: 16px;
 }
 

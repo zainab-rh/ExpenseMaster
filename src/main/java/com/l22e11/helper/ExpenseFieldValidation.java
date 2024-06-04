@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import model.Category;
 
 public class ExpenseFieldValidation {
@@ -32,6 +33,8 @@ public class ExpenseFieldValidation {
 	public static HBox expenseDateBox;
 	public static HBox expenseCategoryBox;
 	public static ImageView expenseInvoice;
+	public static ImageView expenseInvoiceUncropped;
+	public static Pane invoicePaneCroppable;
 
 	public static void setInputBoxColor(int i, boolean active, String color) {
 		expenseBoxes[i].setStyle("-fx-border-color: " + (active ? color + ";" : Colors.PRIMARY_DARK_GREY_SOFT));
@@ -139,7 +142,7 @@ public class ExpenseFieldValidation {
 		
 		try {
 			valueEquivalent = Double.parseDouble(textToCheck);
-			expenseBoxes[EXPENSE_COST_IDX].setText(String.valueOf(Math.round(valueEquivalent * 100)/100.0));
+			expenseBoxes[EXPENSE_COST_IDX].setText(Utils.toPrice(valueEquivalent));
 		} catch (NumberFormatException e) {
 			expenseErrorMessages[EXPENSE_COST_IDX].setText(NOT_A_NUMBER);
 			allGood = false;
@@ -209,10 +212,10 @@ public class ExpenseFieldValidation {
 	}
 
 	public static boolean validateInvoice() {
-		boolean allGood = true;
+		// boolean allGood = true;
 
-		expenseErrorMessages[EXPENSE_INVOICE_IDX].setVisible(!allGood);
-		setInputBoxColor(EXPENSE_INVOICE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
+		// expenseErrorMessages[EXPENSE_INVOICE_IDX].setVisible(!allGood);
+		// setInputBoxColor(EXPENSE_INVOICE_IDX, true, (allGood ? Colors.GREEN_ACCENT : Colors.RED_ACCENT));
 		return true;
 	}
 
@@ -222,32 +225,32 @@ public class ExpenseFieldValidation {
 		expenseBoxes[EXPENSE_DESCRIPTION_IDX].setText(GlobalState.currentCharge.getDescription());
 		expenseBoxes[EXPENSE_COST_IDX].setText(String.valueOf(GlobalState.currentCharge.getCost()));
 		expenseBoxes[EXPENSE_UNIT_IDX].setText(String.valueOf(GlobalState.currentCharge.getUnits()));
-		expenseCategory.setValue(GlobalState.currentCharge.getCategory().getName());
+		expenseCategory.setValue(GlobalState.currentCharge.getCategory().getName().substring(8));
 		expenseDate.setValue(GlobalState.currentCharge.getDate());
-		expenseInvoice.setImage(GlobalState.currentCharge.getImageScan());
+		expenseInvoiceUncropped.setImage(GlobalState.currentCharge.getImageScan());
 	}
 
 	public static void setChangeListeners() {
 		expenseBoxes[EXPENSE_NAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseBoxes[EXPENSE_DESCRIPTION_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseBoxes[EXPENSE_COST_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseBoxes[EXPENSE_UNIT_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseCategory.valueProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseDate.valueProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 		expenseInvoice.imageProperty().addListener((obs, oldV, newVs) -> {
-			GlobalState.sideTabModified = true;
+			GlobalState.changesInCurrentCharge = true;
 		});
 	}
 
@@ -263,16 +266,21 @@ public class ExpenseFieldValidation {
 		return allGood;
     }
 	
-	public static boolean validateAndRegisterExpense() {
+	public static boolean registerOrUpdateExpense() {
 		String name = expenseBoxes[EXPENSE_NAME_IDX].getText();
 		String description = expenseBoxes[EXPENSE_DESCRIPTION_IDX].getText();
 		double cost = Double.parseDouble(expenseBoxes[EXPENSE_COST_IDX].getText());
 		Category category = Utils.getCategoryByName(expenseCategory.getValue());
 		int unit = Integer.parseInt(expenseBoxes[EXPENSE_UNIT_IDX].getText());
 		LocalDate date = expenseDate.getValue();
-		Image invoice = expenseInvoice.getImage();
+		Image invoice = expenseInvoiceUncropped.getImage();
         
-		boolean isOk = AccountWrapper.registerCharge(name, description, cost, unit, invoice, date, category);
+		boolean isOk;
+		if (GlobalState.currentCharge == null) {
+			isOk = AccountWrapper.registerCharge(name, description, cost, unit, invoice, date, category);
+		} else {
+			isOk = AccountWrapper.updateCharge(name, description, cost, unit, invoice, date, category);
+		}
 
 		if (!isOk) {
 			System.out.println("ExpenseValidationField couldn't add charge");

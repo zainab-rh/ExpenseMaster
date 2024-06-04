@@ -97,6 +97,19 @@
 	-fx-background-color: -fx-accent-red-soft;
 }
 
-#sideTabScrollPane {
+#sideTabPane {
 	-fx-background-color: -fx-background-secondary;
+}
+
+#sideTabBackButton * {
+	-fx-text-fill: -fx-accent-blue;
+}
+
+#sideTabBackButton {
+	-fx-cursor: hand;
+	-fx-background-radius: 8px;
+}
+
+#sideTabBackButton:hover {
+	-fx-background-color: -fx-accent-blue-soft;
 }

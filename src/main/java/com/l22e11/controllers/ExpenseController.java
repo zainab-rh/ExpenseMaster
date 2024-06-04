@@ -1,16 +1,21 @@
 package com.l22e11.controllers;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+import com.l22e11.App;
 import com.l22e11.helper.ExpenseFieldValidation;
 import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.SideTab;
+import com.l22e11.helper.Utils;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import model.Category;
 
 public class ExpenseController implements Initializable {
@@ -45,29 +51,35 @@ public class ExpenseController implements Initializable {
 	@FXML
 	private ImageView expenseInvoice;
 	@FXML
-	private Label expenseNameError, expenseDescriptionError, expenseCategoryError, expenseCostError, expenseUnitsError, expenseDateError, expenseImageError, destructiveLabel, constructiveLabel, expenseID;
+	private Label expenseNameError, expenseDescriptionError, expenseCategoryError, expenseCostError, expenseUnitsError, expenseDateError, destructiveLabel, constructiveLabel;
 	@FXML
 	private HBox expenseDateBox;
 	@FXML
 	private HBox expenseCategoryBox;
+	@FXML
+	private Pane invoicePane, invoicePaneCroppable;
+
+	private ImageView expenseInvoiceUncropped;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		ExpenseFieldValidation.expenseBoxes = new TextInputControl[]{expenseName, expenseDescription, expenseCost, expenseUnits, null, null, null};
 		ExpenseFieldValidation.expenseBoxesBack = new AnchorPane[]{expenseNameBack, expenseDescriptionBack, expenseCostBack, expenseUnitsBack, expenseCategoryBack, expenseDateBack, null};
-		ExpenseFieldValidation.expenseErrorMessages = new Label[]{expenseNameError, expenseDescriptionError, expenseCostError, expenseUnitsError, expenseCategoryError, expenseDateError, expenseImageError};
+		ExpenseFieldValidation.expenseErrorMessages = new Label[]{expenseNameError, expenseDescriptionError, expenseCostError, expenseUnitsError, expenseCategoryError, expenseDateError, null};
 
-		List<String> categoryOptions = new ArrayList<>();
-		for (Category category : GlobalState.categoriesObservableList) {
-			categoryOptions.add(category.getName());
-		}
-		expenseCategory.setItems(FXCollections.observableList(categoryOptions));
+		updateCategoryComboBox();
+		GlobalState.categoriesObservableList.addListener((ListChangeListener<Category>) change -> {
+			updateCategoryComboBox();
+		});
 
 		ExpenseFieldValidation.expenseCategory = expenseCategory;
 		ExpenseFieldValidation.expenseCategoryBox = expenseCategoryBox;
 		ExpenseFieldValidation.expenseDate = expenseDate;
 		ExpenseFieldValidation.expenseDateBox = expenseDateBox;
 		ExpenseFieldValidation.expenseInvoice = expenseInvoice;
+		expenseInvoiceUncropped = new ImageView();
+		ExpenseFieldValidation.expenseInvoiceUncropped = expenseInvoiceUncropped;
+		ExpenseFieldValidation.invoicePaneCroppable = invoicePaneCroppable;
 
 		for (int idx = ExpenseFieldValidation.EXPENSE_NAME_IDX; idx <= ExpenseFieldValidation.EXPENSE_UNIT_IDX; ++idx) {
 			ExpenseFieldValidation.setFocusListener(idx);
@@ -80,7 +92,6 @@ public class ExpenseController implements Initializable {
 		ExpenseFieldValidation.setTabSimulatorByElement(expenseDate);
 
 		ExpenseFieldValidation.populateFields();
-		ExpenseFieldValidation.setChangeListeners();
 
 		expenseDateBox.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
 			expenseDate.requestFocus();
@@ -93,38 +104,69 @@ public class ExpenseController implements Initializable {
 		});
 
 		if (GlobalState.currentCharge == null) {
-			expenseID.setText("None");
 			constructiveLabel.setText("Save Expense");
 			destructiveLabel.setText("Discard Expense");
 		} else {
-			expenseID.setText(String.valueOf(GlobalState.currentCharge.getId()));
 			constructiveLabel.setText("Save Changes");
 			destructiveLabel.setText("Discard Changes");
 		}
+
+		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
+			expenseInvoice.setImage(Utils.cropImage(expenseInvoiceUncropped.getImage(), invoicePaneCroppable, 30));
+			ExpenseFieldValidation.setChangeListeners();
+		}), 50, TimeUnit.MILLISECONDS);
     }
+
+	private void updateCategoryComboBox() {
+		List<String> categoryOptions = new ArrayList<>();
+		for (Category category : GlobalState.categoriesObservableList) {
+			categoryOptions.add(category.getName().substring(8));
+		}
+		expenseCategory.setItems(FXCollections.observableList(categoryOptions));
+	}
+
+	@FXML
+	private void onBrowseInvoice() {
+		Image uncroppedImage = Utils.loadNewPicture();
+		if (uncroppedImage == null) return;
+		Image croppedImage = Utils.cropImage(uncroppedImage, invoicePaneCroppable, 30);
+        if (croppedImage == null) return;
+		ExpenseFieldValidation.expenseInvoice.setImage(croppedImage);
+		ExpenseFieldValidation.expenseInvoiceUncropped.setImage(uncroppedImage);
+	}
+
+	@FXML
+	private void onResetInvoice() {
+		ExpenseFieldValidation.expenseInvoice.setImage(App.onePixelTransparent);
+		ExpenseFieldValidation.expenseInvoiceUncropped.setImage(App.onePixelTransparent);
+	}
+
+	@FXML
+	private void onCreateNewCategory(ActionEvent event) {
+		GlobalState.currentCategory = null;
+		MainController.openSideTab(SideTab.CREATE_CATEGORY);
+	}
 
 	@FXML
 	private void onSaveChanges(ActionEvent event) {
 		if (!ExpenseFieldValidation.checkExpenseFields()) return;
 
-		if (ExpenseFieldValidation.validateAndRegisterExpense()) {
-			GlobalState.reloadExpenses();
-
+		if (ExpenseFieldValidation.registerOrUpdateExpense()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Expense Saved");
 			alert.setHeaderText("Expense Saved");
 			alert.setContentText("Expense saved correctly");
 			if (alert.showAndWait().isPresent()) {
-				// TODO: Add charge
 				GlobalState.currentCharge = null;
-				MainController.setSideTab(SideTab.NONE);
+				GlobalState.changesInCurrentCharge = false;
+				MainController.closeSideTab();
 			}
 		}
 	}
 
 	@FXML
 	private void onDiscardChanges(ActionEvent event) {
-		requestDiscardChanges();
+		if (requestDiscardChanges()) MainController.closeSideTab();
 	}
 
 	public static boolean requestDiscardChanges() {
@@ -132,17 +174,11 @@ public class ExpenseController implements Initializable {
 		alert.setTitle("Confirm Discard");
 		alert.setHeaderText("Discard Changes");
 		alert.setContentText("Are you sure you want to discard your changes?");
-		if (GlobalState.sideTabModified == false || alert.showAndWait().get() == ButtonType.OK) {
+		if (GlobalState.changesInCurrentCharge == false || alert.showAndWait().get() == ButtonType.OK) {
 			GlobalState.currentCharge = null;
-			GlobalState.sideTabModified = false;
-			MainController.setSideTab(SideTab.NONE);
+			GlobalState.changesInCurrentCharge = false;
 			return true;
 		}
 		return false;
 	}
-
-	// @FXML //TODO
-    // private void onRemoveCharge(MouseEvent event) {
-
-	// }
 }

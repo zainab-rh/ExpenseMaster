@@ -11,3 +11,11 @@ $ mvn clean javafx:run
 
 For building jar:
 $ mvn package
+
+# TODO:
+- Search bar
+- View an expense
+- Expense filters and sort
+- View a category (with charges)
+- Category filters and sort
+- Dashboard

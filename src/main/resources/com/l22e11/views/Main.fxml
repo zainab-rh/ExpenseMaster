@@ -164,7 +164,7 @@
                         <Insets left="32.0" right="32.0" />
                      </VBox.margin>
                   </Separator>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minHeight="318.0" prefHeight="1920.0">
+                  <ScrollPane fx:id="mainScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" minHeight="318.0" prefHeight="1920.0">
                      <content>
                         <AnchorPane>
                            <children>
@@ -175,15 +175,36 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <ScrollPane fx:id="sideTabScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="0.0" prefHeight="1920.0" HBox.hgrow="NEVER">
-               <content>
+            <VBox fx:id="sideTabPane" alignment="TOP_CENTER" maxWidth="300.0" minWidth="0.0" prefHeight="1920.0" prefWidth="300.0">
+               <children>
                   <AnchorPane>
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
                      <children>
-                        <HBox fx:id="sideTab" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <HBox fx:id="sideTabBackButton" alignment="CENTER_LEFT" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label styleClass="icon" text="" />
+                              <Label text="Back" />
+                           </children>
+                           <padding>
+                              <Insets right="16.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
-               </content>
-            </ScrollPane>
+                  <Separator minWidth="0.0">
+                     <VBox.margin>
+                        <Insets left="32.0" right="32.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <ScrollPane fx:id="sideTabScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1920.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <StackPane fx:id="sideTab" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="0.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
          </children>
       </HBox>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" styleClass="window-bar" StackPane.alignment="TOP_RIGHT">

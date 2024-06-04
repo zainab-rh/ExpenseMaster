@@ -17,7 +17,7 @@
 
 .inputBox {
 	-fx-background-color: -fx-background-primary;
-	-fx-background-radius: 16px;
+	-fx-background-radius: 18px;
 	-fx-border-color: -fx-primary-soft;
 	-fx-border-width: 2px;
 	-fx-border-radius: 16px;
@@ -31,7 +31,7 @@
     -fx-pref-height: 40px;
     -fx-padding: 0 32 0 44;
     -fx-background-color: -fx-primary;
-    -fx-background-radius: 16px;
+    -fx-background-radius: 18px;
 }
 
 .buttonWithIcon * {
@@ -51,6 +51,35 @@
 	-fx-font-size: 20px;
 }
 
+.dottedButton {
+    -fx-background-color: -fx-primary-light;
+    -fx-background-radius: 8px;
+    -fx-border-color: -fx-primary-grey;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.dottedButton:hover {
+    -fx-background-color: -fx-accent-blue-soft;
+    -fx-border-color: -fx-accent-blue;
+    -fx-cursor: hand;
+}
+
+.dottedButton * {
+    -fx-text-fill: -fx-primary;
+    -fx-padding: 0;
+	-fx-font-size: 12px;
+}
+
+.dottedButton .icon {
+	-fx-pref-width: 24px;
+	-fx-alignment: BOTTOM-CENTER;
+}
+
+.dottedButton .icon * {
+	-fx-font-size: 14px;
+}
+
 #bigAddButton {
 	-fx-border-color: -fx-primary;
 	-fx-border-width: 2px;
@@ -65,6 +94,22 @@
 
 #bigAddButton:hover .label {
 	-fx-text-fill: -fx-primary-light;
+}
+
+.itemIcon {
+	-fx-min-height: 36px;
+	-fx-min-width: 36px;
+	-fx-font-family: 'bootstrap-icons';
+	-fx-alignment: BOTTOM-CENTER;
+	-fx-font-size: 22px;
+	-fx-background-radius: 14px;
+	-fx-cursor: hand;
+}
+
+.itemIcon:hover {
+	-fx-opacity: 1;
+	-fx-background-color: -fx-accent-blue-soft;
+	-fx-text-fill: -fx-accent-blue;
 }
 
 .combo-box, .combo-box-popup {
@@ -185,4 +230,8 @@
 
 .date-picker-popup .button:hover .left-arrow, .date-picker-popup .button:hover .right-arrow {
 	-fx-background-color: -fx-accent-blue;
+}
+
+.passwordReveal {
+	-fx-font-family: 'Montserrat Bold';
 }

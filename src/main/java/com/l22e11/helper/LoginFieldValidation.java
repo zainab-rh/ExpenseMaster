@@ -14,7 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import model.User;
 
 public class LoginFieldValidation {
 
@@ -225,8 +224,9 @@ public class LoginFieldValidation {
         return result;
     }
     
-    public static boolean validateImage() { //TODO: IMAGE IS OPTIONAL!!
-        boolean result = authenticationProfileImage.getImage() != null;
+    public static boolean validateImage() {
+		// boolean result = authenticationProfileImage.getImage() != null;
+        boolean result = true;
         
         if (!result) authenticationErrorMessages[REGISTER_PROFILE_IMAGE_IDX].setText(NO_IMAGE_ERROR);
         authenticationErrorMessages[REGISTER_PROFILE_IMAGE_IDX].setVisible(!result);
@@ -305,19 +305,19 @@ public class LoginFieldValidation {
 
     public static void setChangeListeners() {
 		authenticationBoxes[REGISTER_NAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.mainTabModified = true;
+			GlobalState.settingsTabModified = true;
 		});
 		authenticationBoxes[REGISTER_SURNAME_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.mainTabModified = true;
+			GlobalState.settingsTabModified = true;
 		});
 		authenticationBoxes[REGISTER_EMAIL_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.mainTabModified = true;
+			GlobalState.settingsTabModified = true;
 		});
 		authenticationBoxes[REGISTER_PASS_IDX].textProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.mainTabModified = true;
+			GlobalState.settingsTabModified = true;
 		});
 		authenticationProfileImage.imageProperty().addListener((obs, oldV, newV) -> {
-			GlobalState.mainTabModified = true;
+			GlobalState.settingsTabModified = true;
 		});
     }
 
@@ -330,7 +330,7 @@ public class LoginFieldValidation {
 		authenticationBoxes[REGISTER_PASS_CONFIRM_IDX].setText(GlobalState.user.getPassword());
 		
 		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
-			authenticationProfileImage.setImage(Utils.cropImage(GlobalState.user.getImage(), profilePicPaneCroppable));
+			authenticationProfileImage.setImage(Utils.cropImage(GlobalState.user.getImage(), profilePicPaneCroppable, Integer.MAX_VALUE));
 		}), 50, TimeUnit.MILLISECONDS);
 	}
 }

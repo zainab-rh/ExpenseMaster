@@ -49,14 +49,18 @@
     -fx-primary-light: #F1EFE3;
     -fx-background-primary: #F8F7F2;
     -fx-background-secondary: #FFFFFF;
-    -fx-accent-blue: #A8ADFD;
-	-fx-accent-blue-soft: #A8ADFD7F;
-    -fx-accent-yellow: #F7D78A;
-	-fx-accent-yellow-soft: #F7D78A7F;
-    -fx-accent-green: #C7D0BD;
-	-fx-accent-green-soft: #C7D0BD7F;
-    -fx-accent-red: #F78A8A;
-	-fx-accent-red-soft: #F78A8A7F;
+    -fx-accent-blue: #5e2bff;
+	-fx-accent-blue-soft: #5e2bff60;
+    -fx-accent-yellow: #ffd23f;
+	-fx-accent-yellow-soft: #ffd23f60;
+    -fx-accent-green: #3bceac;
+	-fx-accent-green-soft: #3bceac60;
+    -fx-accent-red: #ee4266;
+	-fx-accent-red-soft: #ee426660;
+}
+
+.root.popup {
+    -fx-background-color: transparent;
 }
 
 #rootPane {
@@ -172,4 +176,25 @@
     -fx-max-width: 4px;
     -fx-background-insets: 4px;
     -fx-background-radius: 0.5em;
+	-fx-cursor: hand;
+}
+
+.scroll-bar:horizontal:hover .thumb, .scroll-bar:vertical:hover .thumb, .scroll-bar:hover .thumb {
+    -fx-mix-width: 8px;
+	-fx-background-insets: 2px;
+}
+
+.scroll-bar:horizontal .thumb:focused, .scroll-bar:vertical .thumb:focused, .scroll-bar .thumb:focused {
+    -fx-mix-width: 8px;
+	-fx-background-insets: 2px;
+}
+
+.sectionHeader {
+	-fx-padding: 16 0 0 0;
+}
+
+.sectionHeader * {
+	-fx-font-family: 'Montserrat Bold';
+	-fx-opacity: 0.6;
+	-fx-font-size: 16px;
 }

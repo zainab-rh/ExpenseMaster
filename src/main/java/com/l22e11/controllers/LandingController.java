@@ -5,10 +5,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import com.l22e11.App;
-import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.LoginFieldValidation;
-import com.l22e11.helper.MainTab;
-import com.l22e11.helper.SideTab;
 import com.l22e11.helper.Utils;
 
 import javafx.event.ActionEvent;
@@ -39,17 +36,17 @@ public class LandingController implements Initializable {
     @FXML
     private TabPane authenticationPane;
 	@FXML
-	private AnchorPane loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack, profilePicPicker;
+	private AnchorPane loginUserBack, loginPassBack, registerNameBack, registerSurnameBack, registerNicknameBack, registerEmailBack, registerPassBack, registerPassConfirmBack;
 	@FXML
-	private TextField loginUser, registerName, registerSurname, registerNickname, registerEmail;
+	private TextField loginUser, registerName, registerSurname, registerNickname, registerEmail, registerPassReveal, registerPassConfirmReveal;
 	@FXML
 	private PasswordField loginPass, registerPass, registerPassConfirm;
 	@FXML
-    private Button loginSubmit, registerBrowseProfilePic, registerSubmit;
+    private Button loginSubmit, registerBrowseProfilePic, resetBrowseProfilePic, registerSubmit;
     @FXML
     private ImageView registerProfileView;
     @FXML
-	private Label loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError, registerProfilePicBrowseLabel, forgotPassword, goToLogin, goToRegister;
+	private Label loginNameError, loginPassError, registerNameError, registerSurnameError, registerNicknameError, registerEmailError, registerPassError, registerPassConfirmError, registerBrowseProfilePicError, forgotPassword, goToLogin, goToRegister, passEye, passConfirmEye;
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -62,10 +59,6 @@ public class LandingController implements Initializable {
 			LoginFieldValidation.setFocusListener(idx); // When obtaining or losing focus validate field anc change colour
             LoginFieldValidation.setTabSimulator(idx); // When pressing enter, traverse to next focusable element
         }
-
-		// Hide Image View when user has not yet selected image
-        registerProfileViewPane.setManaged(false);
-        registerProfileViewPane.setVisible(false);
 
 		// During login, if user presses Enter attempt login
         loginPass.setOnKeyPressed((event) -> {
@@ -98,16 +91,14 @@ public class LandingController implements Initializable {
         goToRegister.setOnMouseClicked((event) -> {
             authenticationPane.getSelectionModel().selectLast();
         });
+
+		resetProfileImage();
+		setUpPasswordReveal();
     }
 
     @FXML
     private void onSubmitLogin(ActionEvent event) {
         if (!LoginFieldValidation.checkLoginFields()) return;
-
-        GlobalState.currentTab = MainTab.NONE;
-        GlobalState.currentSideTab = SideTab.NONE;
-        GlobalState.sideTabModified = false;
-        GlobalState.mainTabModified = false;
 
         boolean isOk = LoginFieldValidation.validateLogin();
         if (isOk) App.showMainStage();
@@ -125,10 +116,7 @@ public class LandingController implements Initializable {
                 LoginFieldValidation.authenticationBoxes[i].setText("");
                 LoginFieldValidation.setInputBoxColor(i, false, "");
             }
-            registerProfileView.setImage(null);
-            registerProfileViewPane.setManaged(false);
-            registerProfileViewPane.setVisible(false);
-            registerProfilePicBrowseLabel.setText("Browse profile picture");
+            resetProfileImage();
 
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Register successful");
@@ -138,9 +126,34 @@ public class LandingController implements Initializable {
         }
     }
 
+	private void resetProfileImage() {
+		registerProfileView.setImage(App.defaultImage);
+	}
+
+	private void setUpPasswordReveal() {
+		passEye.setOnMousePressed((event) -> {
+			registerPassReveal.setText(registerPass.getText());
+			registerPass.setVisible(false);
+			passEye.setText("");
+		});
+		passEye.setOnMouseReleased((event) -> {
+			registerPass.setVisible(true);
+			passEye.setText("");
+		});
+		passConfirmEye.setOnMousePressed((event) -> {
+			registerPassConfirmReveal.setText(registerPassConfirm.getText());
+			registerPassConfirm.setVisible(false);
+			passConfirmEye.setText("");
+		});
+		passConfirmEye.setOnMouseReleased((event) -> {
+			registerPassConfirm.setVisible(true);
+			passConfirmEye.setText("");
+		});
+	}
+
     @FXML
-    private void onBrowseProfilePicture(ActionEvent event) {
-		Image croppedImage = Utils.loadNewProfilePictureInto(registerProfileViewPaneCroppable);
+    private void onBrowseProfileImage(ActionEvent event) {
+		Image croppedImage = Utils.loadNewPictureInto(registerProfileViewPaneCroppable, Integer.MAX_VALUE);
 
         if (croppedImage == null) {
 			registerBrowseProfilePicError.setText("This image appears to have 0 width and height");
@@ -149,11 +162,13 @@ public class LandingController implements Initializable {
 		}
 
 		registerProfileView.setImage(croppedImage);
-		registerProfileViewPane.setManaged(true);
-		registerProfileViewPane.setVisible(true);
-		registerProfilePicBrowseLabel.setText("Change profile picture");
 		registerBrowseProfilePicError.setVisible(false);
     }
+
+	@FXML
+	private void onResetProfileImage(ActionEvent event) {
+		resetProfileImage();
+	}
     
     @FXML
     private void onAppMinimize(MouseEvent event) {

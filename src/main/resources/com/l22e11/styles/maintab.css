@@ -1,0 +1,47 @@
+/* * {
+	-fx-border-color: #00000010;
+} */
+
+/* .list-view {
+	-fx-background-color: lightblue;
+} */
+
+.list-cell {
+    -fx-padding: 0 8 12 8;
+}
+
+.nameAndDescription {
+	-fx-padding: 8 8 8 8;
+	-fx-spacing: 8px;
+}
+
+.itemName * {
+	-fx-font-family: 'Montserrat SemiBold';
+	-fx-font-size: 16px;
+	-fx-max-height: 16px;
+}
+
+.itemDescription {
+	-fx-alignment: TOP-LEFT;
+	-fx-min-height: 36px;
+}
+
+.itemIcon {
+	-fx-opacity: 0.8;
+	-fx-background-radius: 4px;
+}
+
+.itemDelete:hover {
+	-fx-background-color: -fx-accent-red-soft;
+	-fx-text-fill: -fx-accent-red;
+}
+
+.itemBack {
+	-fx-background-radius: 16px;
+	-fx-cursor: hand;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 12, 0.35, 0, 4);
+}
+
+.itemBack:hover {
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 12, 0.25, 0, 4);
+}

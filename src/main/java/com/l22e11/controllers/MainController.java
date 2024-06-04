@@ -1,11 +1,13 @@
 package com.l22e11.controllers;
 
 import javafx.scene.input.MouseEvent;
+
 import java.util.Map;
 import static java.util.Map.entry;
 
 import com.l22e11.App;
 import com.l22e11.helper.AccountWrapper;
+import com.l22e11.helper.Animations;
 import com.l22e11.helper.GlobalState;
 import com.l22e11.helper.Utils;
 import com.l22e11.helper.MainTab;
@@ -21,21 +23,22 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 
 public class MainController implements Initializable {
 
     @FXML
-    private ScrollPane sideBar;
+    private ScrollPane sideBar, mainScrollPane, sideTabScrollPane;
     @FXML
     private ImageView profilePic;
     @FXML
@@ -43,16 +46,19 @@ public class MainController implements Initializable {
 	@FXML
 	private Pane profilePicPaneCroppable;
 	@FXML
-	private HBox logOutArea, mainTab, sideTab;
+	private HBox logOutArea, mainTab, sideTabBackButton;
 	@FXML
-	private VBox userArea, tabOptions;
+	private StackPane sideTab;
+	@FXML
+	private VBox userArea, tabOptions, sideTabPane;
 
 	private static HBox staticMainTab;
-	private static HBox staticSideTab;
+	private static StackPane staticSideTab;
 	private static ImageView staticProfilePic;
 	private static Pane staticProfilePicPaneCroppable;
 	private static Label staticFullName;
 	private static Label staticTabTitle, staticTabSubTitle;
+	private static VBox staticSideTabPane;
 
 	private static ObservableList<Node> tabList;
 	private static final MainTab TABS[] = {MainTab.DASHBOARD, MainTab.EXPENSES, MainTab.CATEGORIES};
@@ -72,20 +78,27 @@ public class MainController implements Initializable {
 		staticProfilePicPaneCroppable = profilePicPaneCroppable;
 		staticTabTitle = tabTitle;
 		staticTabSubTitle = tabSubTitle;
+		staticSideTabPane = sideTabPane;
 
-		GlobalState.user = AccountWrapper.getAuthenticatedUser();
+		Animations.animateScroll(sideBar);
+		Animations.animateScroll(mainScrollPane);
+		Animations.animateScroll(sideTabScrollPane);
 
-        GlobalState.reloadCategories();
-		GlobalState.reloadExpenses();
+		GlobalState.initialize();
 		
 		// Display name and profile picture in sidebar
         reloadTabBar();
 
 		// Logout button
 		logOutArea.setOnMouseClicked((event) -> {
-			setSideTab(SideTab.NONE);
-			boolean isOk = AccountWrapper.logOutUser();
-			if (isOk) App.showLandingStage();
+			if (closeAllTabs() == false) return;
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Logging out");
+			alert.setHeaderText("Logging out");
+			alert.setContentText("Are you sure you want to log out?");
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				if (AccountWrapper.logOutUser()) App.showLandingStage();
+			}
 		});
 
 		userArea.setOnMouseClicked((event) -> {setMainTab(MainTab.SETTINGS);});
@@ -97,6 +110,12 @@ public class MainController implements Initializable {
 		}
 
 		setMainTab(MainTab.EXPENSES);
+		staticSideTabPane.setVisible(false);
+		staticSideTabPane.setManaged(false);
+
+		sideTabBackButton.setOnMouseClicked((event) -> {
+			closeSideTab();
+		});
 
 		// TODO: Set search bar support
     }
@@ -106,44 +125,75 @@ public class MainController implements Initializable {
 	 */
 	public static void reloadTabBar() {
 		Executors.newScheduledThreadPool(1).schedule(() -> Platform.runLater(() -> {
-			staticProfilePic.setImage(Utils.cropImage(GlobalState.user.getImage(), staticProfilePicPaneCroppable));
+			staticProfilePic.setImage(Utils.cropImage(GlobalState.user.getImage(), staticProfilePicPaneCroppable, Integer.MAX_VALUE));
             staticFullName.setText(GlobalState.user.getName() + " " + GlobalState.user.getSurname());
 		}), 50, TimeUnit.MILLISECONDS);
 	}
 
 	/*
-	 * Correct way of reloading sideTab
+	 * Open a side tab
 	 */
-	public static boolean setSideTab(SideTab selection) {
-		if (GlobalState.sideTabModified) {
-			switch (GlobalState.currentSideTab) {
-				case MANAGE_EXPENSE:
-					if (ExpenseController.requestDiscardChanges() == false) return false;
-					break;
-				case MANAGE_CATEGORY:
-					if (CategoryController.requestDiscardChanges() == false) return false;
-					break;
-				default: break;
-			}
-		}
-		GlobalState.currentSideTab = selection;
+	public static boolean openSideTab(SideTab selection) {
+		if ((selection == SideTab.CREATE_EXPENSE || selection == SideTab.UPDATE_EXPENSE) && GlobalState.isSideTabOpen(selection) && ExpenseController.requestDiscardChanges() == false) return false;
+		if ((selection == SideTab.CREATE_CATEGORY || selection == SideTab.UPDATE_CATEGORY) && GlobalState.isSideTabOpen(selection) && CategoryController.requestDiscardChanges() == false) return false;
 
 		String fxmlName = null;
 		switch (selection) {
-			case MANAGE_EXPENSE: fxmlName = "Expense"; break;
-			case MANAGE_CATEGORY: fxmlName = "Category"; break;
+			case CREATE_EXPENSE: case UPDATE_EXPENSE: fxmlName = "Expense"; break;
+			case CREATE_CATEGORY: case UPDATE_CATEGORY: fxmlName = "Category"; break;
 			default: break;
 		}
 
-		staticSideTab.getChildren().clear();
-		if (selection != SideTab.NONE) {
-			Node tab = App.loadFXML(fxmlName);
-			staticSideTab.getChildren().add(tab);
-
-			VBox.setVgrow(tab, Priority.ALWAYS);
-			HBox.setHgrow(tab, Priority.ALWAYS);
+		int idxTop = GlobalState.sideTabs.size()-1;
+		if (idxTop >= 0) {
+			staticSideTab.getChildren().get(idxTop).setVisible(false);
+			staticSideTab.getChildren().get(idxTop).setManaged(false);
+		} else {
+			staticSideTabPane.setVisible(true);
+			staticSideTabPane.setManaged(true);
 		}
 
+		Node tab = App.loadFXML(fxmlName);
+		GlobalState.sideTabs.add(selection);
+		staticSideTab.getChildren().add(tab);
+
+		VBox.setVgrow(tab, Priority.ALWAYS);
+		HBox.setHgrow(tab, Priority.ALWAYS);
+
+		return true;
+	}
+	
+	/*
+	 * Close a side tab
+	 */
+	public static boolean closeSideTab() {
+		int idxTop = GlobalState.sideTabs.size()-1;
+		if ((GlobalState.sideTabs.get(idxTop) == SideTab.CREATE_EXPENSE || GlobalState.sideTabs.get(idxTop) == SideTab.UPDATE_EXPENSE) && ExpenseController.requestDiscardChanges() == false) return false;
+		if ((GlobalState.sideTabs.get(idxTop) == SideTab.CREATE_CATEGORY || GlobalState.sideTabs.get(idxTop) == SideTab.UPDATE_CATEGORY) && CategoryController.requestDiscardChanges() == false) return false;
+
+		staticSideTab.getChildren().remove(idxTop);
+		GlobalState.sideTabs.remove(idxTop);
+		idxTop--;
+		if (idxTop >= 0) {
+			staticSideTab.getChildren().get(idxTop).setVisible(true);
+			staticSideTab.getChildren().get(idxTop).setManaged(true);
+		} else {
+			staticSideTabPane.setVisible(false);
+			staticSideTabPane.setManaged(false);
+		}
+
+		return true;
+	}
+	
+	/*
+	 * Close all side tabs
+	 */
+	public static boolean closeAllTabs() {
+		int tabsToPop = GlobalState.sideTabs.size();
+		while (tabsToPop > 0) {
+			if (closeSideTab() == false) return false;
+			--tabsToPop;
+		}
 		return true;
 	}
 
@@ -152,17 +202,8 @@ public class MainController implements Initializable {
 	 */
 	public static void setMainTab(MainTab selection) {
 		if (selection == GlobalState.currentTab) return;
-
-		if (setSideTab(SideTab.NONE) == false) return;
-
-		if (GlobalState.mainTabModified) {
-			switch (GlobalState.currentTab) {
-				case SETTINGS:
-					if (SettingsController.requestDiscardChanges() == false) return;
-					break;
-				default: break;
-			}
-		}
+		if (closeAllTabs() == false) return;
+		if (GlobalState.settingsTabModified && GlobalState.currentTab == MainTab.SETTINGS && SettingsController.requestDiscardChanges() == false) return;
 
 		if (GlobalState.currentTab != MainTab.SETTINGS) tabList.get(TABS_MAP.get(GlobalState.currentTab)).getStyleClass().remove("selectedSideBarItem");
 		if (selection != MainTab.SETTINGS) tabList.get(TABS_MAP.get(selection)).getStyleClass().add("selectedSideBarItem");
@@ -210,6 +251,13 @@ public class MainController implements Initializable {
     
     @FXML
     private void onAppClose(MouseEvent event) {
-        App.close();
+		if (closeAllTabs() == false) return;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Leaving ExpenseMaster");
+		alert.setHeaderText("Leaving ExpenseMaster");
+		alert.setContentText("Are you sure you want to quit ExpenseMaster?");
+		if (alert.showAndWait().get() == ButtonType.OK) {
+	        App.close();
+		}
     }
 }

@@ -8,12 +8,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.CategoriesController">
+<HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l22e11.controllers.CategoriesController">
 	<children>
 		<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
 			<children>
 				<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<children>
+                  <Label styleClass="sectionHeader" text="Create a New Category" />
 						<HBox fx:id="bigAddButton" alignment="CENTER" spacing="8.0">
 							<children>
 								<Label styleClass="icon" text="" />
@@ -26,8 +27,8 @@
 								<Insets bottom="16.0" left="8.0" right="8.0" top="16.0" />
 							</padding>
 						</HBox>
-						<Label text="List of current categories:" />
-						<ListView fx:id="categoriesListView" prefHeight="419.0" prefWidth="248.0" />
+						<Label styleClass="sectionHeader" text="Current Categories:" />
+						<ListView fx:id="categoriesListView" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
 					</children>
 					<padding>
 						<Insets bottom="32.0" left="32.0" right="32.0" top="8.0" />
@@ -39,6 +40,7 @@
 	<stylesheets>
 		<URL value="@../styles/global.css" />
 		<URL value="@../styles/input.css" />
+		<URL value="@../styles/maintab.css" />
 		<URL value="@../styles/categories.css" />
 	</stylesheets>
 </HBox>

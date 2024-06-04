@@ -27,6 +27,8 @@ public class App extends Application {
     /* The main window */
     private static Stage mainStage;
     private static Scene scene;
+	public static Image defaultImage;
+	public static Image onePixelTransparent;
 
     /*
     * This function takes a Stage as an argument (aka the Window). It loads a scene inside a window
@@ -36,6 +38,8 @@ public class App extends Application {
         mainStage = stage;
         mainStage.getIcons().add(new Image(getClass().getResourceAsStream("images/coins.png")));
 		mainStage.initStyle(StageStyle.TRANSPARENT);
+		defaultImage = new Image(getClass().getResourceAsStream("images/default-profile.png"));
+		onePixelTransparent = new Image(getClass().getResourceAsStream("images/1pxtransparent.png"));
         loadFonts();
         loadStyles();
 
@@ -72,8 +76,8 @@ public class App extends Application {
         mainStage.setTitle("Expense Master");
         scene = new Scene(loadFXML("Main"), 1500, 900);
         scene.setFill(Color.TRANSPARENT);
-		mainStage.setMinWidth(900);
-        mainStage.setMinWidth(900);
+		mainStage.setMinWidth(500);
+        mainStage.setMinHeight(450);
         mainStage.setWidth(1500);
         mainStage.setHeight(900);
         mainStage.setScene(scene);
@@ -100,14 +104,18 @@ public class App extends Application {
      * If we want to read "primary.fxml", just call loadFXML("primary")s
      */
     public static Parent loadFXML(String fxml) {
-        String viewsDirectory = "views" + File.separator;
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewsDirectory + fxml + ".fxml"));
+        FXMLLoader fxmlLoader = getFxmlLoader(fxml);
         try { return fxmlLoader.load(); }
 		catch (IOException e) {
             System.out.println("Error loading " + fxml + ".fxml");
             return null;
         }
     }
+
+	public static FXMLLoader getFxmlLoader(String fxml) {
+		String viewsDirectory = "views" + File.separator;
+		return new FXMLLoader(App.class.getResource(viewsDirectory + fxml + ".fxml"));
+	}
 
     /*
      * Return main window
