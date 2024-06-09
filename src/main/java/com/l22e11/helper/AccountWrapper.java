@@ -119,11 +119,11 @@ public class AccountWrapper {
 
 		////// BUG: THE IMAGE IS NOT UPDATING, ERROR SEEMS TO BE FROM THE COMPILED JARS
 		//          Image updates in DB, but not in Object
-		System.out.println("Before");
-		System.out.println(GlobalState.currentCharge.getImageScan().getWidth());
+		// System.out.println("Before");
+		// System.out.println(GlobalState.currentCharge.getImageScan().getWidth());
 		GlobalState.currentCharge.setImageScan(scanImage);
-		System.out.println("After");
-		System.out.println(GlobalState.currentCharge.getImageScan().getWidth());
+		// System.out.println("After");
+		// System.out.println(GlobalState.currentCharge.getImageScan().getWidth());
 		///////
 
 		GlobalState.expensesObservableList.clear();

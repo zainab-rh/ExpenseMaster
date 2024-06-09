@@ -63,7 +63,8 @@ public class LandingController implements Initializable {
 		// During login, if user presses Enter attempt login
         loginPass.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                onSubmitLogin(null);
+				// BUGGED
+                onSubmitLogin(new ActionEvent());
             }
         });
 

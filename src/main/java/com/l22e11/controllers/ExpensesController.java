@@ -57,9 +57,9 @@ public class ExpensesController implements Initializable {
 	}
 
 	private void reloadList() {
-		System.out.println("PING");
-		if (GlobalState.expensesObservableList.contains(null)) return;
-		System.out.println("PONG");
+		// System.out.println("PING");
+		// if (GlobalState.expensesObservableList.contains(null)) return;
+		// System.out.println("PONG");
 
 		List<AnchorPane> listItems = new ArrayList<>();
 		for (Charge charge : GlobalState.expensesObservableList) {
