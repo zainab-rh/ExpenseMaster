@@ -79,6 +79,7 @@ public class ExpenseController implements Initializable {
 		ExpenseFieldValidation.expenseInvoice = expenseInvoice;
 		expenseInvoiceUncropped = new ImageView();
 		ExpenseFieldValidation.expenseInvoiceUncropped = expenseInvoiceUncropped;
+		expenseInvoiceUncropped.setImage(App.onePixelTransparent);
 		ExpenseFieldValidation.invoicePaneCroppable = invoicePaneCroppable;
 
 		for (int idx = ExpenseFieldValidation.EXPENSE_NAME_IDX; idx <= ExpenseFieldValidation.EXPENSE_UNIT_IDX; ++idx) {

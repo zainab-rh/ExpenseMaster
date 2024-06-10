@@ -74,8 +74,8 @@ public class AccountWrapper {
     public static boolean updateCategory(String name, String description) {
 		GlobalState.currentCategory.setName(name);
 		GlobalState.currentCategory.setDescription(description);
-		GlobalState.categoriesObservableList.add(null);
-		GlobalState.categoriesObservableList.remove(null);
+		GlobalState.categoriesObservableList.clear();
+		GlobalState.categoriesObservableList.addAll(getUserCategories());
 		return true;
     }
 

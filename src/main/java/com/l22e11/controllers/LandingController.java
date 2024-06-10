@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -63,8 +64,22 @@ public class LandingController implements Initializable {
 		// During login, if user presses Enter attempt login
         loginPass.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-				// BUGGED
-                onSubmitLogin(new ActionEvent());
+				KeyEvent tabKeyEvent = new KeyEvent(
+					KeyEvent.KEY_PRESSED,
+					KeyCode.TAB.getChar(),
+					KeyCode.TAB.getName(),
+					KeyCode.TAB,
+					false, false, false, false
+				);
+                loginPass.fireEvent(tabKeyEvent);
+                KeyEvent enterKeyEvent = new KeyEvent(
+					KeyEvent.KEY_PRESSED,
+					KeyCode.ENTER.getChar(),
+					KeyCode.ENTER.getName(),
+					KeyCode.ENTER,
+					false, false, false, false
+				);
+				loginSubmit.fireEvent(enterKeyEvent);
             }
         });
 
@@ -123,6 +138,7 @@ public class LandingController implements Initializable {
             alert.setTitle("Register successful");
             alert.setHeaderText("Register successful");
             alert.setContentText("You registered correctly, you can change your personal details at any time by logging into the app.");
+            alert.setWidth(500);
             alert.showAndWait();
         }
     }

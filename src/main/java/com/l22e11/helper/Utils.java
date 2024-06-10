@@ -58,6 +58,7 @@ public class Utils {
      * JavaFX crop Image to fit inside rounded rectangle borders, use radius = Integer.MAX_VALUE for a circle
      */
     public static Image cropImage(Image imageToCrop, Region nodeToClip, double radius) {
+        if (imageToCrop == null) return imageToCrop;
 		double imageWHRatio = imageToCrop.getWidth() / imageToCrop.getHeight();
 		double regionWHRatio = nodeToClip.getWidth() / nodeToClip.getHeight();
 		double x, y, w, h;

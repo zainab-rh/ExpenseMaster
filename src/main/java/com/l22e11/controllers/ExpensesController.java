@@ -48,7 +48,7 @@ public class ExpensesController implements Initializable {
 				reloadList();
 			});
 		}
-		firstTime = false;
+		// firstTime = false;
 
 		bigAddButton.setOnMouseClicked((event) -> {
 			GlobalState.currentCharge = null;

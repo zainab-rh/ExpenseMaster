@@ -42,7 +42,7 @@ public class CategoriesController implements Initializable {
 				reloadList();
 			});
 		}
-		firstTime = false;
+		// firstTime = false;
 
         bigAddButton.setOnMouseClicked((event) -> {
 			GlobalState.currentCategory = null;
@@ -51,7 +51,8 @@ public class CategoriesController implements Initializable {
 	}
 
 	private void reloadList() {
-		if (GlobalState.categoriesObservableList.contains(null)) return;
+		System.out.println("Reloaded");
+		// if (GlobalState.categoriesObservableList.contains(null)) return;
 
 		List<AnchorPane> listItems = new ArrayList<>();
 		for (Category category : GlobalState.categoriesObservableList) {
