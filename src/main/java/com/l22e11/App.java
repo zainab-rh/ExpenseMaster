@@ -43,7 +43,7 @@ public class App extends Application {
         loadFonts();
         loadStyles();
 
-		final boolean START_IN_LOGIN = true;
+		final boolean START_IN_LOGIN = false;
 		if (START_IN_LOGIN) {
             showLandingStage();
 		} else {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -92,7 +93,11 @@
                      <children>
                         <TextField fx:id="updatePassReveal" layoutX="10.0" layoutY="10.0" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                         <PasswordField fx:id="updatePass" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
-                        <Label fx:id="passEye" styleClass="itemIcon" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+                        <Label fx:id="passEye" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                           <styleClass>
+                              <String fx:value="itemIcon" />
+                              <String fx:value="eye" />
+                           </styleClass></Label>
                      </children>
                   </AnchorPane>
                   <Label fx:id="updatePassError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Password too short" visible="false" wrapText="true" />
@@ -101,7 +106,11 @@
                      <children>
                         <TextField fx:id="updatePassConfirmReveal" layoutX="10.0" layoutY="10.0" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                         <PasswordField fx:id="updatePassConfirm" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
-                        <Label fx:id="passConfirmEye" styleClass="itemIcon" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+                        <Label fx:id="passConfirmEye" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                           <styleClass>
+                              <String fx:value="itemIcon" />
+                              <String fx:value="s" />
+                           </styleClass></Label>
                      </children>
                   </AnchorPane>
                   <Label fx:id="updatePassConfirmError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Password different" visible="false" wrapText="true" />

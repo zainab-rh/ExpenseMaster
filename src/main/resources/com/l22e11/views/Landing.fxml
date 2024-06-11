@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -153,7 +154,11 @@
 										<children>
 											<TextField fx:id="registerPassReveal" layoutX="10.0" layoutY="10.0" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
 											<PasswordField fx:id="registerPass" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
-											<Label fx:id="passEye" styleClass="itemIcon" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+											<Label fx:id="passEye" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                                             <styleClass>
+                                                <String fx:value="itemIcon" />
+                                                <String fx:value="eye" />
+                                             </styleClass></Label>
 										</children>
 									</AnchorPane>
 									<!-- <AnchorPane fx:id="registerPassBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
@@ -167,7 +172,11 @@
 										<children>
 											<TextField fx:id="registerPassConfirmReveal" layoutX="10.0" layoutY="10.0" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
 											<PasswordField fx:id="registerPassConfirm" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
-											<Label fx:id="passConfirmEye" styleClass="itemIcon" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+											<Label fx:id="passConfirmEye" text="" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                                             <styleClass>
+                                                <String fx:value="itemIcon" />
+                                                <String fx:value="eye" />
+                                             </styleClass></Label>
 										</children>
 									</AnchorPane>
 									<!-- <AnchorPane fx:id="registerPassConfirmBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.time.LocalDate;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
@@ -121,7 +122,7 @@ public class Utils {
 	}
 
 	public static String toPrice(double d) {
-		return String.format("%.2f", Math.round(d * 100)/100.0);
+		return String.format(Locale.US, "%.2f", Math.round(d * 100)/100.0);
 	}
 
 	public static double getBrightness(Color color) {
