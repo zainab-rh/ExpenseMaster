@@ -176,7 +176,7 @@ public class ExpenseController implements Initializable {
 		alert.setHeaderText("Discard Changes");
 		alert.setContentText("Are you sure you want to discard your changes?");
 		alert.setResizable(true);
-		alert.setWidth(500);
+		alert.setWidth(600);
 		alert.setHeight(400);
 		if (GlobalState.changesInCurrentCharge == false || alert.showAndWait().get() == ButtonType.OK) {
 			GlobalState.currentCharge = null;

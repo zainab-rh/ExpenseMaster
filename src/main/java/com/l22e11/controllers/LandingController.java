@@ -139,7 +139,7 @@ public class LandingController implements Initializable {
             alert.setHeaderText("Register successful");
             alert.setContentText("You registered correctly, you can change your personal details at any time by logging into the app.");
             alert.setResizable(true);
-            alert.setWidth(500);
+            alert.setWidth(600);
             alert.setHeight(400);
             alert.showAndWait();
         }
