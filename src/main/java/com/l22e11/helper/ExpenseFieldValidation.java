@@ -269,7 +269,7 @@ public class ExpenseFieldValidation {
 	public static boolean registerOrUpdateExpense() {
 		String name = expenseBoxes[EXPENSE_NAME_IDX].getText();
 		String description = expenseBoxes[EXPENSE_DESCRIPTION_IDX].getText();
-		double cost = Double.parseDouble(expenseBoxes[EXPENSE_COST_IDX].getText());
+		double cost = Double.parseDouble(expenseBoxes[EXPENSE_COST_IDX].getText().replaceAll(",", "."));
 		Category category = Utils.getCategoryByName(expenseCategory.getValue());
 		int unit = Integer.parseInt(expenseBoxes[EXPENSE_UNIT_IDX].getText());
 		LocalDate date = expenseDate.getValue();

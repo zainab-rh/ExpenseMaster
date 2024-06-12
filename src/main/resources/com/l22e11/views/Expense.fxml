@@ -75,7 +75,7 @@
             <Label styleClass="inputFieldLabels" text="Units:" />
             <AnchorPane fx:id="expenseUnitsBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="64.0" styleClass="inputBackground">
                <children>
-			   	  <TextField fx:id="expenseUnits" promptText="1.00" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+			   	  <TextField fx:id="expenseUnits" promptText="1" styleClass="inputBox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                </children>
             </AnchorPane>
             <Label fx:id="expenseUnitsError" contentDisplay="TEXT_ONLY" maxWidth="1.7976931348623157E308" styleClass="errorMessage" text="Units empty" textAlignment="CENTER" visible="false" wrapText="true" />
