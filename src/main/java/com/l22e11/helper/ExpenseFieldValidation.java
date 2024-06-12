@@ -142,7 +142,7 @@ public class ExpenseFieldValidation {
 		
 		try {
 			valueEquivalent = Double.parseDouble(textToCheck);
-			expenseBoxes[EXPENSE_COST_IDX].setText(Utils.toPrice(valueEquivalent));
+			expenseBoxes[EXPENSE_COST_IDX].setText(Utils.toPrice(valueEquivalent).replaceAll(",", "."));
 		} catch (NumberFormatException e) {
 			expenseErrorMessages[EXPENSE_COST_IDX].setText(NOT_A_NUMBER);
 			allGood = false;

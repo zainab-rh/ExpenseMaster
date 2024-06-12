@@ -121,6 +121,9 @@ public class CategoriesController implements Initializable {
 			alert.setTitle("Delete Category");
 			alert.setHeaderText("Delete Category");
 			alert.setContentText("Are you sure you want to delete the \"" + category.getName().substring(8) + "\" category?");
+			alert.setResizable(true);
+            alert.setWidth(500);
+            alert.setHeight(400);
 			if (alert.showAndWait().get() == ButtonType.OK) {
 				AccountWrapper.removeCategory(category);
 			}

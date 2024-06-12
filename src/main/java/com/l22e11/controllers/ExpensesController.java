@@ -180,6 +180,9 @@ public class ExpensesController implements Initializable {
 			alert.setTitle("Delete Charge");
 			alert.setHeaderText("Delete Charge");
 			alert.setContentText("Are you sure you want to delete the \"" + charge.getName() + "\" charge?");
+			alert.setResizable(true);
+            alert.setWidth(500);
+            alert.setHeight(400);
 			if (alert.showAndWait().get() == ButtonType.OK) {
 				AccountWrapper.removeCharge(charge);
 			}
