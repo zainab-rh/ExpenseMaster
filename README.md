@@ -2,7 +2,7 @@ Expense Master is a JavaFX-based expense management application developed as par
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-##Features
+##Features:
 
 Add, Edit, and Delete Expenses: Easily manage your expenses with a user-friendly interface.
 
@@ -17,6 +17,7 @@ Dashboard: Visualize your spending patterns with an intuitive dashboard.
 View detailed information about an expense.
 
 Expense and category filters with sorting options.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ##Project Collaborators
@@ -38,6 +39,7 @@ Java 17 or higher.
 Maven 3.8.1 or higher.
 JavaFX 17 (included in the project dependencies).
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ##Running the Application
 
