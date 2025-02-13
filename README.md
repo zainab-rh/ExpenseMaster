@@ -52,12 +52,13 @@ cd expense-master
 Run the application:
 mvn clean javafx:run
 
-Building the JAR File
+Building the JAR File:
 To build a standalone JAR file, run:
 mvn package
 
 The JAR file will be located in the target directory.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Documentation:
+##Documentation:
 For detailed information about the project, including design decisions, architecture, and usage instructions, please refer to the docs folder.
