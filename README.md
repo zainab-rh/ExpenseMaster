@@ -1,5 +1,7 @@
 Expense Master is a JavaFX-based expense management application developed as part of the User Interface course during the 2nd year of Computer Engineering. It allows users to track and manage their expenses efficiently, with features like expense categorization, filtering, and a dashboard for visualization.
 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Features
 
 Add, Edit, and Delete Expenses: Easily manage your expenses with a user-friendly interface.
@@ -7,6 +9,8 @@ Add, Edit, and Delete Expenses: Easily manage your expenses with a user-friendly
 Expense Categorization: Organize expenses into custom categories for better tracking.
 
 Dashboard: Visualize your spending patterns with an intuitive dashboard.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 TODO Features:
 
