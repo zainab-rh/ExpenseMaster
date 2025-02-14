@@ -39,23 +39,6 @@ Java 17 or higher.
 Maven 3.8.1 or higher.
 JavaFX 17 (included in the project dependencies).
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## Running the Application
-
-Clone the repository:
-git clone https://github.com/your-repo-link.git
-
-Navigate to the project directory:
-cd expense-master
-
-Run the application:
-mvn clean javafx:run
-
-Building the JAR File:
-To build a standalone JAR file, run:
-mvn package
-
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
