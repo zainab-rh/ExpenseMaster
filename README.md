@@ -9,7 +9,7 @@
 * **Smart Categorization:** Organize spending into custom categories for granular tracking.
 * **Visual Dashboard:** An integrated dashboard designed to help users visualize spending patterns at a glance.
 
-## 🛠 Technical Stack
+##  Technical Stack
 * **Language:** Java 17+
 * **Framework:** JavaFX 17
 * **Build Tool:** Maven 3.8.1+
@@ -28,7 +28,7 @@ Ensure your environment meets the following requirements:
 ### Installation & Execution
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/zainab-rh/Expense-Master.git](https://github.com/zainab-rh/Expense-Master.git)
+   git clone [Expense-Master.git[https://github.com/zainab-rh/Expense-Master.git](https://github.com/zainab-rh/)](https://github.com/zainab-rh/ExpenseMaster.git)
     ```
 
 ###  Execution Instructions
